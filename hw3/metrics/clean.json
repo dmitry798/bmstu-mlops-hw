@@ -1,0 +1,28 @@
+{
+  "version": "v2",
+  "rows_in": 2184,
+  "rows_out": 2174,
+  "dropped_length": 2,
+  "dropped_exact_dup": 5,
+  "dropped_near_dup": 3,
+  "pii_rows_masked": 45,
+  "pii_hits": {
+    "phone": 0,
+    "email": 93,
+    "birth_date": 0
+  },
+  "groups": 89,
+  "user_chars": {
+    "p50": 116,
+    "p90": 211,
+    "p99": 564,
+    "max": 1218
+  },
+  "assistant_chars": {
+    "p50": 326,
+    "p90": 928,
+    "p99": 5487,
+    "max": 18239
+  },
+  "seconds": 0.45
+}

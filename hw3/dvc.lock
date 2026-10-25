@@ -1,0 +1,228 @@
+schema: '2.0'
+stages:
+  collect:
+    cmd: python -m src.collect
+    deps:
+    - path: data/source
+      hash: md5
+      md5: 82bd03728c69eac21bdfe4690b9f3b7e.dir
+      size: 5467863
+      nfiles: 2
+    - path: src/collect.py
+      hash: md5
+      md5: fcd0e511788846bb7c72cf3d516c26f8
+      size: 12175
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+    - path: src/topics.py
+      hash: md5
+      md5: 70a7f0dd88d2a1f42b80f656fe02ab04
+      size: 13357
+    params:
+      params.yaml:
+        collect:
+          version: v2
+          n_rows: 20000
+          sources:
+            v1:
+            - data/source/0000.parquet
+            v2:
+            - data/source/0000.parquet
+            - data/source/0001.parquet
+          topics:
+          drop_untagged: true
+          verify_output_syntax: true
+          strip_code_fences: true
+          max_per_topic: 30
+          min_output_lines: 1
+          system_prompts:
+          - Ты пишешь код на Python по текстовому описанию задачи. В ответе — 
+            только код, без пояснений и без markdown-обрамления.
+          - Перед тобой задача на программирование. Напиши решение на Python. 
+            Выведи только исходный код, ничего не комментируя.
+          - Ты — помощник по Python. Получив описание задачи, верни рабочую 
+            реализацию на Python. Ответ должен содержать код и ничего кроме 
+            кода.
+          - 'Задача: реализовать на Python то, что описано ниже. Ответь одним фрагментом
+            кода, без вступлений и заключений.'
+          - Ты генерируешь Python-код по спецификации на естественном языке. В 
+            ответе допустим только код; пояснения выноси в комментарии внутри 
+            кода.
+        paths.raw: data/raw.jsonl
+    outs:
+    - path: data/raw.jsonl
+      hash: md5
+      md5: 3ba8490ce0e5757aae3e86299c9f9c23
+      size: 2486512
+    - path: metrics/collect.json
+      hash: md5
+      md5: 800259ff153b21759f28674d05e27dbe
+      size: 518
+  clean:
+    cmd: python -m src.clean
+    deps:
+    - path: data/raw.jsonl
+      hash: md5
+      md5: 3ba8490ce0e5757aae3e86299c9f9c23
+      size: 2486512
+    - path: src/clean.py
+      hash: md5
+      md5: 460c609e3b176ca30f2ee902ba6c5301
+      size: 5130
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+    - path: src/dedup.py
+      hash: md5
+      md5: fde80d28430f1612c4cbb7f0fdcc1f4d
+      size: 2757
+    - path: src/pii.py
+      hash: md5
+      md5: 54de6f3690578d83cfc17094d2d2aa7a
+      size: 2397
+    - path: src/schema.py
+      hash: md5
+      md5: ad834fcb5caa483d3d5d5bfabb433cc0
+      size: 3054
+    - path: src/textnorm.py
+      hash: md5
+      md5: c7e2f072fe9cc4d2b5af76f5c360c6c0
+      size: 1844
+    params:
+      params.yaml:
+        clean:
+          min_user_chars: 30
+          max_user_chars: 4000
+          min_assistant_chars: 5
+          near_dup:
+            enabled: true
+            shingle_words: 4
+            num_perm: 64
+            threshold: 0.85
+          pii:
+            enabled: true
+        paths.clean: data/clean.jsonl
+        paths.raw: data/raw.jsonl
+    outs:
+    - path: data/clean.jsonl
+      hash: md5
+      md5: 57d154a32172cfbbde49aa3d9462e7a9
+      size: 2475955
+    - path: metrics/clean.json
+      hash: md5
+      md5: 980894060ce129d72c4258db43aa41fd
+      size: 450
+  diversity:
+    cmd: python -m src.diversity
+    deps:
+    - path: data/clean.jsonl
+      hash: md5
+      md5: 57d154a32172cfbbde49aa3d9462e7a9
+      size: 2475955
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+    - path: src/diversity.py
+      hash: md5
+      md5: ba842405a679585f506b2b1d4519355d
+      size: 7823
+    - path: src/schema.py
+      hash: md5
+      md5: ad834fcb5caa483d3d5d5bfabb433cc0
+      size: 3054
+    - path: src/stats.py
+      hash: md5
+      md5: a54925032eff4769647b5775d72dd423
+      size: 2222
+    - path: src/textnorm.py
+      hash: md5
+      md5: c7e2f072fe9cc4d2b5af76f5c360c6c0
+      size: 1844
+    params:
+      params.yaml:
+        diversity:
+          min_examples: 1000
+          min_system_prompts: 3
+          min_groups: 50
+          max_group_share: 0.1
+          min_answer_len_ratio: 1.6
+          max_same_length_share: 0.25
+          max_duplicate_answer_share: 0.3
+        paths.clean: data/clean.jsonl
+        split.group_key: topic
+    outs:
+    - path: metrics/diversity.json
+      hash: md5
+      md5: d0f0b6f8100f198db214566892a57688
+      size: 681
+  split:
+    cmd: python -m src.split
+    deps:
+    - path: data/clean.jsonl
+      hash: md5
+      md5: 57d154a32172cfbbde49aa3d9462e7a9
+      size: 2475955
+    - path: src/config.py
+      hash: md5
+      md5: 9e487ae55cd79a8a7582f0dfec84f671
+      size: 2094
+    - path: src/contamination.py
+      hash: md5
+      md5: 9293919fc5964067833313514c6f9f2b
+      size: 2249
+    - path: src/dedup.py
+      hash: md5
+      md5: fde80d28430f1612c4cbb7f0fdcc1f4d
+      size: 2757
+    - path: src/schema.py
+      hash: md5
+      md5: ad834fcb5caa483d3d5d5bfabb433cc0
+      size: 3054
+    - path: src/split.py
+      hash: md5
+      md5: 88860be22752a49aa98ba1d09e9d74e4
+      size: 6125
+    - path: src/textnorm.py
+      hash: md5
+      md5: c7e2f072fe9cc4d2b5af76f5c360c6c0
+      size: 1844
+    params:
+      params.yaml:
+        clean.near_dup:
+          enabled: true
+          shingle_words: 4
+          num_perm: 64
+          threshold: 0.85
+        contamination:
+          threshold: 0.85
+        paths.test: data/test.jsonl
+        paths.train: data/train.jsonl
+        paths.val: data/val.jsonl
+        split:
+          group_key: topic
+          ratios:
+            train: 0.8
+            val: 0.1
+            test: 0.1
+          seed: 42
+    outs:
+    - path: data/test.jsonl
+      hash: md5
+      md5: 21a782bc066a3cbc109e6e8d3491496a
+      size: 347112
+    - path: data/train.jsonl
+      hash: md5
+      md5: 0829b6946999575f9139af2f7cfda3b5
+      size: 1891630
+    - path: data/val.jsonl
+      hash: md5
+      md5: b37724708802d3f56e2ad802baf222c0
+      size: 237213
+    - path: metrics/split.json
+      hash: md5
+      md5: cd9de58cbb647b4cd9e7a299cd232947
+      size: 520

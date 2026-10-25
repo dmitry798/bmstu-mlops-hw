@@ -1,0 +1,20 @@
+{
+  "version": "v2",
+  "files": 2,
+  "rows_scanned": 18612,
+  "rows_written": 2184,
+  "dropped_untagged": 1189,
+  "dropped_topic_filter": 0,
+  "dropped_answer_mismatch": 2217,
+  "dropped_too_short": 0,
+  "dropped_duplicate_id": 0,
+  "dropped_over_topic_cap": 13022,
+  "code_fences_stripped": 0,
+  "topics_total_in_taxonomy": 89,
+  "topics_filter": 0,
+  "topics_kept": 89,
+  "largest_topic": "Регулярные выражения",
+  "largest_topic_share": 0.0137,
+  "system_prompt_variants": 5,
+  "seconds": 1.66
+}
