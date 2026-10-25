@@ -1,0 +1,15 @@
+# Данные оценки ДЗ 6+7: golden/behavioral (ручные) и индекс train из сырых данных ДЗ 4.
+stages:
+  eval_data:
+    cmd: python scripts/build_eval_data.py --verify
+    deps:
+      - scripts/build_eval_data.py
+      - ../hw4-broken/data/train.jsonl
+      - data/tokenized/train.pt
+    outs:
+      - data/eval/golden.jsonl
+      - data/eval/behavioral.jsonl
+      - data/eval/training-index.jsonl
+    metrics:
+      - data/eval/training-index-proof.json:
+          cache: false

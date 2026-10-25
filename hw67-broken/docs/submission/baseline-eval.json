@@ -1,0 +1,793 @@
+{
+  "overall": {
+    "n": 54,
+    "correct": 3,
+    "valid": 7,
+    "errors": 0,
+    "accuracy": 0.05555555555555555,
+    "format_rate": 0.12962962962962962
+  },
+  "slices": {
+    "code_output": {
+      "n": 38,
+      "correct": 1,
+      "valid": 4,
+      "errors": 0,
+      "accuracy": 0.02631578947368421,
+      "format_rate": 0.10526315789473684
+    },
+    "collections": {
+      "n": 14,
+      "correct": 1,
+      "valid": 2,
+      "errors": 0,
+      "accuracy": 0.07142857142857142,
+      "format_rate": 0.14285714285714285
+    },
+    "concept": {
+      "n": 16,
+      "correct": 2,
+      "valid": 3,
+      "errors": 0,
+      "accuracy": 0.125,
+      "format_rate": 0.1875
+    },
+    "control_flow": {
+      "n": 15,
+      "correct": 1,
+      "valid": 1,
+      "errors": 0,
+      "accuracy": 0.06666666666666667,
+      "format_rate": 0.06666666666666667
+    },
+    "errors_types": {
+      "n": 12,
+      "correct": 0,
+      "valid": 1,
+      "errors": 0,
+      "accuracy": 0.0,
+      "format_rate": 0.08333333333333333
+    },
+    "strings": {
+      "n": 13,
+      "correct": 1,
+      "valid": 3,
+      "errors": 0,
+      "accuracy": 0.07692307692307693,
+      "format_rate": 0.23076923076923078
+    }
+  },
+  "per_item": [
+    {
+      "id": "str-01",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-02",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-03",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-04",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-05",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-06",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-07",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-08",
+      "raw": "{\"answer\":\"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-09",
+      "raw": "{\"answer\":\"B\"}",
+      "parsed": "B",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "str-10",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-01",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-02",
+      "raw": "{\"answer\":\"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-03",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-04",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-05",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-06",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-07",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-08",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-09",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "col-10",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-01",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-02",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-03",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-04",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-05",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-06",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-07",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-08",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-09",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "flow-10",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-01",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-02",
+      "raw": "{\"answer\":\"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-03",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-04",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-05",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-06",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-07",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "err-08",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "code_output"
+      ]
+    },
+    {
+      "id": "con-01",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-02",
+      "raw": "{\"answer\":\"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "strings",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-03",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-04",
+      "raw": "{\"answer\":\"D\"}",
+      "parsed": "D",
+      "valid": true,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-05",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-06",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-07",
+      "raw": "{\"answer\":\"C\"}",
+      "parsed": "C",
+      "valid": true,
+      "correct": true,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-08",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-09",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-10",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-11",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-12",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-13",
+      "raw": "{\"answer\":\"A\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "collections",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-14",
+      "raw": "{\"answer\":\"B\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "strings",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-15",
+      "raw": "{\"answer\":\"C\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "control_flow",
+        "concept"
+      ]
+    },
+    {
+      "id": "con-16",
+      "raw": "{\"answer\":\"D\"}.",
+      "parsed": null,
+      "valid": false,
+      "correct": false,
+      "error": null,
+      "slices": [
+        "errors_types",
+        "concept"
+      ]
+    }
+  ],
+  "status": "complete",
+  "model": {
+    "kind": "base",
+    "name": "Qwen/Qwen3-0.6B",
+    "revision": "c1899de289a04d12100db370d81485cdf75e47ca"
+  },
+  "protocol_sha256": "45ed763548f90ad2c1482a6da123c19ee24cfc72831c6ce9834849f194cfab8d",
+  "golden_sha256": "0abc1390bdafde3a35dc94e07cd77024bbc04cfe6792a34bafa8bac5e3853157",
+  "baseline_spec_sha256": "f71269b95f6b4e1e160fa25e9af6c973517cfebad15880b75b56c8184680b163",
+  "behavioral": {
+    "overall": {
+      "n": 4,
+      "correct": 0,
+      "valid": 0,
+      "errors": 0,
+      "accuracy": 0.0,
+      "format_rate": 0.0
+    },
+    "slices": {
+      "behavior": {
+        "n": 4,
+        "correct": 0,
+        "valid": 0,
+        "errors": 0,
+        "accuracy": 0.0,
+        "format_rate": 0.0
+      }
+    },
+    "per_item": [
+      {
+        "id": "beh-format",
+        "raw": "{\"answer\":\"B\"}.",
+        "parsed": null,
+        "valid": false,
+        "correct": false,
+        "error": null,
+        "slices": [
+          "behavior"
+        ]
+      },
+      {
+        "id": "beh-para-1",
+        "raw": "{\"answer\":\"B\"}.",
+        "parsed": null,
+        "valid": false,
+        "correct": false,
+        "error": null,
+        "slices": [
+          "behavior"
+        ]
+      },
+      {
+        "id": "beh-para-2",
+        "raw": "{\"answer\":\"D\"}.",
+        "parsed": null,
+        "valid": false,
+        "correct": false,
+        "error": null,
+        "slices": [
+          "behavior"
+        ]
+      },
+      {
+        "id": "beh-refusal",
+        "raw": "{\"answer\":\"B\"}.",
+        "parsed": null,
+        "valid": false,
+        "correct": false,
+        "error": null,
+        "slices": [
+          "behavior"
+        ]
+      }
+    ]
+  },
+  "leakage": {
+    "exact_or_group_intersections": 0,
+    "n_train_index": 1739,
+    "n_golden": 54,
+    "n_behavioral": 4
+  },
+  "outputs_sha256": "2db366c2a0162681ad8fb85850880526d0e98f294f8a4f63b3f888843fdcd6e4",
+  "evaluation_run_id": "7ec864962e2140c1b387d1d3a55e7a59"
+}

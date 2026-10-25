@@ -1,0 +1,350 @@
+[
+  {
+    "id": "str-01",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.235543690000668
+  },
+  {
+    "id": "str-02",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16460580900002242
+  },
+  {
+    "id": "str-03",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.1631791029994929
+  },
+  {
+    "id": "str-04",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16386282499934168
+  },
+  {
+    "id": "str-05",
+    "raw": "{\"answer\":\"C\"}.",
+    "error": null,
+    "latency_seconds": 0.1631174430003739
+  },
+  {
+    "id": "str-06",
+    "raw": "{\"answer\":\"C\"}.",
+    "error": null,
+    "latency_seconds": 0.16267114099991886
+  },
+  {
+    "id": "str-07",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16419310699984635
+  },
+  {
+    "id": "str-08",
+    "raw": "{\"answer\":\"C\",\"choices\":[\"A\",\"B\",\"C\",\"D\",\"REFUSE\"]}",
+    "error": null,
+    "latency_seconds": 0.43585814099969866
+  },
+  {
+    "id": "str-09",
+    "raw": "{\"answer\":\"B\"}",
+    "error": null,
+    "latency_seconds": 0.14089598000009573
+  },
+  {
+    "id": "str-10",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16259308099961345
+  },
+  {
+    "id": "col-01",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16225187000054575
+  },
+  {
+    "id": "col-02",
+    "raw": "{\"answer\":\"C\"}",
+    "error": null,
+    "latency_seconds": 0.14079345999925863
+  },
+  {
+    "id": "col-03",
+    "raw": "{\"answer\":\"A\"}.",
+    "error": null,
+    "latency_seconds": 0.162354640000558
+  },
+  {
+    "id": "col-04",
+    "raw": "{\"answer\":\"A\"}.",
+    "error": null,
+    "latency_seconds": 0.16324870300013572
+  },
+  {
+    "id": "col-05",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.1628019919999133
+  },
+  {
+    "id": "col-06",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16301188200031902
+  },
+  {
+    "id": "col-07",
+    "raw": "{\"answer\":\"A\"}.",
+    "error": null,
+    "latency_seconds": 0.16272822199971415
+  },
+  {
+    "id": "col-08",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16484690899960697
+  },
+  {
+    "id": "col-09",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16317550300027506
+  },
+  {
+    "id": "col-10",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.1645726979995743
+  },
+  {
+    "id": "flow-01",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16612853399965388
+  },
+  {
+    "id": "flow-02",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16558559199984302
+  },
+  {
+    "id": "flow-03",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.1648313390005569
+  },
+  {
+    "id": "flow-04",
+    "raw": "{\"answer\":\"D\"}",
+    "error": null,
+    "latency_seconds": 0.14200123499995243
+  },
+  {
+    "id": "flow-05",
+    "raw": "{\"answer\":\"C\"}.",
+    "error": null,
+    "latency_seconds": 0.16428940700006933
+  },
+  {
+    "id": "flow-06",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.1641793670005427
+  },
+  {
+    "id": "flow-07",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.1636929850001252
+  },
+  {
+    "id": "flow-08",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16356839400032186
+  },
+  {
+    "id": "flow-09",
+    "raw": "{\"answer\":\"C\"}",
+    "error": null,
+    "latency_seconds": 0.14051238899992313
+  },
+  {
+    "id": "flow-10",
+    "raw": "{\"answer\":\"B\"}",
+    "error": null,
+    "latency_seconds": 0.1421801360002064
+  },
+  {
+    "id": "err-01",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16383840500020597
+  },
+  {
+    "id": "err-02",
+    "raw": "{\"answer\":\"C\"}",
+    "error": null,
+    "latency_seconds": 0.14015465800002858
+  },
+  {
+    "id": "err-03",
+    "raw": "{\"answer\":\"C\"}.",
+    "error": null,
+    "latency_seconds": 0.1631611430002522
+  },
+  {
+    "id": "err-04",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.1621058989994708
+  },
+  {
+    "id": "err-05",
+    "raw": "{\"answer\":\"A\"}.",
+    "error": null,
+    "latency_seconds": 0.16210967899951356
+  },
+  {
+    "id": "err-06",
+    "raw": "{\"answer\":\"A\"}.",
+    "error": null,
+    "latency_seconds": 0.16215427999941312
+  },
+  {
+    "id": "err-07",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16231274900019343
+  },
+  {
+    "id": "err-08",
+    "raw": "{\"answer\":\"B\"}",
+    "error": null,
+    "latency_seconds": 0.139465606000158
+  },
+  {
+    "id": "con-01",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16243118999955186
+  },
+  {
+    "id": "con-02",
+    "raw": "{\"answer\":\"D\"}",
+    "error": null,
+    "latency_seconds": 0.14004904800003715
+  },
+  {
+    "id": "con-03",
+    "raw": "{\"answer\":\"C\"}.",
+    "error": null,
+    "latency_seconds": 0.16299801199966168
+  },
+  {
+    "id": "con-04",
+    "raw": "{\"answer\":\"D\"}",
+    "error": null,
+    "latency_seconds": 0.1404644490003193
+  },
+  {
+    "id": "con-05",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16294980200018472
+  },
+  {
+    "id": "con-06",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.1677230300001611
+  },
+  {
+    "id": "con-07",
+    "raw": "{\"answer\":\"D\"}",
+    "error": null,
+    "latency_seconds": 0.14405142199939291
+  },
+  {
+    "id": "con-08",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.1622696399999768
+  },
+  {
+    "id": "con-09",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16202233900003193
+  },
+  {
+    "id": "con-10",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.1623345900006825
+  },
+  {
+    "id": "con-11",
+    "raw": "{\"answer\":\"C\"}",
+    "error": null,
+    "latency_seconds": 0.13959825599977194
+  },
+  {
+    "id": "con-12",
+    "raw": "{\"answer\":\"A\"}.",
+    "error": null,
+    "latency_seconds": 0.16260758099997474
+  },
+  {
+    "id": "con-13",
+    "raw": "{\"answer\":\"A\"}.",
+    "error": null,
+    "latency_seconds": 0.16243066000060935
+  },
+  {
+    "id": "con-14",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16279973099972267
+  },
+  {
+    "id": "con-15",
+    "raw": "{\"answer\":\"C\"}.",
+    "error": null,
+    "latency_seconds": 0.16281245200025296
+  },
+  {
+    "id": "con-16",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16193012799976714
+  },
+  {
+    "id": "beh-format",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16264108199993643
+  },
+  {
+    "id": "beh-para-1",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.16276090100018337
+  },
+  {
+    "id": "beh-para-2",
+    "raw": "{\"answer\":\"D\"}.",
+    "error": null,
+    "latency_seconds": 0.16249196999979176
+  },
+  {
+    "id": "beh-refusal",
+    "raw": "{\"answer\":\"B\"}.",
+    "error": null,
+    "latency_seconds": 0.1624722609994933
+  }
+]

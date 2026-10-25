@@ -1,0 +1,8 @@
+{
+  "train_jsonl": "../hw4-broken/data/train.jsonl",
+  "train_jsonl_sha256": "ffaa5805236eb0ceb26244663b76a42f592f2fbb71d1d8979696b2df7cef8f5f",
+  "train_pt_sha256": "ba428210c6233c09a6fe9428699ab404ff707a1ed65005e3ac09a557d353dedd",
+  "n_train_index": 1739,
+  "n_train_pt": 1739,
+  "ids_equal": true
+}

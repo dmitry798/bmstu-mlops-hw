@@ -1,0 +1,34 @@
+schema: '2.0'
+stages:
+  eval_data:
+    cmd: python scripts/build_eval_data.py --verify
+    deps:
+    - path: ../hw4-broken/data/train.jsonl
+      hash: md5
+      md5: 0829b6946999575f9139af2f7cfda3b5
+      size: 1891630
+    - path: data/tokenized/train.pt
+      hash: md5
+      md5: d964d5f271ade38b13f9bf22f468ef3f
+      size: 3229409
+    - path: scripts/build_eval_data.py
+      hash: md5
+      md5: b142e974a1bcd168ed3fbaa1134d5c32
+      size: 17668
+    outs:
+    - path: data/eval/behavioral.jsonl
+      hash: md5
+      md5: 1e53141a8e915961c561c6bda3e9918c
+      size: 1661
+    - path: data/eval/golden.jsonl
+      hash: md5
+      md5: f16a385bf6a1bf69bea472177a0bb8cb
+      size: 24028
+    - path: data/eval/training-index-proof.json
+      hash: md5
+      md5: 25b675109e5aa0478f93648bed9a17de
+      size: 303
+    - path: data/eval/training-index.jsonl
+      hash: md5
+      md5: 0777b8214ac5808d136ae50e5a323330
+      size: 487463
