@@ -1,0 +1,1438 @@
+diff --git a/hw8910-broken/api.py b/hw8910-broken/api.py
+new file mode 100644
+index 0000000..e242fa4
+--- /dev/null
++++ b/hw8910-broken/api.py
+@@ -0,0 +1,37 @@
++"""FastAPI adapter with injectable backend and background initialization."""
++from contextlib import asynccontextmanager
++from fastapi import FastAPI, Request
++from fastapi.responses import JSONResponse
++from starlette.concurrency import run_in_threadpool
++from service_core import ServiceState, StubBackend, Unavailable
++
++
++def create_app(root, warmup_seconds=0, backend_factory=StubBackend):
++    @asynccontextmanager
++    async def lifespan(app):
++        app.state.model = ServiceState(root, warmup_seconds, backend_factory)
++        yield
++    app = FastAPI(lifespan=lifespan)
++    @app.get('/health')
++    def health(): return {'alive':True, 'backend':backend_factory.label}
++    @app.get('/ready')
++    def ready():
++        state = app.state.model
++        return JSONResponse({'ready':state.ready}, status_code=200 if state.ready else 503)
++    @app.get('/debug', include_in_schema=False)
++    def debug(): return app.state.model.debug()
++    @app.post('/generate')
++    async def generate(request: Request):
++        body = bytearray()
++        async for chunk in request.stream():
++            body.extend(chunk)
++            if len(body) > 65536: return JSONResponse({'error':'body too large'}, status_code=413)
++        import json
++        try:
++            payload = json.loads(body)
++            return await run_in_threadpool(app.state.model.generate, payload)
++        except Unavailable as exc:
++            return JSONResponse({'error':str(exc)}, status_code=503)
++        except (ValueError, TypeError) as exc:
++            return JSONResponse({'error':str(exc)}, status_code=400)
++    return app
+diff --git a/hw8910-broken/flow.py b/hw8910-broken/flow.py
+new file mode 100644
+index 0000000..7c4ac3c
+--- /dev/null
++++ b/hw8910-broken/flow.py
+@@ -0,0 +1,86 @@
++"""Local Prefect release flow. Tasks exchange descriptors, never weights.
++
++Preparation cache is persisted explicitly under workspace/cache, independently of
++Prefect's orchestration database. It remains reusable across process restarts.
++"""
++import argparse
++import json
++import os
++from pathlib import Path
++import time
++import uuid
++
++os.environ.setdefault('PREFECT_HOME', str(Path(__file__).parent/'.prefect'))
++os.environ.setdefault('PREFECT_SERVER_ANALYTICS_ENABLED', 'false')
++from prefect import flow, task
++from prefect.cache_policies import NO_CACHE
++import lab
++import release
++
++def preparation_key(context, parameters):
++    root = Path(parameters['workspace'])
++    return release.digest(release.canonical({'workspace':str(root.resolve()), 'input':release.cache_key(root/'input.txt',lab.read(root/'config.json'))}))
++
++@task(cache_key_fn=preparation_key, persist_result=True)
++def prepare_input(workspace):
++    root = Path(workspace)
++    result = lab.prepare(root)
++    return {'uri':str(root/'input.txt'), 'input_sha256':result['input_sha256'], 'rows':result['rows']}
++
++@task(cache_policy=NO_CACHE)
++def obtain_artifact(workspace, manifest_name):
++    """Reads an existing training run artifact; does NOT retrain."""
++    root = Path(workspace)
++    manifest = lab.read(root/manifest_name)
++    release.verify_files(manifest, root)
++    return {'manifest_uri':str(root/manifest_name), 'model_id':manifest['model_id'], 'model_sha256':manifest['model_sha256']}
++
++@task(cache_policy=NO_CACHE)
++def evaluate_admission(workspace, artifact, report_name, prepared):
++    root = Path(workspace)
++    manifest = lab.read(artifact['manifest_uri'])
++    report = lab.read(root/report_name)
++    if not (manifest.get('synthetic') is True and report.get('synthetic') is True):
++        from real_release import verify_bound_report, rows
++        if release.file_digest(prepared['uri']) != prepared['input_sha256']:
++            raise ValueError('Input changed after preparation')
++        if release.digest(json.dumps(rows(prepared['uri']),ensure_ascii=False,sort_keys=True,allow_nan=False).encode()) != manifest['golden_sha256']:
++            raise ValueError('Prepared golden differs from evaluated golden; repeat evaluation')
++        verify_bound_report(manifest, report)
++    release.validate_release(manifest, report)
++    return {'report_uri':str(root/report_name), 'evaluation_run_id':report['evaluation_run_id']}
++
++@task(cache_policy=NO_CACHE)
++def publish_accepted(workspace, artifact, decision, fail_after_pointer):
++    return release.publish_event(lab.read(artifact['manifest_uri']), lab.read(decision['report_uri']), Path(workspace), fail_after_pointer)
++
++@flow(name='model-release', log_prints=True, retries=0)
++def release_flow(workspace, manifest_name='manifest-B.json', report_name='report-B.json', fail_after_prepare=False, fail_after_pointer=False):
++    root = Path(workspace)
++    attempt = str(uuid.uuid4())
++    outcome = {'attempt_id':attempt, 'started':time.time()}
++    try:
++        prepared = prepare_input(str(root))
++        print('PREPARATION_DESCRIPTOR', json.dumps(prepared))
++        if fail_after_prepare: raise RuntimeError('Injected failure after preparation')
++        artifact = obtain_artifact(str(root), manifest_name)
++        decision = evaluate_admission(str(root), artifact, report_name, prepared)
++        identity = publish_accepted(str(root), artifact, decision, fail_after_pointer)
++        outcome.update(status='complete', release_id=identity)
++        return identity
++    except Exception as exc:
++        outcome.update(status='failed', error=str(exc))
++        raise
++    finally:
++        with (root/'flow-attempts.jsonl').open('a') as stream:
++            stream.write(json.dumps(outcome)+'\n')
++
++if __name__ == '__main__':
++    p = argparse.ArgumentParser()
++    p.add_argument('--workspace', type=Path, default=Path('.lab'))
++    p.add_argument('--manifest', default='manifest-B.json')
++    p.add_argument('--report', default='report-B.json')
++    p.add_argument('--fail-after-prepare', action='store_true')
++    p.add_argument('--fail-after-pointer', action='store_true')
++    a = p.parse_args()
++    release_flow(str(a.workspace.resolve()), a.manifest, a.report, a.fail_after_prepare, a.fail_after_pointer)
+diff --git a/hw8910-broken/integration_tests/test_integration.py b/hw8910-broken/integration_tests/test_integration.py
+new file mode 100644
+index 0000000..2ebc5f5
+--- /dev/null
++++ b/hw8910-broken/integration_tests/test_integration.py
+@@ -0,0 +1,136 @@
++"""Real subprocess/filesystem/HTTP tests; also run unchanged against original commit."""
++import json
++import os
++from pathlib import Path
++import socket
++import subprocess
++import sys
++import tempfile
++import time
++import unittest
++from urllib.request import Request, urlopen
++from urllib.error import HTTPError
++
++PROJECT = Path(os.environ.get('PROJECT_UNDER_TEST', Path(__file__).resolve().parents[1]))
++
++class IntegrationTests(unittest.TestCase):
++    def setUp(self):
++        self.tmp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.tmp.cleanup)
++        self.root = Path(self.tmp.name) / 'workspace'
++        self.command('init')
++
++    def command(self, *args):
++        return subprocess.run([sys.executable, str(PROJECT/'lab.py'), '--workspace', str(self.root), *args], capture_output=True, text=True)
++
++    def read(self, name):
++        return json.loads((self.root/name).read_text())
++
++    def test_process_recovery_and_changed_input(self):
++        failed = self.command('run', '--fail-after-prepare')
++        self.assertNotEqual(failed.returncode, 0)
++        self.assertIn('PREPARED', failed.stdout)
++        recovered = self.command('run')
++        self.assertEqual(recovered.returncode, 0, recovered.stderr)
++        self.assertIn('CACHE_HIT', recovered.stdout)
++        (self.root/'input.txt').write_text('Changed input at same path\n')
++        changed = self.command('run')
++        self.assertIn('PREPARED', changed.stdout)
++
++    def test_process_incomplete_foreign_and_rejected_reports(self):
++        before = (self.root/'accepted.json').read_bytes()
++        for report in ['report-incomplete.json', 'report-A.json', 'report-reject.json']:
++            with self.subTest(report=report):
++                result = self.command('run', '--report', report)
++                self.assertNotEqual(result.returncode, 0, result.stdout)
++                self.assertEqual(before, (self.root/'accepted.json').read_bytes())
++
++    def test_process_repeat_has_one_event(self):
++        for _ in range(2):
++            result = self.command('run')
++            self.assertEqual(result.returncode, 0, result.stderr)
++        self.assertEqual(len((self.root/'publications.jsonl').read_text().splitlines()), 1)
++
++    def start_service(self, warmup=0):
++        with socket.socket() as sock:
++            sock.bind(('127.0.0.1', 0)); port = sock.getsockname()[1]
++        extra = ['--framework', 'fastapi'] if os.environ.get('SERVICE_FRAMEWORK') == 'fastapi' else []
++        proc = subprocess.Popen([sys.executable, str(PROJECT/'service.py'), '--workspace', str(self.root), '--port', str(port), '--warmup-seconds', str(warmup), *extra], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
++        def stop():
++            if proc.poll() is None: proc.terminate()
++            proc.communicate(timeout=15)
++        self.addCleanup(stop)
++        self.url = f'http://127.0.0.1:{port}'
++        for _ in range(200):
++            if proc.poll() is not None: self.fail(proc.stdout.read())
++            try:
++                self.http('/health'); return proc
++            except OSError: time.sleep(.05)
++        self.fail('HTTP startup timed out')
++
++    def http(self, path, payload=None):
++        req = Request(self.url+path, data=None if payload is None else json.dumps(payload).encode(), headers={'Content-Type':'application/json'})
++        try:
++            with urlopen(req, timeout=10) as response: return response.status, json.load(response)
++        except HTTPError as error: return error.code, json.load(error)
++
++    def await_ready(self):
++        for _ in range(200):
++            if self.http('/ready')[0] == 200: return
++            time.sleep(.05)
++        self.fail('warmup timed out')
++
++    def test_http_readiness_gates_generation(self):
++        self.start_service(2)
++        self.assertEqual(self.http('/health')[0], 200)
++        self.assertEqual(self.http('/ready')[0], 503)
++        calls = self.http('/debug')[1]['calls']
++        self.assertEqual(self.http('/generate', {'prompt':'hello'})[0], 503)
++        self.assertEqual(self.http('/debug')[1]['calls'], calls)
++        self.await_ready()
++        self.assertEqual(self.http('/generate', {'prompt':'hello'})[0], 200)
++
++    def test_http_loaded_version_restart_and_rollback(self):
++        proc = self.start_service(); self.await_ready()
++        self.assertEqual(self.http('/generate', {'prompt':'hello'})[1]['model_id'], 'fixture-A')
++        self.assertEqual(self.command('run').returncode, 0)
++        answer = self.http('/generate', {'prompt':'hello'})[1]
++        self.assertEqual(answer['model_id'], 'fixture-A')
++        self.assertIn('fixture-A', answer['answer'])
++        proc.terminate(); proc.wait(timeout=10)
++        proc = self.start_service(); self.await_ready()
++        self.assertEqual(self.http('/generate', {'prompt':'hello'})[1]['model_id'], 'fixture-B')
++        # Restore a previously accepted manifest through the same validated publication API.
++        result = subprocess.run([sys.executable, '-c', 'import lab,release;from pathlib import Path; r=Path(__import__("sys").argv[1]);release.publish(lab.read(r/"manifest-A.json"),lab.read(r/"report-A.json"),r/"accepted.json")', str(self.root)], cwd=PROJECT, capture_output=True, text=True)
++        self.assertEqual(result.returncode, 0, result.stderr)
++        proc.terminate(); proc.wait(timeout=10)
++        self.start_service(); self.await_ready()
++        self.assertEqual(self.http('/generate', {'prompt':'hello'})[1]['model_id'], 'fixture-A')
++
++    def test_http_invalid_request_never_calls_backend(self):
++        self.start_service(); self.await_ready()
++        calls = self.http('/debug')[1]['calls']
++        for payload in [{'prompt':''}, {'prompt':'x','max_new_tokens':0}, {'prompt':'x','max_new_tokens':100000}, {'prompt':'x','max_new_tokens':'2'}, {'prompt':'x','max_new_tokens':True}, {'prompt':'x'*9000}]:
++            with self.subTest(payload=str(payload)[:80]):
++                status, _ = self.http('/generate', payload)
++                self.assertTrue(400 <= status < 500, status)
++                self.assertEqual(self.http('/debug')[1]['calls'], calls)
++        self.assertEqual(self.http('/generate', {'prompt':'hello','max_new_tokens':32})[0], 200)
++        self.assertEqual(self.http('/debug')[1]['calls'], calls+1)
++
++    def test_process_artifact_tampering_blocks_publication(self):
++        before = (self.root/'accepted.json').read_bytes()
++        (self.root/'model-B.txt').write_text('tampered')
++        self.assertNotEqual(self.command('run').returncode, 0)
++        self.assertEqual((self.root/'accepted.json').read_bytes(), before)
++
++    def test_process_pointer_crash_recovered_without_duplicate(self):
++        result = self.command('run', '--fail-after-pointer')
++        self.assertNotEqual(result.returncode, 0)
++        self.assertEqual(self.read('accepted.json')['model_id'], 'fixture-B')
++        for _ in range(2):
++            recovered = self.command('run')
++            self.assertEqual(recovered.returncode, 0, recovered.stderr)
++        events = (self.root/'publications.jsonl').read_text().splitlines()
++        self.assertEqual(len(events), 1)
++        self.assertEqual(self.read('pending.json')['completed'], True)
+diff --git a/hw8910-broken/integration_tests/test_safety.py b/hw8910-broken/integration_tests/test_safety.py
+new file mode 100644
+index 0000000..d9dab4f
+--- /dev/null
++++ b/hw8910-broken/integration_tests/test_safety.py
+@@ -0,0 +1,46 @@
++"""Additional injected failures beyond the seven before/after incident tests."""
++import json
++from pathlib import Path
++import tempfile
++import unittest
++from unittest.mock import patch
++import lab
++import release
++from service_core import ServiceState
++import time
++
++class SafetyTests(unittest.TestCase):
++    def setUp(self):
++        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
++        self.root=Path(self.tmp.name)/'fixture';lab.initialize(self.root)
++    def test_atomic_error_leaves_pointer_and_no_temporary(self):
++        before=(self.root/'accepted.json').read_bytes()
++        with patch('os.replace',side_effect=OSError('disk error')):
++            with self.assertRaises(OSError):release.publish(lab.read(self.root/'manifest-B.json'),lab.read(self.root/'report-B.json'),self.root/'accepted.json')
++        self.assertEqual(before,(self.root/'accepted.json').read_bytes())
++        self.assertEqual(list(self.root.glob('*.tmp')),[])
++    def test_load_tampered_artifact_never_becomes_ready(self):
++        (self.root/'model-A.txt').write_text('tampered')
++        state=ServiceState(self.root)
++        state.thread.join(timeout=3)
++        self.assertFalse(state.ready)
++        self.assertIn('Artifact changed',state.error)
++    def test_runtime_change_creates_distinct_release_identity(self):
++        m,r=lab.read(self.root/'manifest-B.json'),lab.read(self.root/'report-B.json')
++        old=release.publish_event(m,r,self.root)
++        m['runtime']['dtype']='bfloat16'
++        m['runtime_sha256']=release.digest(release.canonical(m['runtime']))
++        r['runtime_sha256']=m['runtime_sha256']
++        new=release.publish_event(m,r,self.root)
++        self.assertNotEqual(old,new)
++        self.assertEqual(len((self.root/'publications.jsonl').read_text().splitlines()),2)
++    def test_new_decision_creates_distinct_release_identity(self):
++        m,r=lab.read(self.root/'manifest-B.json'),lab.read(self.root/'report-B.json')
++        old=release.publish_event(m,r,self.root)
++        r['evaluation_run_id']='another-evaluation'
++        self.assertNotEqual(old,release.publish_event(m,r,self.root))
++    def test_preparation_checks_real_schema_before_caching(self):
++        config=lab.read(self.root/'config.json');config['data_format']='golden-jsonl'
++        lab.write(self.root/'config.json',config)
++        (self.root/'input.txt').write_text('{"id":"broken"}\n')
++        with self.assertRaises(ValueError):lab.prepare(self.root)
+diff --git a/hw8910-broken/lab.py b/hw8910-broken/lab.py
+index 135024c..8f06d9e 100644
+--- a/hw8910-broken/lab.py
++++ b/hw8910-broken/lab.py
+@@ -8,6 +8,8 @@ import hashlib
+ import json
+ from pathlib import Path
+ import release
++import uuid
++import time
+ 
+ 
+ def canonical(value):
+@@ -35,7 +37,7 @@ def initialize(root):
+     for version in ['A','B']:
+         artifact=root/f'model-{version}.txt';artifact.write_text(f'STUB ONLY — version {version}\n')
+         files={artifact.name:digest(artifact.read_bytes())}
+-        m={'schema_version':1,'model_id':f'fixture-{version}',
++        m={'schema_version':1,'synthetic':True,'model_id':f'fixture-{version}',
+            'artifact_uri':artifact.name,'model_sha256':digest(canonical(files)),
+            'protocol_sha256':'d'*64,'golden_sha256':'e'*64,
+            'runtime_sha256':digest(canonical(runtime)),'runtime':runtime,'file_hashes':files}
+@@ -58,27 +60,45 @@ def prepare(root):
+     if entry.exists():
+         result=read(entry);print('CACHE_HIT',result['input_sha256']);return result
+     payload=(root/'input.txt').read_bytes()
++    if not payload.strip():raise ValueError('Empty preparation input')
++    if config.get('data_format')=='golden-jsonl':
++        rows=[json.loads(line) for line in payload.decode().splitlines() if line.strip()]
++        ids=[]
++        for row in rows:
++            if not {'id','input','choices','expected','slices'} <= row.keys():raise ValueError('Invalid golden row schema')
++            if not isinstance(row['input'],str) or not row['input'].strip():raise ValueError('Empty golden prompt')
++            if row['expected'] not in row['choices']:raise ValueError('Expected label outside choices')
++            ids.append(row['id'])
++        if len(ids)!=len(set(ids)):raise ValueError('Duplicate golden IDs')
+     result={'input_sha256':digest(payload),'rows':len(payload.splitlines()),'config':config}
+     write(entry,result);print('PREPARED',result['input_sha256']);return result
+ 
+ 
+-def run(root,report_name,fail_after_prepare=False):
+-    prepared=prepare(root)
+-    if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')
+-    manifest=read(root/'manifest-B.json');report=read(root/report_name)
+-    release.publish(manifest,report,root/'accepted.json')
+-    with (root/'publications.jsonl').open('a') as f:
+-        f.write(json.dumps({'model_id':manifest['model_id'],'prepared':prepared['input_sha256']})+'\n')
+-    print('PUBLISHED',manifest['model_id'])
++def run(root,report_name,fail_after_prepare=False,fail_after_pointer=False):
++    attempt = str(uuid.uuid4())
++    try:
++        prepared=prepare(root)
++        if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')
++        manifest=read(root/'manifest-B.json');report=read(root/report_name)
++        identity=release.publish_event(manifest,report,root,fail_after_pointer)
++        print('PUBLISHED',manifest['model_id'],identity)
++    except Exception as exc:
++        outcome={'attempt_id':attempt,'status':'failed','error':str(exc),'time':time.time()}
++        raise
++    else:
++        outcome={'attempt_id':attempt,'status':'complete','release_id':identity,'time':time.time()}
++    finally:
++        with (root/'attempts.jsonl').open('a') as stream:stream.write(json.dumps(outcome)+'\n')
+ 
+ 
+ def main():
+     parser=argparse.ArgumentParser();parser.add_argument('--workspace',type=Path,default=Path('.lab'))
+     sub=parser.add_subparsers(dest='command',required=True);sub.add_parser('init')
+     run_parser=sub.add_parser('run');run_parser.add_argument('--report',default='report-B.json');run_parser.add_argument('--fail-after-prepare',action='store_true')
++    run_parser.add_argument('--fail-after-pointer',action='store_true')
+     args=parser.parse_args()
+     if args.command=='init':initialize(args.workspace)
+-    else:run(args.workspace,args.report,args.fail_after_prepare)
++    else:run(args.workspace,args.report,args.fail_after_prepare,args.fail_after_pointer)
+ 
+ 
+ if __name__=='__main__':main()
+diff --git a/hw8910-broken/real_release.py b/hw8910-broken/real_release.py
+new file mode 100644
+index 0000000..f7502c5
+--- /dev/null
++++ b/hw8910-broken/real_release.py
+@@ -0,0 +1,258 @@
++"""HW6+7 provenance and fail-closed gate wrapper. No synthetic metric substitution.
++
++The original baseline is an initial fallback, NOT a newly quality-approved release.
++Candidate rejection is preserved even when the fallback itself performs poorly.
++"""
++import argparse
++import importlib.util
++import json
++from pathlib import Path
++import sys
++import time
++import uuid
++import release
++
++PROJECT = Path(__file__).resolve().parent
++PREVIOUS = PROJECT.parent/'hw67-broken'
++spec = importlib.util.spec_from_file_location('hw67_solution', PREVIOUS/'evaluation/solution.py')
++solution = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(solution)
++
++
++def read(path): return json.loads(Path(path).read_text())
++def save(path, value): release.atomic_write(Path(path), release.canonical(value)+b'\n')
++def rows(path): return [json.loads(line) for line in Path(path).read_text().splitlines() if line.strip()]
++
++
++def require_protocol(manifest):
++    config=read(PREVIOUS/'evaluation/params.json')
++    protocol=dict(config=config,golden=rows(PREVIOUS/config['golden']),behavioral=rows(PREVIOUS/config['behavioral']),training_index=rows(PREVIOUS/config['training_index']),evaluation_code={p.name:p.read_text() for p in sorted((PREVIOUS/'evaluation').glob('*.py'))})
++    fingerprint=release.digest(json.dumps(protocol,ensure_ascii=False,sort_keys=True,allow_nan=False).encode())
++    if fingerprint!=manifest['protocol_sha256']:raise ValueError('Protocol changed; create a new bound manifest and repeat evaluation')
++    generation=manifest['runtime']['generation']
++    if any(generation[key]!=config[key] for key in ['system','seed','max_new_tokens','enable_thinking']):
++        raise ValueError('Runtime generation differs from evaluation protocol')
++    return config
++
++
++def source_record(path):
++    path = Path(path).resolve()
++    return {'uri':str(path), 'sha256':release.file_digest(path)}
++
++
++def previous_gate(destination):
++    """Re-score full saved real outputs and invoke the unmodified HW6+7 gate."""
++    source = PREVIOUS/'docs/submission'
++    config = read(PREVIOUS/'evaluation/params.json')
++    golden = rows(PREVIOUS/config['golden'])
++    behavior = rows(PREVIOUS/config['behavioral'])
++    from importlib.util import spec_from_file_location, module_from_spec
++    spec = spec_from_file_location('hw67_contract', PREVIOUS/'evaluation/contract.py')
++    contract = module_from_spec(spec); spec.loader.exec_module(contract)
++    reports = {}
++    paths = [PREVIOUS/'evaluation/solution.py', PREVIOUS/'evaluation/params.json', PREVIOUS/config['golden'], PREVIOUS/config['behavioral'], PREVIOUS/'evaluation/baseline.json']
++    for role in ['baseline', 'candidate']:
++        report_path, output_path = source/f'{role}-eval.json', source/f'{role}-outputs.json'
++        report, outputs = read(report_path), read(output_path)
++        by_id = {o['id']:o for o in outputs}
++        if len(by_id) != len(outputs): raise ValueError('Duplicate raw output IDs')
++        rescored = solution.score(golden, [by_id[r['id']] for r in golden])
++        rescored_behavior = solution.score(behavior, [by_id[r['id']] for r in behavior])
++        for key in ['overall','slices','per_item']:
++            if report[key] != rescored[key]: raise ValueError(f'Saved {role} evaluation does not match raw outputs: {key}')
++        if rescored_behavior != report['behavioral']: raise ValueError('Behavioral output mismatch')
++        if report['outputs_sha256'] != contract.fingerprint(outputs): raise ValueError('Outputs hash mismatch')
++        if report['golden_sha256'] != contract.fingerprint(golden): raise ValueError('Golden hash mismatch')
++        protocol=dict(config=config,golden=golden,behavioral=behavior,training_index=rows(PREVIOUS/config['training_index']),evaluation_code={p.name:p.read_text() for p in sorted((PREVIOUS/'evaluation').glob('*.py'))})
++        if report['protocol_sha256'] != contract.fingerprint(protocol):raise ValueError('Saved evaluation protocol differs from current data/code/config')
++        reports[role] = report
++        paths.extend([report_path, output_path])
++    decision = {'status':'complete','evaluation_run_id':reports['candidate']['evaluation_run_id'], 'training_run_id':reports['candidate']['model']['run_id'], 'critical_slices':config['critical_slices'], 'source_files':[source_record(p) for p in paths]}
++    try:
++        decision.update(solution.quality_gate(reports['baseline'], reports['candidate'], config['critical_slices']))
++    except ValueError as exc:
++        decision.update(passed=False, reason=str(exc))
++    save(destination, decision)
++    return reports, decision
++
++
++def verify_bound_report(manifest, report):
++    sources = report.get('source_files')
++    if not sources: raise ValueError('No full evaluation source files')
++    for item in sources:
++        if release.file_digest(item['uri']) != item['sha256']: raise ValueError('Evaluation source changed')
++    if report.get('acceptance_policy') == 'existing-baseline-fallback':
++        raise ValueError('Baseline fallback is not a candidate PASS')
++    config=require_protocol(manifest)
++    if report['critical_slices']!=config['critical_slices']:raise ValueError('Critical slices changed')
++    # A saved passed flag never substitutes for executing the original rule.
++    paths = {Path(s['uri']).name:s['uri'] for s in sources}
++    baseline = read(paths.get('baseline-runtime-eval.json', paths.get('baseline-eval.json')))
++    candidate = read(paths.get('candidate-runtime-eval.json', paths.get('candidate-eval.json')))
++    required={'baseline-runtime-outputs.json','candidate-runtime-outputs.json','golden.jsonl','behavioral.jsonl'}
++    if not required <= paths.keys():raise ValueError('Missing raw evaluation source')
++    golden=rows(paths['golden.jsonl']);behavior=rows(paths['behavioral.jsonl'])
++    for role,evaluation in [('baseline',baseline),('candidate',candidate)]:
++        outputs=read(paths[f'{role}-runtime-outputs.json'])
++        by_id={o['id']:o for o in outputs}
++        if len(by_id)!=len(outputs) or release.digest(release.canonical(outputs))!=evaluation['outputs_sha256']:raise ValueError('Raw output identity mismatch')
++        rescored=solution.score(golden,[by_id[r['id']] for r in golden])
++        for key in ['overall','slices','per_item']:
++            if evaluation[key]!=rescored[key]:raise ValueError('Evaluation/raw output mismatch')
++        if evaluation['behavioral']!=solution.score(behavior,[by_id[r['id']] for r in behavior]):raise ValueError('Behavioral mismatch')
++    if baseline['runtime_sha256']!=candidate['runtime_sha256']:raise ValueError('Evaluation runtimes differ')
++    if candidate.get('model_sha256') != manifest['model_sha256']:
++        raise ValueError('Candidate weight identity mismatch')
++    decision = solution.quality_gate(baseline, candidate, report['critical_slices'])
++    if decision['passed'] is not True or report['passed'] is not True: raise ValueError('Gate rejected')
++    if candidate['model']['run_id'] != manifest.get('training_run_id'): raise ValueError('Foreign training run')
++    if candidate['protocol_sha256'] != manifest['protocol_sha256']: raise ValueError('Foreign protocol')
++    # New candidate reports must include an explicit runtime binding, not infer it.
++    if candidate.get('runtime_sha256') != manifest['runtime_sha256']: raise ValueError('Old evaluation has no proven runtime binding; re-evaluate')
++
++
++def initialize(root, snapshot):
++    root = Path(root).resolve()
++    if root.exists(): raise FileExistsError('Use a new real workspace')
++    root.mkdir(parents=True)
++    reports, decision = previous_gate(root/'candidate-historical-gate.json')
++    snapshot = Path(snapshot).absolute()
++    baseline = read(PREVIOUS/'evaluation/baseline.json')
++    if snapshot.name != baseline['revision']: raise ValueError('Snapshot revision differs from pinned baseline')
++    from transformers import AutoTokenizer
++    tokenizer = AutoTokenizer.from_pretrained(snapshot, local_files_only=True)
++    config = read(PREVIOUS/'evaluation/params.json')
++    files = {p.name:release.file_digest(p) for p in sorted(snapshot.iterdir()) if p.is_file()}
++    tokenizer_files = {n:h for n,h in files.items() if n in ['tokenizer.json','tokenizer_config.json','vocab.json','merges.txt']}
++    runtime = {'base_model':baseline['name'], 'base_revision':baseline['revision'],
++               'tokenizer_sha256':release.digest(release.canonical(tokenizer_files)),
++               'template_sha256':release.digest(tokenizer.chat_template.encode()),
++               'generation':{'system':config['system'],'seed':config['seed'],'do_sample':False,'max_new_tokens':config['max_new_tokens'],'enable_thinking':config['enable_thinking']},
++               'dtype':'bfloat16','device':'cpu','max_input_tokens':2048,
++               'libraries':{'torch':'2.14.0','transformers':'5.17.0'}}
++    manifest = {'schema_version':1,'model_id':f"baseline-Qwen3-0.6B-{baseline['revision'][:12]}",
++                'artifact_uri':str(snapshot),'artifact_root':str(snapshot),'file_hashes':files,
++                'model_sha256':release.digest(release.canonical(files)),
++                'protocol_sha256':reports['baseline']['protocol_sha256'], 'golden_sha256':reports['baseline']['golden_sha256'],
++                'runtime':runtime,'runtime_sha256':release.digest(release.canonical(runtime)),
++                'acceptance_policy':'existing-baseline-fallback', 'baseline_spec':baseline,
++                'previous_evaluation_run_id':reports['baseline']['evaluation_run_id']}
++    release.verify_files(manifest, root)
++    save(root/'manifest-baseline.json', manifest)
++    save(root/'accepted.json', manifest)
++    save(root/'baseline-origin.json', {'policy':'existing-baseline-fallback','new_candidate_pass':False,'reason':decision.get('reason'),'source_files':decision['source_files'], 'warning':'Baseline also fails behavioral tests; retained as prior fixed baseline, not promoted as quality PASS.'})
++    (root/'input.txt').write_bytes((PREVIOUS/config['golden']).read_bytes())
++    save(root/'config.json', {'data_format':'golden-jsonl','tokenizer_revision':baseline['revision'], 'tokenizer_sha256':runtime['tokenizer_sha256'], 'template_sha256':runtime['template_sha256'], 'max_length':2048,'code_revision':release.file_digest(PROJECT/'lab.py')})
++    print('REAL BASELINE INITIALIZED', root, 'candidate gate:', decision['passed'], decision.get('reason'))
++
++
++def evaluate_baseline(root, role="baseline"):
++    """Full fresh baseline evaluation under EXACT serving runtime; no new training."""
++    from service_core import TransformersBackend
++    root = Path(root)
++    manifest = read(root/('accepted.json' if role=='baseline' else 'manifest-candidate.json'))
++    release.verify_files(manifest, root)
++    backend = TransformersBackend(manifest)
++    config = require_protocol(manifest)
++    golden, behavior = rows(PREVIOUS/config['golden']), rows(PREVIOUS/config['behavioral'])
++    golden_hash=release.digest(json.dumps(golden,ensure_ascii=False,sort_keys=True,allow_nan=False).encode())
++    if golden_hash!=manifest['golden_sha256']:raise ValueError('Golden changed; create a new bound manifest before evaluation')
++    outputs = []
++    for row in golden+behavior:
++        start = time.perf_counter()
++        result, error = {}, None
++        try: result = backend.generate(row['input'], manifest['runtime']['generation']['max_new_tokens'])
++        except Exception as exc: error = f'{type(exc).__name__}: {exc}'
++        outputs.append({'id':row['id'],'raw':result.get('answer',''),'error':error,'output_tokens':result.get('output_tokens',0),'latency_seconds':time.perf_counter()-start})
++        print('REAL_EVAL',row['id'],outputs[-1]['output_tokens'],error, flush=True)
++    by_id = {o['id']:o for o in outputs}
++    result = solution.score(golden, [by_id[r['id']] for r in golden])
++    result.update(status='complete',model=manifest.get('model_spec',manifest['baseline_spec']), model_sha256=manifest['model_sha256'], model_id=manifest['model_id'], runtime_sha256=manifest['runtime_sha256'], evaluation_run_id='hw8910-'+role+'-'+str(uuid.uuid4()), behavioral=solution.score(behavior,[by_id[r['id']] for r in behavior]), protocol_sha256=manifest['protocol_sha256'], golden_sha256=manifest['golden_sha256'], baseline_spec_sha256=release.digest(release.canonical(manifest['baseline_spec'])), outputs_sha256=release.digest(release.canonical(outputs)), acceptance_policy=manifest['acceptance_policy'])
++    save(root/f'{role}-runtime-outputs.json', outputs)
++    save(root/f'{role}-runtime-eval.json', result)
++    print(role.upper()+'_METRICS',result['overall'],result['behavioral']['overall'])
++    return result
++
++def initialize_candidate(root):
++    root = Path(root).resolve()
++    baseline = read(root/'accepted.json')
++    adapter = root/'model/artifacts/adapter'
++    source_manifest = read(adapter/'manifest.json')
++    if source_manifest['model']['revision'] != baseline['runtime']['base_revision']:
++        raise ValueError('Adapter base differs from baseline')
++    inventory = root/'candidate-artifact'
++    inventory.mkdir(exist_ok=True)
++    for name, target in [('base',Path(baseline['artifact_root'])),('adapter',adapter)]:
++        link=inventory/name
++        if not link.exists():link.symlink_to(target, target_is_directory=True)
++    files={}
++    for prefix,directory in [('base',Path(baseline['artifact_root'])),('adapter',adapter)]:
++        for path in sorted(directory.rglob('*')):
++            if path.is_file(): files[str(Path(prefix)/path.relative_to(directory))]=release.file_digest(path)
++    from transformers import AutoTokenizer
++    tokenizer=AutoTokenizer.from_pretrained(adapter,local_files_only=True)
++    runtime=dict(baseline['runtime'])
++    if release.digest(tokenizer.chat_template.encode()) != runtime['template_sha256']:
++        raise ValueError('Adapter chat template is incompatible')
++    # Use the same pinned base tokenizer bytes for both evaluated models and API.
++    model_spec=read(PREVIOUS/'docs/submission/candidate-model.json')
++    import yaml
++    if yaml.safe_load((root/'model/MLmodel').read_text())['run_id']!=model_spec['run_id']:
++        raise ValueError('Imported artifact belongs to another training run')
++    manifest={**baseline,'model_id':'candidate-'+model_spec['run_id'], 'artifact_uri':model_spec['uri'],
++              'artifact_root':str(inventory),'base_root':baseline['artifact_root'],'adapter_root':str(adapter),
++              'tokenizer_root':baseline['artifact_root'],'file_hashes':files,'model_sha256':release.digest(release.canonical(files)),
++              'runtime':runtime,'runtime_sha256':release.digest(release.canonical(runtime)),
++              'training_run_id':model_spec['run_id'],'model_spec':model_spec,'acceptance_policy':'quality-gate-required'}
++    release.verify_files(manifest,root)
++    save(root/'manifest-candidate.json',manifest)
++    print('EXISTING TRAINING ARTIFACT',model_spec['run_id'],'no retraining')
++
++
++def current_gate(root):
++    root=Path(root)
++    baseline=read(root/'baseline-runtime-eval.json')
++    candidate=read(root/'candidate-runtime-eval.json')
++    manifest=read(root/'manifest-candidate.json')
++    config=require_protocol(manifest)
++    if baseline['runtime_sha256'] != candidate['runtime_sha256']:
++        raise ValueError('Baseline and candidate runtime differ; repeat both under one protocol')
++    golden=rows(PREVIOUS/config['golden']); behavior=rows(PREVIOUS/config['behavioral'])
++    for role,evaluation in [('baseline',baseline),('candidate',candidate)]:
++        outputs=read(root/f'{role}-runtime-outputs.json')
++        by_id={o['id']:o for o in outputs}
++        if len(by_id)!=len(outputs) or evaluation['outputs_sha256']!=release.digest(release.canonical(outputs)):
++            raise ValueError('Raw output identity mismatch')
++        actual=solution.score(golden,[by_id[r['id']] for r in golden])
++        for key in ['overall','slices','per_item']:
++            if evaluation[key]!=actual[key]:raise ValueError('Saved evaluation differs from raw outputs')
++        if evaluation['behavioral']!=solution.score(behavior,[by_id[r['id']] for r in behavior]):raise ValueError('Behavioral output mismatch')
++    if candidate['model_sha256']!=manifest['model_sha256'] or candidate['runtime_sha256']!=manifest['runtime_sha256']:
++        raise ValueError('Candidate weights or runtime differ from evaluated version')
++    report={key:manifest[key] for key in ['model_id',*release.HASHES]}
++    report.update(status='complete',evaluation_run_id=candidate['evaluation_run_id'],
++                  metrics={key:candidate['overall'][key] for key in ['accuracy','format_rate']},
++                  critical_slices=config['critical_slices'],training_run_id=manifest['training_run_id'],
++                  source_files=[source_record(path) for path in [root/'baseline-runtime-eval.json',root/'candidate-runtime-eval.json',root/'baseline-runtime-outputs.json',root/'candidate-runtime-outputs.json',PREVIOUS/'evaluation/solution.py',PREVIOUS/'evaluation/params.json',PREVIOUS/config['golden'],PREVIOUS/config['behavioral']]])
++    try:report.update(solution.quality_gate(baseline,candidate,config['critical_slices']))
++    except ValueError as exc:report.update(passed=False,reason=str(exc))
++    save(root/'release-report.json',report)
++    return report
++
++
++if __name__ == '__main__':
++    p = argparse.ArgumentParser()
++    p.add_argument('command', choices=['init','evaluate','gate','candidate-init','candidate-evaluate','current-gate'])
++    p.add_argument('--workspace',type=Path,default=PROJECT/'.real')
++    p.add_argument('--snapshot',type=Path,default=Path.home()/'.cache/huggingface/hub/models--Qwen--Qwen3-0.6B/snapshots/c1899de289a04d12100db370d81485cdf75e47ca')
++    a=p.parse_args()
++    if a.command=='init': initialize(a.workspace,a.snapshot)
++    elif a.command=='evaluate': evaluate_baseline(a.workspace)
++    elif a.command=='candidate-init': initialize_candidate(a.workspace)
++    elif a.command=='candidate-evaluate': evaluate_baseline(a.workspace,'candidate')
++    elif a.command=='current-gate':
++        report=current_gate(a.workspace);print(json.dumps(report,ensure_ascii=False,indent=2));sys.exit(0 if report['passed'] else 1)
++    else:
++        _, decision = previous_gate(a.workspace/'candidate-historical-gate.json')
++        print(json.dumps(decision,ensure_ascii=False,indent=2))
++        sys.exit(0 if decision['passed'] else 1)
+diff --git a/hw8910-broken/release.py b/hw8910-broken/release.py
+index 45e8fee..9e94a2c 100644
+--- a/hw8910-broken/release.py
++++ b/hw8910-broken/release.py
+@@ -1,19 +1,145 @@
+-"""Учебный прототип выпуска. Реализация содержит дефекты; см. CONTRACTS.txt."""
++"""Fail-closed release contracts; no ML dependencies."""
+ import hashlib
+ import json
++import math
++import os
+ from pathlib import Path
++import re
++import tempfile
++
++HASHES = ('model_sha256', 'protocol_sha256', 'golden_sha256', 'runtime_sha256')
++
++
++def canonical(value):
++    return json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False, allow_nan=False).encode('utf-8')
++
++
++def digest(data):
++    return hashlib.sha256(data).hexdigest()
++
++
++def file_digest(path):
++    h = hashlib.sha256()
++    with Path(path).open('rb') as stream:
++        for chunk in iter(lambda: stream.read(1024*1024), b''):
++            h.update(chunk)
++    return h.hexdigest()
+ 
+ 
+ def cache_key(data_path: Path, config: dict) -> str:
+-    return hashlib.sha256(str(data_path).encode()).hexdigest()
++    return digest(canonical({'data_sha256': file_digest(data_path), 'config': config}))
+ 
+ 
+ def validate_release(manifest: dict, report: dict) -> None:
+-    if not report.get('passed'):
+-        raise ValueError('Кандидат отклонён')
++    try:
++        if type(manifest['schema_version']) is not int or manifest['schema_version'] != 1:
++            raise ValueError('Unsupported schema')
++        for key in ('model_id', 'artifact_uri'):
++            if not isinstance(manifest[key], str) or not manifest[key].strip():
++                raise ValueError(f'Invalid {key}')
++        for key in HASHES:
++            if not isinstance(manifest[key], str) or not re.fullmatch('[0-9a-f]{64}', manifest[key]):
++                raise ValueError(f'Invalid {key}')
++        if not isinstance(manifest['runtime'], dict) or not manifest['runtime']:
++            raise ValueError('Missing runtime')
++        if digest(canonical(manifest['runtime'])) != manifest['runtime_sha256']:
++            raise ValueError('Runtime hash mismatch')
++        if report['status'] != 'complete' or report['passed'] is not True:
++            raise ValueError('Incomplete or rejected evaluation')
++        if not isinstance(report['evaluation_run_id'], str) or not report['evaluation_run_id'].strip():
++            raise ValueError('Missing evaluation run')
++        for key in ('model_id', *HASHES):
++            if report[key] != manifest[key]:
++                raise ValueError(f'Foreign report: {key}')
++        for name in ('accuracy', 'format_rate'):
++            value = report['metrics'][name]
++            if type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 1:
++                raise ValueError(f'Invalid metric {name}')
++    except (KeyError, TypeError, OverflowError) as exc:
++        raise ValueError(f'Invalid release schema: {exc}') from exc
++
++
++def atomic_write(target, payload):
++    target = Path(target)
++    target.parent.mkdir(parents=True, exist_ok=True)
++    temporary = None
++    try:
++        with tempfile.NamedTemporaryFile(dir=target.parent, suffix='.tmp', delete=False) as stream:
++            temporary = Path(stream.name)
++            stream.write(payload)
++            stream.flush()
++            os.fsync(stream.fileno())
++        os.replace(temporary, target)
++        # Persist directory entry as well as file contents.
++        fd = os.open(target.parent, os.O_RDONLY)
++        try: os.fsync(fd)
++        finally: os.close(fd)
++    finally:
++        if temporary is not None and temporary.exists(): temporary.unlink()
+ 
+ 
+ def publish(manifest: dict, report: dict, target: Path) -> None:
+     validate_release(manifest, report)
+-    target.parent.mkdir(parents=True, exist_ok=True)
+-    target.write_text(json.dumps(manifest, ensure_ascii=False, indent=2))
++    payload = canonical(manifest) + b'\n'
++    if target.exists() and target.read_bytes() == payload: return
++    atomic_write(target, payload)
++
++
++def verify_files(manifest, workspace):
++    """Artifact paths are pinned; remote registry resolution happens before this call."""
++    files = manifest.get('file_hashes')
++    if not isinstance(files, dict) or not files:
++        raise ValueError('Missing artifact file inventory')
++    base = Path(manifest.get('artifact_root', workspace)).resolve()
++    if 'base_root' in manifest:
++        for field,prefix in [('base_root','base'),('adapter_root','adapter')]:
++            if Path(manifest[field]).resolve() != (base/prefix).resolve():
++                raise ValueError(f'Loader path differs from verified inventory: {field}')
++        if Path(manifest['tokenizer_root']).resolve() != Path(manifest['base_root']).resolve():
++            raise ValueError('Tokenizer must use the pinned evaluated base snapshot')
++    actual = {}
++    for relative, expected in files.items():
++        path = (base/relative).resolve()
++        # HF snapshot files can be symlinks to shared blobs; inventory names must be safe.
++        if Path(relative).is_absolute() or '..' in Path(relative).parts:
++            raise ValueError('Unsafe artifact path')
++        actual[relative] = file_digest(path)
++        if actual[relative] != expected: raise ValueError(f'Artifact changed: {relative}')
++    if digest(canonical(actual)) != manifest['model_sha256']:
++        raise ValueError('Model inventory hash mismatch')
++
++
++def release_id(manifest, report):
++    return digest(canonical({'manifest': manifest, 'decision': report}))
++
++
++def publish_event(manifest, report, root, fail_after_pointer=False):
++    """One writer. Durable intent + atomic whole journal, replay before next attempt.
++
++    No append window: crash after pointer replacement is repaired from pending.json.
++    Identical releases keep one event, including rollback to a previously accepted ID.
++    """
++    root = Path(root)
++    pending = root/'pending.json'
++    journal = root/'publications.jsonl'
++    def recover():
++        if not pending.exists(): return
++        intent = json.loads(pending.read_text())
++        if intent.get('completed'): return
++        m, r = intent['manifest'], intent['report']
++        verify_files(m, root)
++        publish(m, r, root/'accepted.json')
++        events = [json.loads(line) for line in journal.read_text().splitlines()] if journal.exists() else []
++        if not any(e['release_id'] == intent['release_id'] for e in events):
++            events.append({'release_id': intent['release_id'], 'model_id': m['model_id'], 'runtime_sha256': m['runtime_sha256'], 'evaluation_run_id': r['evaluation_run_id']})
++            atomic_write(journal, b''.join(canonical(e)+b'\n' for e in events))
++        atomic_write(pending, canonical({'completed': True, 'release_id': intent['release_id']}))
++    recover()
++    validate_release(manifest, report)
++    verify_files(manifest, root)
++    identity = release_id(manifest, report)
++    atomic_write(pending, canonical({'manifest': manifest, 'report': report, 'release_id': identity}))
++    publish(manifest, report, root/'accepted.json')
++    if fail_after_pointer: raise RuntimeError('Injected crash after pointer before journal')
++    recover()
++    return identity
+diff --git a/hw8910-broken/scripts/baseline_evidence.py b/hw8910-broken/scripts/baseline_evidence.py
+new file mode 100644
+index 0000000..62d2629
+--- /dev/null
++++ b/hw8910-broken/scripts/baseline_evidence.py
+@@ -0,0 +1,16 @@
++"""Export original source via git show (read-only), run unchanged public tests."""
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++root=Path(__file__).resolve().parents[1]
++snapshot=Path(tempfile.mkdtemp(prefix='hw8910-original-'))
++(snapshot/'tests').mkdir()
++for name in ['release.py','lab.py','service.py','tests/test_release.py']:
++    data=subprocess.check_output(['git','show','867cb8f:hw8910-broken/'+name],cwd=root)
++    (snapshot/name).write_bytes(data)
++result=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-v'],cwd=snapshot,capture_output=True,text=True)
++(root/'docs/evidence/contracts-before.log').write_text(result.stdout+result.stderr+f'\nEXIT_CODE={result.returncode}\n')
++print('Original public tests exit:',result.returncode)
++# Additional crash test was added after original red capture and needs no red claim.
++print('Original sources retained at',snapshot)
+diff --git a/hw8910-broken/scripts/benchmark.py b/hw8910-broken/scripts/benchmark.py
+new file mode 100644
+index 0000000..da0db92
+--- /dev/null
++++ b/hw8910-broken/scripts/benchmark.py
+@@ -0,0 +1,51 @@
++"""Real HTTP client: every attempt retained, identical inputs at concurrency 1 and 2."""
++import argparse
++from concurrent.futures import ThreadPoolExecutor
++import csv
++import json
++from pathlib import Path
++import statistics
++import time
++from urllib.request import Request, urlopen
++from urllib.error import HTTPError
++
++
++def request(url, payload=None):
++    req = Request(url, data=None if payload is None else json.dumps(payload).encode(), headers={'Content-Type':'application/json'})
++    with urlopen(req, timeout=180) as response: return response.status, json.load(response)
++
++
++def benchmark(url, prompts, destination, limit=32):
++    destination = Path(destination);destination.mkdir(parents=True, exist_ok=True)
++    records, summaries = [], []
++    with (destination/'requests.jsonl').open('a') as log:
++        for concurrency in [1,2]:
++            def one(item):
++                index, prompt = item
++                start = time.perf_counter()
++                record = {'id':f'c{concurrency}-{index}','concurrency':concurrency,'prompt':prompt,'max_new_tokens':limit}
++                try:
++                    status, response = request(url+'/generate',{'prompt':prompt,'max_new_tokens':limit})
++                    record.update(status=status,error=None,**response)
++                except HTTPError as exc: record.update(status=exc.code,error=exc.read().decode())
++                except Exception as exc: record.update(status=0,error=f'{type(exc).__name__}: {exc}')
++                record['client_seconds'] = time.perf_counter()-start
++                return record
++            started = time.perf_counter()
++            with ThreadPoolExecutor(max_workers=concurrency) as pool:
++                batch = list(pool.map(one, enumerate(prompts)))
++            duration = time.perf_counter()-started
++            for record in batch:
++                records.append(record);log.write(json.dumps(record,ensure_ascii=False)+'\n');log.flush()
++            success = [r for r in batch if r.get('status')==200 and r.get('error') is None]
++            errors = [r for r in batch if r not in success]
++            summaries.append({'concurrency':concurrency,'n':len(batch),'successes':len(success),'errors':len(errors),'batch_seconds':duration,'success_req_per_second':len(success)/duration,'mean_success_latency':statistics.mean(r['client_seconds'] for r in success) if success else None,'max_success_latency':max((r['client_seconds'] for r in success),default=None),'mean_error_latency':statistics.mean(r['client_seconds'] for r in errors) if errors else None,'max_error_latency':max((r['client_seconds'] for r in errors),default=None),'output_tokens':sum(r.get('output_tokens',0) for r in success)})
++    (destination/'summary.json').write_text(json.dumps(summaries,indent=2)+'\n')
++    with (destination/'summary.csv').open('w') as stream:
++        writer=csv.DictWriter(stream,fieldnames=list(summaries[0]),lineterminator="\n");writer.writeheader();writer.writerows(summaries)
++    return summaries
++
++if __name__=='__main__':
++    p=argparse.ArgumentParser();p.add_argument('--url',default='http://127.0.0.1:8091');p.add_argument('--golden',type=Path,default=Path('../hw67-broken/data/eval/golden.jsonl'));p.add_argument('--output',type=Path,default=Path('docs/real/benchmark'));p.add_argument('--n',type=int,default=8)
++    a=p.parse_args();prompts=[json.loads(line)['input'] for line in a.golden.read_text().splitlines()][:a.n]
++    print(json.dumps(benchmark(a.url,prompts,a.output),indent=2))
+diff --git a/hw8910-broken/scripts/build_video.py b/hw8910-broken/scripts/build_video.py
+new file mode 100644
+index 0000000..aaf71a8
+--- /dev/null
++++ b/hw8910-broken/scripts/build_video.py
+@@ -0,0 +1,99 @@
++"""Six-minute captioned evidence review. Standard AVI/MJPEG writer + Pillow.
++
++No fabricated UI recording: pages identify actual saved artifacts and commands.
++Keeps all rendered frames, never deletes source files. No FFmpeg dependency.
++"""
++import io
++import json
++from pathlib import Path
++import re
++import struct
++import textwrap
++from PIL import Image, ImageDraw, ImageFont
++
++root=Path(__file__).resolve().parents[1]
++out=root/'docs/video';out.mkdir(parents=True,exist_ok=True)
++font_path='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf'
++font=ImageFont.truetype(font_path,24)
++title_font=ImageFont.truetype(font_path,34)
++small=ImageFont.truetype(font_path,20)
++
++def read(name):return (root/name).read_text()
++def data(name):return json.loads(read(name))
++def log_lines(name,words):
++    result=[]
++    for line in read('docs/evidence/'+name).splitlines():
++        if any(word in line for word in words):result.append(re.sub(r'\x1b\[[0-9;]*m','',line))
++    if name=='integration-before.log':
++        names=[]
++        for line in result:
++            if line.startswith('test_'):
++                label=line.split(' (')[0]+' -> FAIL'
++                if label not in names:names.append(label)
++        return '\n'.join(names)+ '\nFAILED (7 incident tests exposed defects)'
++    return '\n'.join(result)
++
++summary=data('docs/real/benchmark/summary.json')
++gate=data('docs/real/release-report.json')
++smoke=data('docs/real/smoke.json')[-1]['body']
++manifest=data('docs/real/manifest-baseline.json')
++process=data('docs/evidence/process-experiments.json')
++http=data('docs/evidence/http-lifecycle.json')
++pages=[
++('ДЗ 8–10: выпуск модели и API',
++'Обзор фактических сохранённых доказательств.\nВидео с титрами, без озвучки; это не live-запись.\n\nИсходный прототип: commit 867cb8f.\nPrefect + FastAPI + Transformers, локально.\nCPU: Ryzen 7 7800X3D; bfloat16, 4 torch threads.\nНового обучения и sweep нет. Push не выполнялся.\n\nПолные команды: README.md\nОтчёт: docs/report.md\nЛоги: docs/evidence/\nРеальные ответы: docs/real/'),
++('01. До исправления: семь причин',
++'Кеш только по пути; неполная проверка отчёта;\nнеатомарная запись; дубли событий;\nready до прогрева; ID из указателя вместо памяти;\nзапросы без проверки до генерации.\n\n'+log_lines('integration-before.log',['test_http_','test_process_','Ran 7','FAILED'])[:1900]),
++('02. Быстрый CI: зелёный и красный',
++'$ make check\n13 публичных тестов + 8 интеграционных + 5 safety.\nСобственные проверки повторены с stdlib и FastAPI.\nВеса не загружаются.\n\n'+log_lines('local-ci-green.log',['Ran ','LOCAL CI PASSED'])+'\n\n$ make check-negative\n'+log_lines('local-ci-red.log',['Ran ','FAILED','exit code:'])+'\nПоломка только в отдельной копии; рабочий код сохранён.'),
++('03. Prefect: сбой после подготовки',
++'Граф: prepare -> obtain artifact -> gate -> publish.\nМежду задачами: URI, ID, хеши. Веса не передаются.\n\n$ python flow.py --workspace WORK --fail-after-prepare\n'+log_lines('process-failure.log',['PREPARED','Flow run','prepare_input','EXIT_CODE='])[:1500]),
++('04. Восстановление и инвалидация',
++'Новый процесс после сбоя использует persisted cache.\nКлюч: байты входа + tokenizer/template/max_length/code.\n\n'+log_lines('process-recovery.log',['prepare_input','EXIT_CODE='])+'\n\nПосле изменения байтов input.txt по тому же пути:\n'+log_lines('process-invalidation.log',['PREPARED','prepare_input','EXIT_CODE='])+'\n\nИдентичность подготовки не равна ID попытки flow.'),
++('05. Отказы сохраняют accepted.json',
++'Отчёты running, чужой A и passed=false отвергаются.\n'+ '\n'.join(f"{r['report']}: SHA до == после: {r['unchanged']}" for r in process['rejections'])+'\n\nПример SHA принятого указателя:\n'+process['rejections'][0]['before']+'\n\nNaN/Inf, schema, runtime и ошибка os.replace\nпроверяются неизменёнными публичными тестами.\nПолный контракт: CONTRACTS.txt; код: release.py.'),
++('06. Сбой pointer / journal и повтор',
++'Сначала durable pending intent, затем atomic pointer,\nзатем целиком atomic journal. Один писатель.\nПовтор восстанавливает pending без двойного события.\n\n'+log_lines('process-pointer-failure.log',['Injected crash','EXIT_CODE='])[:600]+'\n'+log_lines('process-pointer-recovery.log',['publish_accepted','EXIT_CODE='])+'\n\nСобытий публикации после всех повторов: '+str(len(process['publications'].splitlines()))+'\nПопытки отдельно: flow-attempts.jsonl.'),
++('07. STUB A -> B -> A с перезапусками',
++'Инженерный опыт; это не реальные ответы модели.\n\n'+'\n'.join(f"{r['label']}: HTTP {r['status']}, {r['body'].get('model_id',r['body'].get('ready',''))}" for r in http if r.get('path') in ['/generate','/ready'])+'\n\nПолный транскрипт: docs/evidence/http-lifecycle.json\nНеверный лимит не увеличил backend.calls.'),
++('08. Реальные веса и происхождение',
++'База: Qwen/Qwen3-0.6B\nCommit: '+manifest['runtime']['base_revision']+'\n\nАдаптер взят из существующего training run:\n3a65e960697647d3baaf701277157296\nMLflow: models:/my-qwen-adapter/2\n\nХеши файлов пересчитаны перед публикацией/загрузкой.\nEval и API: один tokenizer, template, dtype и decode.\nRuntime SHA:\n'+manifest['runtime_sha256']+'\n\nВеса и окружения исключены из Git.'),
++('09. Полная оценка и честный отказ',
++'По 54 golden + 4 behavioral для обеих моделей.\nПравило quality_gate из ДЗ 6+7 не ослаблено.\n\nBaseline: accuracy 4/54, format 9/54, behavior 0/4.\nCandidate: accuracy 3/54, format 8/54, behavior 0/4.\n\npassed = '+str(gate['passed'])+'\nПричина: '+gate['reason']+'\n\nПрежняя baseline остаётся fallback.\nЕё плохое качество не называется новым PASS.\nРеальный Prefect отказ сохранил SHA accepted.'),
++('10. Реальный FastAPI и валидация',
++'$ make serve-real\nGET /health -> 200; GET /ready -> 200 после warmup.\nPOST /generate с max_new_tokens=100000 -> 400.\nbackend.calls до/после неправильного запроса равны.\n\nРеальный вопрос: Что выведет print(2 + 3)?\nОтвет: '+smoke['answer']+'\nmodel_id: '+smoke['model_id']+'\noutput_tokens: '+str(smoke['output_tokens'])+'\ngeneration_seconds: '+str(round(smoke['generation_seconds'],3))+'\n\nМетаданные описывают загруженную модель.\nПосле restart вновь загружается принятая baseline.'),
++('11. Замер и ограничения',
++'Те же 8 запросов, max_new_tokens=32, после warmup.\n\n'+'\n'.join(f"c={r['concurrency']}: {r['successes']}/{r['n']} OK, errors={r['errors']}, {r['success_req_per_second']:.3f} req/s\n  mean={r['mean_success_latency']:.3f}s, max={r['max_success_latency']:.3f}s, tokens={r['output_tokens']}" for r in summary)+'\n\nОдин генератор: c=2 увеличивает очередь, не compute.\nИзмерена полная задержка JSON; TTFT/ITL не измерены.\nНа 8 запросах устойчивый p95 не оценивается.\nPrefill обрабатывает prompt; decode выдаёт токены.\nKV-cache растёт с контекстом и числом последовательностей.\nЭтот опыт не сравнивает SGLang/vLLM.')]
++
++images=[]
++for i,(title,body) in enumerate(pages):
++    im=Image.new('RGB',(1600,900),'#101827');d=ImageDraw.Draw(im)
++    d.rectangle((0,0,1600,100),fill='#18324c')
++    d.text((45,28),title,font=title_font,fill='#f4f7ff')
++    lines=[]
++    for paragraph in body.splitlines():
++        lines.extend(textwrap.wrap(paragraph,100,replace_whitespace=False,drop_whitespace=False) or [''])
++    if len(lines)>23:raise ValueError(f'Slide {i+1} too long: {len(lines)} lines')
++    for n,line in enumerate(lines):d.text((45,125+n*30),line,font=font,fill='#d8e4f0')
++    d.text((45,855),f'{i+1:02d}/12 | {i*30//60}:{i*30%60:02d}–{(i+1)*30//60}:{(i+1)*30%60:02d} | фактические логи в docs/evidence/',font=small,fill='#88b5d7')
++    im.save(out/f'slide-{i+1:02d}.png')
++    buf=io.BytesIO();im.save(buf,format='JPEG',quality=86);images.append(buf.getvalue())
++
++# AVI RIFF chunks, one video stream, 1 frame/s; repeated static pages for 30 seconds.
++def chunk(tag,payload):return tag+struct.pack('<I',len(payload))+payload+(b'\0' if len(payload)%2 else b'')
++def listing(kind,payload):return chunk(b'LIST',kind+payload)
++frames=360
++max_size=max(map(len,images))
++avih=struct.pack('<14I',1000000,max_size,0,0x10,frames,0,1,max_size,1600,900,0,0,0,0)
++strh=struct.pack('<4s4sIHH8I4h',b'vids',b'MJPG',0,0,0,0,1,1,0,frames,max_size,0xffffffff,0,0,0,1600,900)
++strf=struct.pack('<IiiHH4sIiiII',40,1600,900,1,24,b'MJPG',1600*900*3,0,0,0,0)
++hdrl=listing(b'hdrl',chunk(b'avih',avih)+listing(b'strl',chunk(b'strh',strh)+chunk(b'strf',strf)))
++movie=bytearray();index=bytearray();offset=4
++for image in images:
++    for _ in range(30):
++        frame=chunk(b'00dc',image)
++        movie.extend(frame);index.extend(struct.pack('<4sIII',b'00dc',0x10,offset,len(image)));offset+=len(frame)
++payload=b'AVI '+hdrl+listing(b'movi',movie)+chunk(b'idx1',index)
++video=out/'homework8910.avi'
++video.write_bytes(b'RIFF'+struct.pack('<I',len(payload))+payload)
++print(f'{video}: {frames} frames, 1 fps, 360 seconds, {video.stat().st_size} bytes')
+diff --git a/hw8910-broken/scripts/check.py b/hw8910-broken/scripts/check.py
+new file mode 100644
+index 0000000..dd7c83b
+--- /dev/null
++++ b/hw8910-broken/scripts/check.py
+@@ -0,0 +1,13 @@
++"""Weight-free local CI; process exit is never suppressed."""
++import os
++from pathlib import Path
++import subprocess
++import sys
++
++root=Path(__file__).resolve().parents[1]
++commands=[([sys.executable,'-m','compileall','-q','release.py','lab.py','service_core.py','service.py','api.py','flow.py','real_release.py','tests','integration_tests','scripts'],{}),([sys.executable,'-m','unittest','discover','-s','tests','-v'],{}),([sys.executable,'-m','unittest','discover','-s','integration_tests','-v'],{}),([sys.executable,'-m','unittest','discover','-s','integration_tests','-v'],{'SERVICE_FRAMEWORK':'fastapi'})]
++for command, extra in commands:
++    print('RUN', ' '.join(command),extra,flush=True)
++    result=subprocess.run(command,cwd=root,env={**os.environ,**extra})
++    if result.returncode: sys.exit(result.returncode)
++print('LOCAL CI PASSED',flush=True)
+diff --git a/hw8910-broken/scripts/fetch_candidate.py b/hw8910-broken/scripts/fetch_candidate.py
+new file mode 100644
+index 0000000..aa219ea
+--- /dev/null
++++ b/hw8910-broken/scripts/fetch_candidate.py
+@@ -0,0 +1,23 @@
++"""Read-only MLflow import of the finished HW6+7 run (never trains/promotes)."""
++import argparse
++import json
++import os
++from pathlib import Path
++os.environ.setdefault('MLFLOW_HTTP_REQUEST_TIMEOUT','10')
++os.environ.setdefault('MLFLOW_HTTP_REQUEST_MAX_RETRIES','1')
++import mlflow
++from mlflow import MlflowClient
++
++p=argparse.ArgumentParser();p.add_argument('--tracking-uri',default='http://127.0.0.1:5006');p.add_argument('--workspace',type=Path,default=Path('.real'))
++a=p.parse_args()
++mlflow.set_tracking_uri(a.tracking_uri)
++client=MlflowClient()
++spec=json.loads((Path(__file__).resolve().parents[2]/'hw67-broken/docs/submission/candidate-model.json').read_text())
++version=client.get_model_version(spec['name'],spec['version'])
++if version.run_id != spec['run_id']:raise ValueError('Registry version/run mismatch')
++run=client.get_run(spec['run_id'])
++if run.info.status!='FINISHED':raise ValueError('Training run is unfinished')
++print('READ EXISTING TRAINING RUN',run.info.run_id,flush=True)
++a.workspace.mkdir(parents=True,exist_ok=True)
++path=client.download_artifacts(spec['run_id'],'model',dst_path=str(a.workspace.resolve()))
++print('ARTIFACT',path,flush=True)
+diff --git a/hw8910-broken/scripts/lock_env.py b/hw8910-broken/scripts/lock_env.py
+new file mode 100644
+index 0000000..7ed5edd
+--- /dev/null
++++ b/hw8910-broken/scripts/lock_env.py
+@@ -0,0 +1,4 @@
++"""Freeze installed distributions without modifying an environment."""
++from importlib.metadata import distributions
++for name, version in sorted({(d.metadata['Name'].lower(), d.version) for d in distributions()}):
++    print(f'{name}=={version}')
+diff --git a/hw8910-broken/scripts/negative_ci.py b/hw8910-broken/scripts/negative_ci.py
+new file mode 100644
+index 0000000..9b3f453
+--- /dev/null
++++ b/hw8910-broken/scripts/negative_ci.py
+@@ -0,0 +1,17 @@
++"""Break cache identity only in a new copy; retain production source unchanged."""
++import os
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++import tempfile
++root=Path(__file__).resolve().parents[1]
++copy=Path(tempfile.mkdtemp(prefix='hw8910-negative-'))
++shutil.copytree(root/'tests',copy/'tests')
++source=(root/'release.py').read_text()
++source=source.replace("return digest(canonical({'data_sha256': file_digest(data_path), 'config': config}))", "return '0'*64  # deliberate regression")
++(copy/'release.py').write_text(source)
++result=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-v'],cwd=copy)
++print('Intentional broken-copy exit code:',result.returncode,flush=True)
++print('Production files untouched; broken copy retained at',copy,flush=True)
++sys.exit(result.returncode)
+diff --git a/hw8910-broken/scripts/prove_http.py b/hw8910-broken/scripts/prove_http.py
+new file mode 100644
+index 0000000..fc34dd9
+--- /dev/null
++++ b/hw8910-broken/scripts/prove_http.py
+@@ -0,0 +1,45 @@
++"""Save explicit HTTP A -> B -> A and validation transcript, in fresh STUB workspace."""
++import importlib.util
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++root=Path(__file__).resolve().parents[1]
++spec=importlib.util.spec_from_file_location('incident_http_tests',root/'integration_tests/test_integration.py')
++module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
++os.environ['SERVICE_FRAMEWORK']='fastapi'
++case=module.IntegrationTests('test_http_loaded_version_restart_and_rollback')
++case.setUp()
++records=[]
++def capture(label,path,payload=None):
++    status,body=case.http(path,payload)
++    records.append({'label':label,'path':path,'request':payload,'status':status,'body':body})
++    return status,body
++try:
++    proc=case.start_service(2)
++    assert capture('alive during warmup','/health')[0]==200
++    assert capture('not ready during warmup','/ready')[0]==503
++    assert capture('blocked during warmup','/generate',{'prompt':'hello'})[0]==503
++    case.await_ready()
++    assert capture('loaded A','/generate',{'prompt':'hello'})[1]['model_id']=='fixture-A'
++    before=capture('before invalid','/debug')[1]['calls']
++    assert capture('invalid limit','/generate',{'prompt':'hello','max_new_tokens':100000})[0]==400
++    assert capture('after invalid','/debug')[1]['calls']==before
++    publish=case.command('run')
++    records.append({'label':'publish B','exit_code':publish.returncode,'stdout':publish.stdout,'stderr':publish.stderr})
++    assert publish.returncode==0
++    assert capture('B published, still A in memory','/generate',{'prompt':'hello'})[1]['model_id']=='fixture-A'
++    proc.terminate();proc.wait(timeout=10)
++    proc=case.start_service();case.await_ready()
++    assert capture('restart loaded B','/generate',{'prompt':'hello'})[1]['model_id']=='fixture-B'
++    command=[sys.executable,'-c','import lab,release;from pathlib import Path;import sys;r=Path(sys.argv[1]);release.publish_event(lab.read(r/"manifest-A.json"),lab.read(r/"report-A.json"),r)',str(case.root)]
++    rollback=subprocess.run(command,cwd=root,capture_output=True,text=True)
++    records.append({'label':'controlled rollback accepted A','exit_code':rollback.returncode,'stderr':rollback.stderr})
++    assert rollback.returncode==0
++    proc.terminate();proc.wait(timeout=10)
++    case.start_service();case.await_ready()
++    assert capture('restart rollback loaded A','/generate',{'prompt':'hello'})[1]['model_id']=='fixture-A'
++    (root/'docs/evidence/http-lifecycle.json').write_text(json.dumps(records,ensure_ascii=False,indent=2)+'\n')
++    print(json.dumps(records,ensure_ascii=False,indent=2))
++finally:case.doCleanups()
+diff --git a/hw8910-broken/scripts/prove_process.py b/hw8910-broken/scripts/prove_process.py
+new file mode 100644
+index 0000000..8b28357
+--- /dev/null
++++ b/hw8910-broken/scripts/prove_process.py
+@@ -0,0 +1,40 @@
++"""Repeatable Prefect experiments; every command/exit/hash preserved."""
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import uuid
++
++root=Path(__file__).resolve().parents[1]
++workspace=root/'.experiments'/('proof-'+uuid.uuid4().hex[:8])
++evidence=root/'docs/evidence'
++env={**os.environ,'PREFECT_HOME':str(root/'.prefect'),'PREFECT_SERVER_ANALYTICS_ENABLED':'false'}
++ledger=[]
++def run(name,args,expected):
++    cmd=[sys.executable,*args]
++    proc=subprocess.run(cmd,cwd=root,env=env,capture_output=True,text=True)
++    (evidence/(name+'.log')).write_text('$ '+' '.join(cmd)+'\n'+proc.stdout+proc.stderr+f'\nEXIT_CODE={proc.returncode}\n')
++    ledger.append({'name':name,'command':cmd,'exit_code':proc.returncode})
++    print(name,'EXIT',proc.returncode,flush=True)
++    if expected==0 and proc.returncode!=0:raise RuntimeError(proc.stderr)
++    if expected!=0 and proc.returncode==0:raise RuntimeError('Expected refusal/failure')
++run('process-init',['lab.py','--workspace',str(workspace),'init'],0)
++base=['flow.py','--workspace',str(workspace)]
++run('process-failure',base+['--fail-after-prepare'],1)
++run('process-recovery',base,0)
++run('process-repeat',base,0)
++(workspace/'input.txt').write_text('New bytes, same path\n')
++run('process-invalidation',base,0)
++import hashlib
++hashes=[]
++for report in ['report-incomplete.json','report-A.json','report-reject.json']:
++    before=hashlib.sha256((workspace/'accepted.json').read_bytes()).hexdigest()
++    run('process-refusal-'+report[:-5],base+['--report',report],1)
++    after=hashlib.sha256((workspace/'accepted.json').read_bytes()).hexdigest()
++    hashes.append({'report':report,'before':before,'after':after,'unchanged':before==after})
++    assert before==after
++run('process-pointer-failure',base+['--fail-after-pointer'],1)
++run('process-pointer-recovery',base,0)
++assert len((workspace/'publications.jsonl').read_text().splitlines())==1
++(evidence/'process-experiments.json').write_text(json.dumps({'workspace':str(workspace),'commands':ledger,'rejections':hashes,'publications':(workspace/'publications.jsonl').read_text()},ensure_ascii=False,indent=2)+'\n')
+diff --git a/hw8910-broken/scripts/prove_real_flow.py b/hw8910-broken/scripts/prove_real_flow.py
+new file mode 100644
+index 0000000..0d2536a
+--- /dev/null
++++ b/hw8910-broken/scripts/prove_real_flow.py
+@@ -0,0 +1,22 @@
++"""Run fresh real-artifact Prefect admission and prove pointer preservation."""
++import hashlib
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++root=Path(__file__).resolve().parents[1]
++workspace=root/'.real'
++config=json.loads((workspace/'config.json').read_text())
++config['code_revision']=hashlib.sha256((root/'lab.py').read_bytes()).hexdigest()
++(workspace/'config.json').write_text(json.dumps(config,indent=2)+'\n')
++records=[]
++for name,extra in [('real-flow-failure',['--fail-after-prepare']),('real-flow-refusal',[])]:
++    before=hashlib.sha256((workspace/'accepted.json').read_bytes()).hexdigest()
++    command=[sys.executable,'flow.py','--workspace',str(workspace),'--manifest','manifest-candidate.json','--report','release-report.json',*extra]
++    proc=subprocess.run(command,cwd=root,capture_output=True,text=True,env={**os.environ,'PREFECT_HOME':str(root/'.prefect')})
++    after=hashlib.sha256((workspace/'accepted.json').read_bytes()).hexdigest()
++    (root/'docs/evidence'/f'{name}.log').write_text('$ '+' '.join(command)+'\n'+proc.stdout+proc.stderr+f'\nEXIT_CODE={proc.returncode}\n')
++    records.append({'name':name,'command':command,'exit_code':proc.returncode,'accepted_sha256_before':before,'accepted_sha256_after':after})
++    assert before==after and proc.returncode!=0
++(root/'docs/evidence/real-flow-experiments.json').write_text(json.dumps(records,indent=2)+'\n')
+diff --git a/hw8910-broken/scripts/real_smoke.py b/hw8910-broken/scripts/real_smoke.py
+new file mode 100644
+index 0000000..2df2836
+--- /dev/null
++++ b/hw8910-broken/scripts/real_smoke.py
+@@ -0,0 +1,27 @@
++"""Readiness, real response, invalid request and unchanged backend calls."""
++import json
++from pathlib import Path
++import sys
++import time
++from benchmark import request
++from urllib.error import HTTPError
++url = sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:8091'
++records=[]
++for _ in range(180):
++    try:
++        status, ready=request(url+'/ready')
++        if status==200: break
++    except (OSError,HTTPError): time.sleep(1)
++else: raise RuntimeError('Real backend not ready')
++for path in ['/health','/ready','/debug']:
++    status,payload=request(url+path);records.append({'path':path,'status':status,'body':payload})
++before=request(url+'/debug')[1]['calls']
++try: request(url+'/generate',{'prompt':'hello','max_new_tokens':100000})
++except HTTPError as exc: records.append({'path':'/generate invalid','status':exc.code,'body':json.loads(exc.read())})
++after=request(url+'/debug')[1]['calls']
++assert before==after
++status,answer=request(url+'/generate',{'prompt':'Что выведет print(2 + 3)? choices: A: 5; B: 6.','max_new_tokens':32})
++assert status==200 and 'STUB ONLY' not in answer['answer']
++records.append({'path':'/generate real','status':status,'body':answer})
++print(json.dumps(records,ensure_ascii=False,indent=2))
++Path('docs/real/smoke.json').write_text(json.dumps(records,ensure_ascii=False,indent=2)+'\n')
+diff --git a/hw8910-broken/service.py b/hw8910-broken/service.py
+index 9ab3c3c..61f94de 100644
+--- a/hw8910-broken/service.py
++++ b/hw8910-broken/service.py
+@@ -12,32 +12,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+ from pathlib import Path
+ 
+ 
+-class StubBackend:
+-    def __init__(self,manifest):
+-        self.loaded_id=manifest['model_id'];self.calls=0;self.runtime_sha256=manifest['runtime_sha256']
+-
+-    def generate(self,prompt,limit):
+-        self.calls+=1;time.sleep(.01)
+-        return {'answer':f'STUB ONLY: {self.loaded_id}', 'output_tokens':1}
+-
+-
+-class ServiceState:
+-    def __init__(self,root,warmup_seconds):
+-        self.root=root;self.ready=True
+-        manifest=json.loads((root/'accepted.json').read_text())
+-        self.backend=StubBackend(manifest)
+-        self.warmup_finished=threading.Event()
+-        def warmup():
+-            time.sleep(warmup_seconds);self.warmup_finished.set()
+-        threading.Thread(target=warmup,daemon=True).start()
+-
+-    def generate(self,request):
+-        started=time.perf_counter()
+-        result=self.backend.generate(request.get('prompt',''),request.get('max_new_tokens',32))
+-        advertised=json.loads((self.root/'accepted.json').read_text())
+-        result.update(model_id=advertised['model_id'],runtime_sha256=advertised['runtime_sha256'],
+-                      request_id=str(uuid.uuid4()),generation_seconds=time.perf_counter()-started)
+-        return result
++from service_core import StubBackend, ServiceState, Unavailable
+ 
+ 
+ def handler_for(state):
+@@ -51,16 +26,20 @@ def handler_for(state):
+             if self.path=='/health':self.send_json(200,{'alive':True,'backend':'STUB ONLY'})
+             elif self.path=='/ready':self.send_json(200 if state.ready else 503,{'ready':state.ready})
+             elif self.path=='/debug':
+-                self.send_json(200,{'loaded_id':state.backend.loaded_id,'calls':state.backend.calls,'warmup_finished':state.warmup_finished.is_set()})
++                self.send_json(200,state.debug())
+             else:self.send_json(404,{'error':'not found'})
+ 
+         def do_POST(self):
+             if self.path!='/generate':self.send_json(404,{'error':'not found'});return
+-            size=int(self.headers.get('Content-Length','0'))
++            try:size=int(self.headers.get('Content-Length','0'))
++            except ValueError:
++                self.send_json(400,{'error':'invalid Content-Length'});return
+             if size<0 or size>65536:self.send_json(413,{'error':'body too large'});return
+             try:
+                 payload=json.loads(self.rfile.read(size))
+                 self.send_json(200,state.generate(payload))
++            except Unavailable as e:
++                self.send_json(503,{'error':str(e)})
+             except (ValueError,TypeError,AttributeError,KeyError) as e:
+                 self.send_json(400,{'error':str(e)})
+     return Handler
+@@ -69,7 +48,17 @@ def handler_for(state):
+ def main():
+     p=argparse.ArgumentParser();p.add_argument('--workspace',type=Path,default=Path('.lab'))
+     p.add_argument('--port',type=int,default=8091);p.add_argument('--warmup-seconds',type=float,default=5)
+-    args=p.parse_args();state=ServiceState(args.workspace,args.warmup_seconds)
++    p.add_argument('--framework',choices=['stdlib','fastapi'],default='stdlib')
++    p.add_argument('--backend',choices=['stub','transformers'],default='stub')
++    args=p.parse_args()
++    from service_core import TransformersBackend
++    factory=StubBackend if args.backend=='stub' else TransformersBackend
++    if args.framework=='fastapi':
++        import uvicorn
++        from api import create_app
++        uvicorn.run(create_app(args.workspace,args.warmup_seconds,factory),host='127.0.0.1',port=args.port)
++        return
++    state=ServiceState(args.workspace,args.warmup_seconds,factory)
+     server=ThreadingHTTPServer(('127.0.0.1',args.port),handler_for(state))
+     print(f'STUB ONLY: http://127.0.0.1:{server.server_port}',flush=True)
+     try:server.serve_forever()
+diff --git a/hw8910-broken/service_core.py b/hw8910-broken/service_core.py
+new file mode 100644
+index 0000000..a3d712b
+--- /dev/null
++++ b/hw8910-broken/service_core.py
+@@ -0,0 +1,103 @@
++"""Shared serving state for both HTTP adapters."""
++import json
++from pathlib import Path
++import threading
++import time
++import uuid
++import release
++
++class Unavailable(Exception): pass
++
++class StubBackend:
++    label = 'STUB ONLY'
++    def __init__(self, manifest):
++        self.loaded_id = manifest['model_id']
++        self.runtime_sha256 = manifest['runtime_sha256']
++        self.calls = 0
++    def generate(self, prompt, limit):
++        self.calls += 1
++        time.sleep(.01)
++        return {'answer':f'STUB ONLY: {self.loaded_id}', 'output_tokens':1}
++    def warmup(self): pass
++
++class TransformersBackend:
++    label = 'Transformers (real weights)'
++    def __init__(self, manifest):
++        import torch
++        from transformers import AutoModelForCausalLM, AutoTokenizer
++        self.torch = torch
++        self.loaded_id = manifest['model_id']
++        self.runtime_sha256 = manifest['runtime_sha256']
++        self.calls = 0
++        self.runtime = manifest['runtime']
++        from importlib.metadata import version
++        for library, expected in self.runtime['libraries'].items():
++            if version(library).split('+')[0] != expected:
++                raise ValueError(f'Generator library differs from evaluated runtime: {library}')
++        torch.set_num_threads(4)
++        torch.manual_seed(self.runtime['generation'].get('seed', 42))
++        root = manifest.get('base_root',manifest['artifact_root'])
++        self.tokenizer = AutoTokenizer.from_pretrained(manifest.get('tokenizer_root',root), local_files_only=True)
++        if release.digest(self.tokenizer.chat_template.encode()) != self.runtime['template_sha256']:
++            raise ValueError('Chat template changed')
++        self.model = AutoModelForCausalLM.from_pretrained(root, local_files_only=True, dtype=getattr(torch, self.runtime['dtype'])).to(self.runtime['device']).eval()
++        if manifest.get('adapter_root'):
++            from peft import PeftModel
++            self.model = PeftModel.from_pretrained(self.model, manifest['adapter_root'], local_files_only=True).eval()
++    def generate(self, prompt, limit):
++        config = self.runtime['generation']
++        text = self.tokenizer.apply_chat_template([{'role':'system','content':config['system']}, {'role':'user','content':prompt}], tokenize=False, add_generation_prompt=True, enable_thinking=config['enable_thinking'])
++        batch = self.tokenizer(text, return_tensors='pt').to(self.runtime['device'])
++        if batch['input_ids'].shape[1] > self.runtime['max_input_tokens']:
++            raise ValueError('Tokenized input too long')
++        self.calls += 1
++        with self.torch.inference_mode():
++            output = self.model.generate(**batch, max_new_tokens=limit, do_sample=config['do_sample'], pad_token_id=self.tokenizer.pad_token_id or self.tokenizer.eos_token_id)
++        tokens = output[0, batch['input_ids'].shape[1]:]
++        return {'answer':self.tokenizer.decode(tokens, skip_special_tokens=True), 'output_tokens':len(tokens)}
++    def warmup(self): self.generate('Что выведет print(1+1)? A: 2; B: 3.', self.runtime['generation']['max_new_tokens'])
++
++class ServiceState:
++    def __init__(self, root, warmup_seconds=0, backend_factory=StubBackend):
++        self.root = Path(root)
++        self.backend = None
++        self.error = None
++        self.lock = threading.Lock()
++        self.warmup_finished = threading.Event()
++        self.manifest = json.loads((self.root/'accepted.json').read_text())
++        def load():
++            try:
++                m = self.manifest
++                if release.digest(release.canonical(m['runtime'])) != m['runtime_sha256']:
++                    raise ValueError('Runtime hash mismatch')
++                release.verify_files(m, self.root)
++                self.backend = backend_factory(m)
++                self.backend.warmup()
++                time.sleep(warmup_seconds)
++                self.warmup_finished.set()
++            except Exception as exc: self.error = f'{type(exc).__name__}: {exc}'
++        self.thread = threading.Thread(target=load, daemon=True)
++        self.thread.start()
++    @property
++    def ready(self): return self.warmup_finished.is_set() and self.error is None
++    def debug(self):
++        return {'loaded_id':self.backend.loaded_id if self.backend else None, 'calls':self.backend.calls if self.backend else 0, 'warmup_finished':self.warmup_finished.is_set(), 'error':self.error}
++    def generate(self, request):
++        started = time.perf_counter()
++        if not self.ready: raise Unavailable('Model is not ready')
++        if not isinstance(request, dict): raise ValueError('Expected JSON object')
++        prompt = request.get('prompt')
++        limit = request.get('max_new_tokens', self.manifest['runtime']['generation']['max_new_tokens'])
++        if not isinstance(prompt, str) or not prompt.strip() or len(prompt) > 8192:
++            raise ValueError('prompt must contain 1..8192 characters')
++        if type(limit) is not int or limit != self.manifest['runtime']['generation']['max_new_tokens']:
++            raise ValueError('max_new_tokens must equal the evaluated budget')
++        if set(request) - {'prompt','max_new_tokens'}: raise ValueError('Unknown request fields')
++        with self.lock:
++            compute_start = time.perf_counter()
++            result = self.backend.generate(prompt, limit)
++            duration = time.perf_counter()-compute_start
++        result.update(model_id=self.backend.loaded_id, runtime_sha256=self.backend.runtime_sha256,
++                      request_id=str(uuid.uuid4()), generation_seconds=duration,
++                      queue_seconds=compute_start-started, total_seconds=time.perf_counter()-started)
++        return result

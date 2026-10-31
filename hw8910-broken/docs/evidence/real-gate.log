@@ -1,0 +1,53 @@
+{
+  "model_id": "candidate-3a65e960697647d3baaf701277157296",
+  "model_sha256": "be24389dde3dfe6c2129eadef9389fc062c62bb0fb9d55dcede02a76866b2577",
+  "protocol_sha256": "45ed763548f90ad2c1482a6da123c19ee24cfc72831c6ce9834849f194cfab8d",
+  "golden_sha256": "0abc1390bdafde3a35dc94e07cd77024bbc04cfe6792a34bafa8bac5e3853157",
+  "runtime_sha256": "f604d741130a0e8e146d381df2a852341117d517af6223da589a7c855e0841bd",
+  "status": "complete",
+  "evaluation_run_id": "hw8910-candidate-b7ee9e34-9c32-4207-81cb-314779f736a7",
+  "metrics": {
+    "accuracy": 0.05555555555555555,
+    "format_rate": 0.14814814814814814
+  },
+  "critical_slices": [
+    "code_output"
+  ],
+  "training_run_id": "3a65e960697647d3baaf701277157296",
+  "source_files": [
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.real/baseline-runtime-eval.json",
+      "sha256": "4c3897e990b5710e6054fd8eaa3b8f87e5e1b7bfd5b27310ec8aa3ad246cf1f6"
+    },
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.real/candidate-runtime-eval.json",
+      "sha256": "8dae3801ccdd34f7ba0e71bac384883a5134bd4f7f0cc785deebfbb286bbac05"
+    },
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.real/baseline-runtime-outputs.json",
+      "sha256": "d6e7d8890c6b7035e4c9e3e6c9d0aa32e678692b5de83257d89166c104c4a5bc"
+    },
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.real/candidate-runtime-outputs.json",
+      "sha256": "6218aaa58768d4af05502e5366781454ec10189495aa6cd2ec0f4fed34beb87a"
+    },
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw67-broken/evaluation/solution.py",
+      "sha256": "ac792a133d05b42961761ad032c433b354b1a6d9bffd7446c8e07cd7961bfd05"
+    },
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw67-broken/evaluation/params.json",
+      "sha256": "c7507ebfdea7192cdb0deca94c645d605a288c5e0cb6c58563f844f5d358f52b"
+    },
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw67-broken/data/eval/golden.jsonl",
+      "sha256": "52964b32dcd8f8da2e7702abf439890183e8fd5bf5ca0ee08d41fe70dcb3b87e"
+    },
+    {
+      "uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw67-broken/data/eval/behavioral.jsonl",
+      "sha256": "8ba183c2065b6c8ce9d003898ba9ee6b8e1c39734a3295aee2b0e9e905e7cc14"
+    }
+  ],
+  "passed": false,
+  "reason": "Регрессия accuracy: 0.0556 < 0.0741"
+}

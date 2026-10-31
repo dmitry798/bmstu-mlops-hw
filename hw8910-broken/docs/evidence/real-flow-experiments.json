@@ -1,0 +1,35 @@
+[
+  {
+    "name": "real-flow-failure",
+    "command": [
+      "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+      "flow.py",
+      "--workspace",
+      "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.real",
+      "--manifest",
+      "manifest-candidate.json",
+      "--report",
+      "release-report.json",
+      "--fail-after-prepare"
+    ],
+    "exit_code": 1,
+    "accepted_sha256_before": "3bd89e1d690c140f98d811afea5e450b5181cd58cc43d2a8a82541874469a926",
+    "accepted_sha256_after": "3bd89e1d690c140f98d811afea5e450b5181cd58cc43d2a8a82541874469a926"
+  },
+  {
+    "name": "real-flow-refusal",
+    "command": [
+      "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+      "flow.py",
+      "--workspace",
+      "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.real",
+      "--manifest",
+      "manifest-candidate.json",
+      "--report",
+      "release-report.json"
+    ],
+    "exit_code": 1,
+    "accepted_sha256_before": "3bd89e1d690c140f98d811afea5e450b5181cd58cc43d2a8a82541874469a926",
+    "accepted_sha256_after": "3bd89e1d690c140f98d811afea5e450b5181cd58cc43d2a8a82541874469a926"
+  }
+]

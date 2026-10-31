@@ -1,0 +1,135 @@
+{
+  "workspace": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba",
+  "commands": [
+    {
+      "name": "process-init",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "lab.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba",
+        "init"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "process-failure",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba",
+        "--fail-after-prepare"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "process-recovery",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "process-repeat",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "process-invalidation",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "process-refusal-report-incomplete",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba",
+        "--report",
+        "report-incomplete.json"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "process-refusal-report-A",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba",
+        "--report",
+        "report-A.json"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "process-refusal-report-reject",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba",
+        "--report",
+        "report-reject.json"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "process-pointer-failure",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba",
+        "--fail-after-pointer"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "process-pointer-recovery",
+      "command": [
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python",
+        "flow.py",
+        "--workspace",
+        "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "rejections": [
+    {
+      "report": "report-incomplete.json",
+      "before": "7e9171368237bac0aabbe8cfc7921b8ab69f94c3cb73eff3a98f2c5b52861d31",
+      "after": "7e9171368237bac0aabbe8cfc7921b8ab69f94c3cb73eff3a98f2c5b52861d31",
+      "unchanged": true
+    },
+    {
+      "report": "report-A.json",
+      "before": "7e9171368237bac0aabbe8cfc7921b8ab69f94c3cb73eff3a98f2c5b52861d31",
+      "after": "7e9171368237bac0aabbe8cfc7921b8ab69f94c3cb73eff3a98f2c5b52861d31",
+      "unchanged": true
+    },
+    {
+      "report": "report-reject.json",
+      "before": "7e9171368237bac0aabbe8cfc7921b8ab69f94c3cb73eff3a98f2c5b52861d31",
+      "after": "7e9171368237bac0aabbe8cfc7921b8ab69f94c3cb73eff3a98f2c5b52861d31",
+      "unchanged": true
+    }
+  ],
+  "publications": "{\"evaluation_run_id\":\"fixture-eval-B\",\"model_id\":\"fixture-B\",\"release_id\":\"94904e7d35f99705ab84296b63072d31138db5e6c9f8344467cc24b045ea7843\",\"runtime_sha256\":\"bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547\"}\n"
+}

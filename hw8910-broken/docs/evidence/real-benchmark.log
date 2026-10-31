@@ -1,0 +1,28 @@
+[
+  {
+    "concurrency": 1,
+    "n": 8,
+    "successes": 8,
+    "errors": 0,
+    "batch_seconds": 3.328782365000052,
+    "success_req_per_second": 2.4032811769596947,
+    "mean_success_latency": 0.41605167937498777,
+    "max_success_latency": 0.4400196540000252,
+    "mean_error_latency": null,
+    "max_error_latency": null,
+    "output_tokens": 55
+  },
+  {
+    "concurrency": 2,
+    "n": 8,
+    "successes": 8,
+    "errors": 0,
+    "batch_seconds": 3.2729226019998805,
+    "success_req_per_second": 2.4442985590651287,
+    "mean_success_latency": 0.7727311139999244,
+    "max_success_latency": 0.8591048389998832,
+    "mean_error_latency": null,
+    "max_error_latency": null,
+    "output_tokens": 55
+  }
+]

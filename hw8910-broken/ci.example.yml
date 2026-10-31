@@ -1,16 +1,17 @@
-name: Fast release checks
-on: [push, pull_request, workflow_dispatch]
-permissions:
-  contents: read
+# Optional template, local scripts/check.py is the actually executed CI.
+name: hw8910-fast
+on: [push, pull_request]
 jobs:
-  contracts:
+  fast:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hw8910-broken
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      # Шаблон предполагает release.py и tests/ в корне репозитория.
-      # При вложенном проекте задайте working-directory для run.
-      - run: python -m compileall -q release.py tests
-      - run: python -m unittest discover -s tests -v
+          python-version: '3.13'
+      - run: python -m pip install -r requirements-fast.lock
+      - run: python scripts/check.py
+# No remote run or branch protection is claimed.

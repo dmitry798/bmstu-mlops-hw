@@ -8,6 +8,8 @@ import hashlib
 import json
 from pathlib import Path
 import release
+import uuid
+import time
 
 
 def canonical(value):
@@ -35,7 +37,7 @@ def initialize(root):
     for version in ['A','B']:
         artifact=root/f'model-{version}.txt';artifact.write_text(f'STUB ONLY — version {version}\n')
         files={artifact.name:digest(artifact.read_bytes())}
-        m={'schema_version':1,'model_id':f'fixture-{version}',
+        m={'schema_version':1,'synthetic':True,'model_id':f'fixture-{version}',
            'artifact_uri':artifact.name,'model_sha256':digest(canonical(files)),
            'protocol_sha256':'d'*64,'golden_sha256':'e'*64,
            'runtime_sha256':digest(canonical(runtime)),'runtime':runtime,'file_hashes':files}
@@ -58,27 +60,45 @@ def prepare(root):
     if entry.exists():
         result=read(entry);print('CACHE_HIT',result['input_sha256']);return result
     payload=(root/'input.txt').read_bytes()
+    if not payload.strip():raise ValueError('Empty preparation input')
+    if config.get('data_format')=='golden-jsonl':
+        rows=[json.loads(line) for line in payload.decode().splitlines() if line.strip()]
+        ids=[]
+        for row in rows:
+            if not {'id','input','choices','expected','slices'} <= row.keys():raise ValueError('Invalid golden row schema')
+            if not isinstance(row['input'],str) or not row['input'].strip():raise ValueError('Empty golden prompt')
+            if row['expected'] not in row['choices']:raise ValueError('Expected label outside choices')
+            ids.append(row['id'])
+        if len(ids)!=len(set(ids)):raise ValueError('Duplicate golden IDs')
     result={'input_sha256':digest(payload),'rows':len(payload.splitlines()),'config':config}
     write(entry,result);print('PREPARED',result['input_sha256']);return result
 
 
-def run(root,report_name,fail_after_prepare=False):
-    prepared=prepare(root)
-    if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')
-    manifest=read(root/'manifest-B.json');report=read(root/report_name)
-    release.publish(manifest,report,root/'accepted.json')
-    with (root/'publications.jsonl').open('a') as f:
-        f.write(json.dumps({'model_id':manifest['model_id'],'prepared':prepared['input_sha256']})+'\n')
-    print('PUBLISHED',manifest['model_id'])
+def run(root,report_name,fail_after_prepare=False,fail_after_pointer=False):
+    attempt = str(uuid.uuid4())
+    try:
+        prepared=prepare(root)
+        if fail_after_prepare:raise RuntimeError('Инъекция сбоя после подготовки')
+        manifest=read(root/'manifest-B.json');report=read(root/report_name)
+        identity=release.publish_event(manifest,report,root,fail_after_pointer)
+        print('PUBLISHED',manifest['model_id'],identity)
+    except Exception as exc:
+        outcome={'attempt_id':attempt,'status':'failed','error':str(exc),'time':time.time()}
+        raise
+    else:
+        outcome={'attempt_id':attempt,'status':'complete','release_id':identity,'time':time.time()}
+    finally:
+        with (root/'attempts.jsonl').open('a') as stream:stream.write(json.dumps(outcome)+'\n')
 
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--workspace',type=Path,default=Path('.lab'))
     sub=parser.add_subparsers(dest='command',required=True);sub.add_parser('init')
     run_parser=sub.add_parser('run');run_parser.add_argument('--report',default='report-B.json');run_parser.add_argument('--fail-after-prepare',action='store_true')
+    run_parser.add_argument('--fail-after-pointer',action='store_true')
     args=parser.parse_args()
     if args.command=='init':initialize(args.workspace)
-    else:run(args.workspace,args.report,args.fail_after_prepare)
+    else:run(args.workspace,args.report,args.fail_after_prepare,args.fail_after_pointer)
 
 
 if __name__=='__main__':main()

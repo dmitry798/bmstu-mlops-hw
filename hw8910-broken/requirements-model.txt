@@ -1,0 +1,5 @@
+-r requirements-fast.txt
+# Same heavy generator versions as HW6+7, no training required.
+torch==2.14.0
+transformers==5.17.0
+peft==0.21.0

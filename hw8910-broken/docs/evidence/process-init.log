@@ -1,0 +1,4 @@
+$ /home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python lab.py --workspace /home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba init
+Создан синтетический стенд: /home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba
+
+EXIT_CODE=0

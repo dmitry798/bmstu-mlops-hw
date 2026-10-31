@@ -1,0 +1,15 @@
+$ /home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/bin/python flow.py --workspace /home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba
+00:15:23.618 | INFO    | prefect - Starting temporary server on http://127.0.0.1:8342
+See https://docs.prefect.io/v3/concepts/server#how-to-guides for more information on running a dedicated Prefect server.
+/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py:2350: UnsupportedFieldAttributeWarning: The 'deprecated' attribute with value True was provided to the `Field()` function, which has no effect in the context it was used. 'deprecated' is field-specific metadata, and can only be attached to a model field using `Annotated` metadata or by assignment. This may have happened because an `Annotated` type alias using the `type` statement was used, or if the `Field()` function was attached to a single member of a union type.
+  warnings.warn(
+00:15:25.074 | INFO    | Flow run 'messy-lemur' - Beginning flow run 'messy-lemur' for flow 'model-release'
+00:15:25.083 | INFO    | Task run 'prepare_input-03a' - Finished in state Cached(type=COMPLETED)
+00:15:25.083 | INFO    | Flow run 'messy-lemur' - PREPARATION_DESCRIPTOR {"uri": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.experiments/proof-3f1774ba/input.txt", "input_sha256": "88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4", "rows": 2}
+00:15:25.084 | INFO    | Task run 'obtain_artifact-2e2' - Finished in state Completed()
+00:15:25.085 | INFO    | Task run 'evaluate_admission-b06' - Finished in state Completed()
+00:15:25.106 | INFO    | Task run 'publish_accepted-805' - Finished in state Completed()
+00:15:26.082 | INFO    | Flow run 'messy-lemur' - Finished in state Completed()
+00:15:26.089 | INFO    | prefect - Stopping temporary server on http://127.0.0.1:8342
+
+EXIT_CODE=0
