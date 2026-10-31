@@ -1,0 +1,13 @@
+test_http_invalid_request_never_calls_backend (test_integration.IntegrationTests.test_http_invalid_request_never_calls_backend) ... ok
+test_http_loaded_version_restart_and_rollback (test_integration.IntegrationTests.test_http_loaded_version_restart_and_rollback) ... ok
+test_http_readiness_gates_generation (test_integration.IntegrationTests.test_http_readiness_gates_generation) ... ok
+test_process_artifact_tampering_blocks_publication (test_integration.IntegrationTests.test_process_artifact_tampering_blocks_publication) ... ok
+test_process_incomplete_foreign_and_rejected_reports (test_integration.IntegrationTests.test_process_incomplete_foreign_and_rejected_reports) ... ok
+test_process_pointer_crash_recovered_without_duplicate (test_integration.IntegrationTests.test_process_pointer_crash_recovered_without_duplicate) ... ok
+test_process_recovery_and_changed_input (test_integration.IntegrationTests.test_process_recovery_and_changed_input) ... ok
+test_process_repeat_has_one_event (test_integration.IntegrationTests.test_process_repeat_has_one_event) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 3.027s
+
+OK

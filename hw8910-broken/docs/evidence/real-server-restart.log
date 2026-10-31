@@ -1,0 +1,17 @@
+INFO:     Started server process [22548]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8091 (Press CTRL+C to quit)
+Loading weights:   0%|          | 0/311 [00:00<?, ?it/s]Loading weights: 100%|██████████| 311/311 [00:00<00:00, 17928.32it/s]
+INFO:     127.0.0.1:37536 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37540 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37556 - "GET /ready HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37572 - "GET /debug HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37586 - "GET /debug HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37596 - "POST /generate HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:37610 - "GET /debug HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37616 - "POST /generate HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [22548]

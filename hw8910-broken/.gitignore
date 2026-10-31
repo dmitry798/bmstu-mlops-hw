@@ -8,3 +8,8 @@ models/
 *.bin
 *.pt
 .lab*/
+.prefect/
+.real/
+.experiments/
+docs/video/
+*.avi

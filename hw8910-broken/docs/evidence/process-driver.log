@@ -1,0 +1,10 @@
+process-init EXIT 0
+process-failure EXIT 1
+process-recovery EXIT 0
+process-repeat EXIT 0
+process-invalidation EXIT 0
+process-refusal-report-incomplete EXIT 1
+process-refusal-report-A EXIT 1
+process-refusal-report-reject EXIT 1
+process-pointer-failure EXIT 1
+process-pointer-recovery EXIT 0

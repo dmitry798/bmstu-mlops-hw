@@ -1,0 +1,48 @@
+[
+  {
+    "path": "/health",
+    "status": 200,
+    "body": {
+      "alive": true,
+      "backend": "Transformers (real weights)"
+    }
+  },
+  {
+    "path": "/ready",
+    "status": 200,
+    "body": {
+      "ready": true
+    }
+  },
+  {
+    "path": "/debug",
+    "status": 200,
+    "body": {
+      "loaded_id": "baseline-Qwen3-0.6B-c1899de289a0",
+      "calls": 1,
+      "warmup_finished": true,
+      "error": null
+    }
+  },
+  {
+    "path": "/generate invalid",
+    "status": 400,
+    "body": {
+      "error": "max_new_tokens must equal the evaluated budget"
+    }
+  },
+  {
+    "path": "/generate real",
+    "status": 200,
+    "body": {
+      "answer": "{\"answer\":\"A\"}",
+      "output_tokens": 6,
+      "model_id": "baseline-Qwen3-0.6B-c1899de289a0",
+      "runtime_sha256": "f604d741130a0e8e146d381df2a852341117d517af6223da589a7c855e0841bd",
+      "request_id": "975fbc11-3256-4cee-ac75-a8a3c4657058",
+      "generation_seconds": 0.3621280120000847,
+      "queue_seconds": 4.179999905318255e-06,
+      "total_seconds": 0.36215205200005585
+    }
+  }
+]

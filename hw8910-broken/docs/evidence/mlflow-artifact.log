@@ -1,0 +1,12 @@
+RUN 3a65e960697647d3baaf701277157296 FINISHED
+model/MLmodel False
+model/__pycache__ True
+model/artifacts True
+model/conda.yaml False
+model/input_example.json False
+model/model.py False
+model/python_env.yaml False
+model/requirements.txt False
+model/serving_input_example.json False
+Downloading artifacts:   0%|          | 0/15 [00:00<?, ?it/s]Downloading artifacts:   7%|▋         | 1/15 [00:00<00:00, 37786.52it/s]Downloading artifacts:  13%|█▎        | 2/15 [00:00<00:00, 27413.75it/s]Downloading artifacts:  20%|██        | 3/15 [00:00<00:01,  8.15it/s]   Downloading artifacts:  20%|██        | 3/15 [00:00<00:01,  8.15it/s]Downloading artifacts:  27%|██▋       | 4/15 [00:00<00:01,  8.15it/s]Downloading artifacts:  33%|███▎      | 5/15 [00:00<00:01,  8.15it/s]Downloading artifacts:  40%|████      | 6/15 [00:00<00:01,  8.15it/s]Downloading artifacts:  47%|████▋     | 7/15 [00:00<00:00,  8.15it/s]Downloading artifacts:  53%|█████▎    | 8/15 [00:04<00:04,  1.60it/s]Downloading artifacts:  53%|█████▎    | 8/15 [00:04<00:04,  1.60it/s]Downloading artifacts:  60%|██████    | 9/15 [00:04<00:03,  1.60it/s]Downloading artifacts:  67%|██████▋   | 10/15 [00:04<00:03,  1.60it/s]Downloading artifacts:  73%|███████▎  | 11/15 [00:04<00:02,  1.60it/s]Downloading artifacts:  80%|████████  | 12/15 [00:04<00:01,  1.60it/s]Downloading artifacts:  87%|████████▋ | 13/15 [00:04<00:01,  1.60it/s]Downloading artifacts:  93%|█████████▎| 14/15 [00:04<00:00,  1.60it/s]Downloading artifacts: 100%|██████████| 15/15 [00:04<00:00,  1.60it/s]Downloading artifacts: 100%|██████████| 15/15 [00:04<00:00,  3.29it/s]
+DOWNLOADED /home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw8910-broken/.real/model

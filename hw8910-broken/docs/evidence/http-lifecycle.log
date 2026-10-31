@@ -1,0 +1,151 @@
+[
+  {
+    "label": "alive during warmup",
+    "path": "/health",
+    "request": null,
+    "status": 200,
+    "body": {
+      "alive": true,
+      "backend": "STUB ONLY"
+    }
+  },
+  {
+    "label": "not ready during warmup",
+    "path": "/ready",
+    "request": null,
+    "status": 503,
+    "body": {
+      "ready": false
+    }
+  },
+  {
+    "label": "blocked during warmup",
+    "path": "/generate",
+    "request": {
+      "prompt": "hello"
+    },
+    "status": 503,
+    "body": {
+      "error": "Model is not ready"
+    }
+  },
+  {
+    "label": "loaded A",
+    "path": "/generate",
+    "request": {
+      "prompt": "hello"
+    },
+    "status": 200,
+    "body": {
+      "answer": "STUB ONLY: fixture-A",
+      "output_tokens": 1,
+      "model_id": "fixture-A",
+      "runtime_sha256": "bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547",
+      "request_id": "3f49e9bf-4032-4792-aa34-d72faa4944ce",
+      "generation_seconds": 0.010064090000014403,
+      "queue_seconds": 8.609999895270448e-06,
+      "total_seconds": 0.010091149999880145
+    }
+  },
+  {
+    "label": "before invalid",
+    "path": "/debug",
+    "request": null,
+    "status": 200,
+    "body": {
+      "loaded_id": "fixture-A",
+      "calls": 1,
+      "warmup_finished": true,
+      "error": null
+    }
+  },
+  {
+    "label": "invalid limit",
+    "path": "/generate",
+    "request": {
+      "prompt": "hello",
+      "max_new_tokens": 100000
+    },
+    "status": 400,
+    "body": {
+      "error": "max_new_tokens must equal the evaluated budget"
+    }
+  },
+  {
+    "label": "after invalid",
+    "path": "/debug",
+    "request": null,
+    "status": 200,
+    "body": {
+      "loaded_id": "fixture-A",
+      "calls": 1,
+      "warmup_finished": true,
+      "error": null
+    }
+  },
+  {
+    "label": "publish B",
+    "exit_code": 0,
+    "stdout": "PREPARED 88bbd559a04a7a432693a1c611ef2704bb711ac17dd5e22203ee9e5020f59fd4\nPUBLISHED fixture-B 94904e7d35f99705ab84296b63072d31138db5e6c9f8344467cc24b045ea7843\n",
+    "stderr": ""
+  },
+  {
+    "label": "B published, still A in memory",
+    "path": "/generate",
+    "request": {
+      "prompt": "hello"
+    },
+    "status": 200,
+    "body": {
+      "answer": "STUB ONLY: fixture-A",
+      "output_tokens": 1,
+      "model_id": "fixture-A",
+      "runtime_sha256": "bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547",
+      "request_id": "69235697-8991-4b14-9931-88019dc3d2bd",
+      "generation_seconds": 0.010059168999760004,
+      "queue_seconds": 6.230000053619733e-06,
+      "total_seconds": 0.010078368999984377
+    }
+  },
+  {
+    "label": "restart loaded B",
+    "path": "/generate",
+    "request": {
+      "prompt": "hello"
+    },
+    "status": 200,
+    "body": {
+      "answer": "STUB ONLY: fixture-B",
+      "output_tokens": 1,
+      "model_id": "fixture-B",
+      "runtime_sha256": "bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547",
+      "request_id": "993fd233-3f8b-4d56-862d-6980da8915b5",
+      "generation_seconds": 0.010056980000172189,
+      "queue_seconds": 4.129999979340937e-06,
+      "total_seconds": 0.010070860000269022
+    }
+  },
+  {
+    "label": "controlled rollback accepted A",
+    "exit_code": 0,
+    "stderr": ""
+  },
+  {
+    "label": "restart rollback loaded A",
+    "path": "/generate",
+    "request": {
+      "prompt": "hello"
+    },
+    "status": 200,
+    "body": {
+      "answer": "STUB ONLY: fixture-A",
+      "output_tokens": 1,
+      "model_id": "fixture-A",
+      "runtime_sha256": "bc7bd5a4806e2e0e3b8569666b251d6c59a8d8e01e37fc37bf95b534023ca547",
+      "request_id": "2b652b37-9991-4a6b-bd22-2eb6232f1c2d",
+      "generation_seconds": 0.010068720000163012,
+      "queue_seconds": 4.839999746764079e-06,
+      "total_seconds": 0.010085519999847747
+    }
+  }
+]

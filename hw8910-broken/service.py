@@ -12,32 +12,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 
-class StubBackend:
-    def __init__(self,manifest):
-        self.loaded_id=manifest['model_id'];self.calls=0;self.runtime_sha256=manifest['runtime_sha256']
-
-    def generate(self,prompt,limit):
-        self.calls+=1;time.sleep(.01)
-        return {'answer':f'STUB ONLY: {self.loaded_id}', 'output_tokens':1}
-
-
-class ServiceState:
-    def __init__(self,root,warmup_seconds):
-        self.root=root;self.ready=True
-        manifest=json.loads((root/'accepted.json').read_text())
-        self.backend=StubBackend(manifest)
-        self.warmup_finished=threading.Event()
-        def warmup():
-            time.sleep(warmup_seconds);self.warmup_finished.set()
-        threading.Thread(target=warmup,daemon=True).start()
-
-    def generate(self,request):
-        started=time.perf_counter()
-        result=self.backend.generate(request.get('prompt',''),request.get('max_new_tokens',32))
-        advertised=json.loads((self.root/'accepted.json').read_text())
-        result.update(model_id=advertised['model_id'],runtime_sha256=advertised['runtime_sha256'],
-                      request_id=str(uuid.uuid4()),generation_seconds=time.perf_counter()-started)
-        return result
+from service_core import StubBackend, ServiceState, Unavailable
 
 
 def handler_for(state):
@@ -51,16 +26,20 @@ def handler_for(state):
             if self.path=='/health':self.send_json(200,{'alive':True,'backend':'STUB ONLY'})
             elif self.path=='/ready':self.send_json(200 if state.ready else 503,{'ready':state.ready})
             elif self.path=='/debug':
-                self.send_json(200,{'loaded_id':state.backend.loaded_id,'calls':state.backend.calls,'warmup_finished':state.warmup_finished.is_set()})
+                self.send_json(200,state.debug())
             else:self.send_json(404,{'error':'not found'})
 
         def do_POST(self):
             if self.path!='/generate':self.send_json(404,{'error':'not found'});return
-            size=int(self.headers.get('Content-Length','0'))
+            try:size=int(self.headers.get('Content-Length','0'))
+            except ValueError:
+                self.send_json(400,{'error':'invalid Content-Length'});return
             if size<0 or size>65536:self.send_json(413,{'error':'body too large'});return
             try:
                 payload=json.loads(self.rfile.read(size))
                 self.send_json(200,state.generate(payload))
+            except Unavailable as e:
+                self.send_json(503,{'error':str(e)})
             except (ValueError,TypeError,AttributeError,KeyError) as e:
                 self.send_json(400,{'error':str(e)})
     return Handler
@@ -69,7 +48,17 @@ def handler_for(state):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--workspace',type=Path,default=Path('.lab'))
     p.add_argument('--port',type=int,default=8091);p.add_argument('--warmup-seconds',type=float,default=5)
-    args=p.parse_args();state=ServiceState(args.workspace,args.warmup_seconds)
+    p.add_argument('--framework',choices=['stdlib','fastapi'],default='stdlib')
+    p.add_argument('--backend',choices=['stub','transformers'],default='stub')
+    args=p.parse_args()
+    from service_core import TransformersBackend
+    factory=StubBackend if args.backend=='stub' else TransformersBackend
+    if args.framework=='fastapi':
+        import uvicorn
+        from api import create_app
+        uvicorn.run(create_app(args.workspace,args.warmup_seconds,factory),host='127.0.0.1',port=args.port)
+        return
+    state=ServiceState(args.workspace,args.warmup_seconds,factory)
     server=ThreadingHTTPServer(('127.0.0.1',args.port),handler_for(state))
     print(f'STUB ONLY: http://127.0.0.1:{server.server_port}',flush=True)
     try:server.serve_forever()
