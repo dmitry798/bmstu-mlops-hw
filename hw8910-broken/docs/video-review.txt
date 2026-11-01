@@ -1,0 +1,16 @@
+Изменился код:
+  make check
+  Изменился decoding — make real-eval, make candidate-eval, make real-gate.
+  Для документации повторное обучение не требуется.
+
+Изменились данные:
+  flow.py проверяет schema и меняет ключ кеша по содержимому.
+  Изменился golden/behavioral — новая оценка обеих моделей и gate.
+  Изменились train-данные — нужен новый training run.
+
+Новый адаптер:
+  scripts/fetch_candidate.py -> make candidate-init -> make candidate-eval
+  make real-eval -> make real-gate -> make real-flow только после PASS.
+  До PASS принятый указатель остаётся прежним.
+
+Выполнен локальный CI. Actions и защита merge не заявляются.
