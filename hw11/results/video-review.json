@@ -1,0 +1,49 @@
+{
+  "path": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/videos/2026-11-16 01-31-22.mp4",
+  "bytes": 10742495,
+  "sha256": "1bae1305ce32fa9725214ac5dbaca2b753ddd6ba55dab702a4d54b7fcb968e7d",
+  "duration_seconds": 433.766667,
+  "width": 1920,
+  "height": 1080,
+  "fps": "30",
+  "streams": [
+    {
+      "type": "video",
+      "codec": "h264"
+    },
+    {
+      "type": "audio",
+      "codec": "aac"
+    }
+  ],
+  "subtitle_streams": 0,
+  "audio_max_abs": 0.0,
+  "audio_frames": 20330,
+  "sample_times_seconds": [
+    2,
+    45,
+    85,
+    110,
+    135,
+    175,
+    215,
+    240,
+    265,
+    282,
+    300,
+    325,
+    350,
+    375,
+    400,
+    425
+  ],
+  "visual_review": "PASS",
+  "visual_notes": [
+    "Actual OBS desktop capture; commands/results, all four plots, review and Grafana shown fullscreen.",
+    "Terminal outputs and plot labels checked in full-resolution sample frames.",
+    "Grafana scrolled to Ready/errors panels; no errors series exists after reboot without rejected requests, so panel shows No data during successful low-rate demo. Historical alert transitions are shown separately from saved real experiment data.",
+    "No voice, captions or subtitle overlays; decoded AAC samples all zero."
+  ],
+  "obs_output_skipped_frames": 0,
+  "selected_for_submission": true
+}

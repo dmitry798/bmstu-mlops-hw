@@ -1,4 +1,4 @@
-# ДЗ11: Kubernetes под нагрузкой
+# ДЗ11
 
 Управляемый CPU backend (`backend_mode=simulated`), продолжение контракта артефактов и `ServiceState` из ДЗ8–10. Реальные kind/Kubernetes, HTTP, четыре клиентских Pod, Prometheus, Grafana, metrics-server и HPA. Веса LLM не скачиваются. Предыдущие ДЗ не изменяются.
 
@@ -69,3 +69,12 @@ docker image rm hw11-api:1.0 hw11-api:1.1
 ```
 
 Kind node image может использоваться другими кластерами: его не удалять без проверки. Собственные cluster-scoped monitoring RBAC и metrics-server исчезают вместе с узлом kind. Фактические размеры, imageIDs и лимиты — в `results/preflight/` и отчёте. Git push не выполняется.
+
+
+## Итоговые материалы и видео
+
+[Материалы сдачи](docs/submission.md) связывают репозиторий, коммит, отчёт и видео. Запись — настоящий захват X11-экрана через OBS, без озвучки/субтитров. Фактический MP4, SHA256 и параметры сохранены в `results/video-review.json`; MP4 передаётся отдельно, videos исключена из Git.
+
+Необязательные зависимости проверки видео: после установки analysis lock выполните `uv pip install --python hw11/.venv/bin/python -r hw11/requirements-recording.lock`. Команда `hw11/.venv/bin/python hw11/scripts/verify_video.py` проверяет разрешение, отсутствие субтитров и нулевую амплитуду звука, создаёт контактный лист `/tmp/hw11-video-contact.jpg`. Читаемость кадров проверяется отдельно визуально; повторный запуск сбрасывает это поле в pending.
+
+Скрипты записи `record_demo.py`, `browser_control.py`, `obs_control.py` используют локальные OBS websocket и отдельный Chrome CDP-профиль. Пароль OBS читается из `/tmp/hw11-obs-password`, в репозиторий не включается. Для самих опытов эти инструменты не нужны.

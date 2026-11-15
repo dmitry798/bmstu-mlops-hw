@@ -1,0 +1,16 @@
+{
+  "name": "video-smoke-1794781346",
+  "phase": "test",
+  "planned": 4,
+  "sent": 4,
+  "outcomes": {
+    "completed": 4,
+    "rejected": 0,
+    "aborted": 0,
+    "expired": 0,
+    "error": 0
+  },
+  "start_wall": 1794781349.1775749,
+  "measured_schedule_seconds": 4.0,
+  "last_finish_wall": 1794781352.5241551
+}

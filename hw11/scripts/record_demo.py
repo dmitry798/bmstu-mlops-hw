@@ -4,6 +4,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];REPO=ROOT.parent
 os.chdir(REPO);os.environ['KUBECONFIG']=str(ROOT/'.local/kubeconfig');os.environ['PATH']=str(ROOT/'.tools')+':'+os.environ['PATH'];os.environ['PYTHONPATH']=str(ROOT)
 go=Path(sys.argv[1])
+print('$ kubectl -n hw11 get pods -o wide',flush=True)
+subprocess.run('kubectl -n hw11 get pods -o wide',shell=True,check=True)
 while not go.exists():time.sleep(.1)
 def show(command,hold=8):
  print('\033[2J\033[H',end='',flush=True);print('$ '+command,flush=True);subprocess.run(command,shell=True,cwd=REPO,check=True);time.sleep(hold)
@@ -21,13 +23,23 @@ show('cat hw11/monitoring/alerts.yaml',15)
 show('hw11/.venv/bin/python hw11/scripts/demo_evidence.py C',25)
 from browser_control import Browser
 browser=Browser();browser.navigate((ROOT/'report.html').as_uri());time.sleep(3);browser.js('document.body.style.fontSize="22px"')
-subprocess.run(['wmctrl','-a','ДЗ11 — Kubernetes под нагрузкой']);time.sleep(15)
+window=browser.call('Browser.getWindowForTarget')['windowId']
+browser.call('Browser.setWindowBounds',windowId=window,bounds={'windowState':'fullscreen'})
+browser.call('Page.bringToFront')
+chrome_window=next(line.split()[0] for line in subprocess.check_output(['wmctrl','-l'],text=True).splitlines() if 'Google Chrome' in line)
+subprocess.run(['wmctrl','-ia',chrome_window],check=True)
+time.sleep(15)
+browser.js('Array.from(document.querySelectorAll("h2")).find(x=>x.textContent.startsWith("A.")).scrollIntoView()');time.sleep(20)
+browser.js('Array.from(document.querySelectorAll("p")).find(x=>x.textContent.startsWith("Первый диагностический rollout")).scrollIntoView()');time.sleep(20)
 for filename,hold in [('1-ready-rollout.png',15),('2-per-pod.png',15),('3-policies.png',18),('4-hpa.png',18)]:
  browser.navigate((ROOT/'results/plots'/filename).as_uri());time.sleep(hold)
 browser.navigate((ROOT/'report.html').as_uri());time.sleep(2);browser.js('document.body.style.fontSize="22px"')
 browser.js('Array.from(document.querySelectorAll("h2")).find(x=>x.textContent.includes("Ревью PR")).scrollIntoView()');time.sleep(60)
-browser.navigate('http://127.0.0.1:13000/d/hw11/hw11-simulated-cpu-backend?orgId=1&from=now-1h&to=now&kiosk');time.sleep(20);browser.js('window.scrollTo(0,650)');time.sleep(15)
+browser.navigate('http://127.0.0.1:13000/d/hw11/hw11-simulated-cpu-backend?orgId=1&from=now-15m&to=now&kiosk');time.sleep(20);browser.js('Array.from(document.querySelectorAll("*")).filter(e=>e.clientWidth>500 && e.clientHeight>200 && e.scrollHeight>e.clientHeight+100 && ["auto","scroll"].includes(getComputedStyle(e).overflowY)).sort((a,b)=>b.clientWidth*b.clientHeight-a.clientWidth*a.clientHeight)[0]?.scrollTo(0,1000)');time.sleep(15)
 subprocess.run(['wmctrl','-a','HW11 demonstration'])
 show('hw11/.venv/bin/python hw11/scripts/demo_evidence.py audit; git log -1 --format="%h %an <%ae> %s"',20)
 (ROOT/'results/demo-finished.json').write_text(json.dumps({'wall_time':time.time()}))
-time.sleep(10)
+time.sleep(3)
+from obs_control import OBS
+output=OBS().call('StopRecord')
+(ROOT/'results/record-output.json').write_text(json.dumps({'wall_time':time.time(),**output},indent=2))

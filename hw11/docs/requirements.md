@@ -31,10 +31,10 @@
 | Histogram buckets, sum(le), samecohort client comparison | queries.promql; phase-scoped snapshot; histogram-comparison.json exact counts |
 | Dashboard latency/total/queue/running/RPS/errors/CPU/RAM/Ready | dashboard.json/export; actualGrafana /d/hw11; per-Pod series |
 | Labels bounded, no IDs | PHASES whitelist; IDs только request logs, app/server.py |
-| >=5checks,3liveK8s, accounting/isolation RED/GREEN | scripts/kubernetes_checks.py:5PASS +6unit tests; original/red and repeat/green saved |
+| >=5checks,3liveK8s, accounting/isolation RED/GREEN | scripts/kubernetes_checks.py:5PASS +8unit tests; original/red and repeat/green saved |
 | Review halfpage A3s/B.8s, admission, recovery, stream, lecture company primary | docs/review.md; suppliedvideo24:40 slide141; Microsoft Philly primaryATC2019 |
 | Disk/limits before, bounded images/volumes/retention/actualsize, cleanup | preflight/host-before+limits+resources-after; README commands onlyownstand |
-| Repo/commit, deps/images pinned, raw results, policies/export/report | requirements-runtime.lock/analysis.lock; preflight/images.json; report.html; final localcommit and gitlog |
+| Repo/commit, deps/images pinned, raw results, policies/export/report | requirements-runtime.lock/analysis.lock; preflight/images.json; report.html; docs/submission.md; final localcommit and gitlog |
 | Fourplots units/conditions | results/plots/1-ready-rollout,2-per-pod,3-policies,4-hpa.png |
 | Silent actualscreenvideo afterverification | videos/ MP4, results/video-review.json; OBS audio muted/no captions |
 

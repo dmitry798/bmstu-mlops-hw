@@ -8,6 +8,6 @@ test_complete_pipeline_collects_all_audit_dependencies (test_reproduce.Reproduct
 test_existing_results_are_never_reused_or_overwritten (test_reproduce.ReproductionTests.test_existing_results_are_never_reused_or_overwritten) ... ok
 
 ----------------------------------------------------------------------
-Ran 8 tests in 0.029s
+Ran 8 tests in 0.027s
 
 OK

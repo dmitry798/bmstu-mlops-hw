@@ -7,7 +7,7 @@
 - A repeat complete: same32s×2rps fresh cold-start schedules; broken36cold503; fixed0cold503 (37 network-unavailable before endpoints); healthy15/15 completed and long streams cross rollout. Source logs and full EndpointSlice/Ready timeline saved.
 - Five Kubernetes checks complete PASS: warmup, actual rollback version, rejection/abort accounting, 2-dialogue isolation, Pod replacement with same model SHA + external history. Forcekill from parent PID namespace caused 200 with5parts/noend, aborted; service recovered after actual restart+warmup.
 - B complete: 18 independent120s phases; no shortened durations. Backend image1.1 (same cost/queue logic, added Pod/version headers on rejected responses), A used1.0. All compared B phases use1.1.
-- C complete: real CPU2→3→2 twice; newPod318uniform/0hot; both alerts pending/firing/recovery. Final audit38PASS.
+- C complete: real CPU2→3→2 twice; newPod318uniform/0hot; both alerts pending/firing/recovery. Final audit39PASS.
 - Review source identified from supplied lecture11-extended.mp4 at24:40 slide141: Microsoft Philly locality/queue, primary ATC2019 paper linked.
 
 Implementation decisions (within authorized task):
@@ -18,3 +18,5 @@ Implementation decisions (within authorized task):
 - Keep all work inside the user-requested hw11 directory; do not remove any user files or push. Final local commit will use Dmitry's configured identity.
 
 Final review: no Critical findings. Important reproducibility gap fixed with full run_all workflow and isolated-checkout instructions; reproduction tests RED (missing runner) → GREEN, suite8/8. Minor report chunk-count wording corrected; existing C creation/Ready/318vs0 evidence exposed. No saved request had a completion/chunk mismatch. No user files deleted.
+
+Final verification completed 16 November: audit39/39 PASS, unit8/8 PASS, Helm lint0failed. Aggregated18832 raw attempts, including968 successful screen-demo requests; all18 original B phases remain120s/720sent each. Fullscreen OBS MP4 verified:433.77s,1920×1080,30fps,H264,zero decoded audio amplitude,no subtitle streams,output skipped frames0. First recording retained, selected final path/SHA256 in results/video-review.json. Original desktop resolution restored. Requirements checked against homework11.html; CI is not requested. Local commit only; no push and no user files deleted.

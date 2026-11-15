@@ -1,0 +1,37 @@
+{
+  "path": "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/videos/2026-11-16 01-21-46.mp4",
+  "bytes": 11261355,
+  "sha256": "62c0269a84b4fbacebd2c53853046bf2da9f925b0523998d3877f3bceab710a3",
+  "duration_seconds": 434.366667,
+  "width": 1920,
+  "height": 1080,
+  "fps": "30",
+  "streams": [
+    {
+      "type": "video",
+      "codec": "h264"
+    },
+    {
+      "type": "audio",
+      "codec": "aac"
+    }
+  ],
+  "audio_max_abs": 0,
+  "audio_frames": 20358,
+  "subtitle_streams": 0,
+  "sample_times_seconds": [
+    2,
+    45,
+    85,
+    130,
+    175,
+    220,
+    260,
+    305,
+    350,
+    390,
+    425
+  ],
+  "selected_for_submission": false,
+  "note": "Superseded by fullscreen recording referenced in video-review.json; retained without deleting files."
+}
