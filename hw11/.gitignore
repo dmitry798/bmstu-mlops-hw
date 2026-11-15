@@ -1,0 +1,8 @@
+.venv/
+.tools/
+.local/
+__pycache__/
+*.pyc
+videos/
+*.mp4
+*.mkv

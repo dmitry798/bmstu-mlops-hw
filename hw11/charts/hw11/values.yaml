@@ -1,0 +1,13 @@
+image: hw11-api:1.1
+modelVersion: A
+warmupSeconds: 20
+replicas: 2
+brokenProbes: false
+neverReady: false
+maxRunning: 1
+maxWaiting: 6
+cacheCapacity: 8
+cacheHitCPU: 0.015
+cacheMissCPU: 0.14
+chunkCPU: 0.01
+hpaEnabled: false

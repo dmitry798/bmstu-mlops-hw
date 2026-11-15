@@ -1,0 +1,70 @@
+START a-broken scheduled 64 wall 1794757763.902855
+END {'name': 'a-broken', 'phase': 'a_broken', 'planned': 64, 'sent': 64, 'outcomes': {'completed': 28, 'rejected': 36, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794757763.902855, 'measured_schedule_seconds': 32.0, 'last_finish_wall': 1794757795.7486691}
+CHECK {'name': 'original_readiness_is_unsafe', 'passed': True, 'detail': {'cold_responses': 36, 'expected_red': True}}
+Release "hw11" has been upgraded. Happy Helming!
+NAME: hw11
+LAST DEPLOYED: Sun Nov 15 18:49:56 2026
+NAMESPACE: hw11
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
+
+START a-fixed scheduled 110 wall 1794757799.4499757
+END {'name': 'a-fixed', 'phase': 'a_fixed', 'planned': 110, 'sent': 110, 'outcomes': {'completed': 110, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794757799.4499757, 'measured_schedule_seconds': 55.0, 'last_finish_wall': 1794757854.2959952}
+CHECK {'name': 'fixed_service_never_reaches_cold_backend', 'passed': True, 'detail': {'outcomes': {'completed': 110, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}}}
+START a-long-0 scheduled 1 wall 1794757857.8473828
+START a-long-1 scheduled 1 wall 1794757857.8519125
+Release "hw11" has been upgraded. Happy Helming!
+NAME: hw11
+LAST DEPLOYED: Sun Nov 15 18:51:00 2026
+NAMESPACE: hw11
+STATUS: deployed
+REVISION: 3
+TEST SUITE: None
+
+START a-rollout scheduled 97 wall 1794757864.1611245
+END {'name': 'a-rollout', 'phase': 'a_rollout', 'planned': 97, 'sent': 97, 'outcomes': {'completed': 73, 'rejected': 24, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794757864.1611245, 'measured_schedule_seconds': 64.66666666666667, 'last_finish_wall': 1794757928.5088334}
+END {'name': 'a-long-0', 'phase': 'a_rollout', 'planned': 1, 'sent': 1, 'outcomes': {'completed': 1, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794757857.8473828, 'measured_schedule_seconds': 0.0, 'last_finish_wall': 1794757890.6973321}
+END {'name': 'a-long-1', 'phase': 'a_rollout', 'planned': 1, 'sent': 1, 'outcomes': {'completed': 1, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794757857.8519125, 'measured_schedule_seconds': 0.0, 'last_finish_wall': 1794757890.577468}
+CHECK {'name': 'healthy_rollout_zero_errors', 'passed': False, 'detail': {'background': 97, 'long': 2}}
+CHECK {'name': 'preexisting_stream_crosses_rollout', 'passed': True, 'detail': {'rollout_wall': 1794757860.8658588, 'streams': [{'send': 1794757857.8480701, 'first': 1794757858.500818, 'finish': 1794757890.6973321}, {'send': 1794757857.852025, 'first': 1794757858.3801563, 'finish': 1794757890.577468}]}}
+Release "hw11" has been upgraded. Happy Helming!
+NAME: hw11
+LAST DEPLOYED: Sun Nov 15 18:52:08 2026
+NAMESPACE: hw11
+STATUS: deployed
+REVISION: 4
+TEST SUITE: None
+
+Release "hw11" has been upgraded. Happy Helming!
+NAME: hw11
+LAST DEPLOYED: Sun Nov 15 18:52:57 2026
+NAMESPACE: hw11
+STATUS: deployed
+REVISION: 5
+TEST SUITE: None
+
+START a-bad-b scheduled 30 wall 1794757980.8651354
+END {'name': 'a-bad-b', 'phase': 'a_bad_b', 'planned': 30, 'sent': 30, 'outcomes': {'completed': 30, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794757980.8651354, 'measured_schedule_seconds': 30.0, 'last_finish_wall': 1794758010.2115345}
+CHECK {'name': 'unready_B_excluded', 'passed': True, 'detail': {'bad_pods': ['hw11-api-76499d577b-57j25'], 'observed_versions': ['A']}}
+Release "hw11" has been upgraded. Happy Helming!
+NAME: hw11
+LAST DEPLOYED: Sun Nov 15 18:53:31 2026
+NAMESPACE: hw11
+STATUS: deployed
+REVISION: 6
+TEST SUITE: None
+
+START a-rollback scheduled 10 wall 1794758014.481157
+END {'name': 'a-rollback', 'phase': 'a_rollback', 'planned': 10, 'sent': 10, 'outcomes': {'completed': 10, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758014.481157, 'measured_schedule_seconds': 5.0, 'last_finish_wall': 1794758019.3259742}
+CHECK {'name': 'rollback_actual_version_A', 'passed': True, 'detail': {'observed_versions': ['A']}}
+START a-kill scheduled 1 wall 1794758022.5806885
+END {'name': 'a-kill', 'phase': 'a_kill', 'planned': 1, 'sent': 1, 'outcomes': {'completed': 1, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758022.5806885, 'measured_schedule_seconds': 0.0, 'last_finish_wall': 1794758055.3138032}
+CHECK {'name': 'force_kill_partial_200_is_aborted', 'passed': False, 'detail': {'kill_wall': 1794758025.5844889, 'row': {'logical_id': 'r00000', 'request_id': 'c3da095a-3892-4703-a905-82de5ea9522e', 'attempt': 1, 'phase': 'a_kill', 'client_pod': 'hw11-client-0', 'client_ip': '10.244.0.7', 'url': 'http://10.244.0.23:8000', 'planned_wall': 1794758022.5806885, 'send_wall': 1794758022.5815747, 'send_lag_seconds': 0.0008862018585205078, 'send_monotonic': 2049.697101324, 'first_monotonic': 2050.225925977, 'finish_monotonic': 2082.429329761, 'ttfc_seconds': 0.5288246529999014, 'total_seconds': 32.73222843700023, 'inter_chunk_seconds': [0.5106057150001106, 0.5111666160000823, 0.5107021650001116, 0.5112848859998849, 0.5108277149997775, 0.5106823050000457, 0.5110278560000552, 0.5113228949999211, 0.5113602960000208, 0.5120733560002009, 0.5112284849997195, 0.511303486000088, 0.5111466550001751, 0.5105997149998984, 0.5111520660002498, 0.5112887749996844, 0.5111842860001161, 0.5123365260001265, 0.5112263949999942, 0.5109397659998649, 0.5111726350000936, 0.5114720159999706, 0.5111141550000866, 0.51102343499997, 0.5111708859999453, 0.5109035649998077, 0.5112305960001322, 0.5120792460002122, 0.5110784449998391, 0.5117988759998298, 0.5111872450002011, 0.5114369259999876, 0.5111059749997366, 0.51215752600001, 0.5110545060001641, 0.5109713850001754, 0.5109482249999928, 0.5105390759999864, 0.5111637749996589, 0.5120286960000158, 0.5103827950001687, 0.5105416050000713, 0.5110999459998311, 0.5106457450001471, 0.5115188149998176, 0.5104548660001456, 0.51120571499996, 0.510614755000006, 0.5105359849999331, 0.5106055260002904, 0.5122155159997419, 0.511139815000206, 0.5105220649998046, 0.5114006160001736, 0.5112177649998557, 0.5110988760002328, 0.5109888449997015, 0.5111074760002339, 0.5112865450000754, 0.5122696359999281, 0.510911544999999, 0.5111372460000894, 0.5109197249998942], 'status': 200, 'done': True, 'outcome': 'completed', 'error': None, 'pod': 'hw11-api-58867c9b7c-rs9sb', 'model_id': 'A', 'backend_mode': 'simulated', 'chunks': 64, 'expected_chunks': 64, 'queue_seconds': 6.493999990198063e-05, 'server_ttfc_seconds': 0.5268660420001652, 'cache_hit': True, 'context_sha256': 'fe3a5e69706d824a6b267a012e9fd59ba90243f2b4b325cb3fe0089abd700b5d', 'text': 'SIMULATED: [{"content": "input-00-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "role": "user"}]', 'payload': {'messages': [{'role': 'user', 'content': 'input-00-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'}], 'prefix': 'prefix-00', 'chunks': 64, 'chunk_delay': 0.5, 'work_multiplier': 1, 'phase': 'a_kill', 'request_id': 'c3da095a-3892-4703-a905-82de5ea9522e'}}}}
+CHECK {'name': 'same_artifact_after_process_recovery', 'passed': True, 'detail': {'pod': 'hw11-api-58867c9b7c-rs9sb', 'recovered_wall': 1794758055.8724022, 'debug': {'status': 200, 'body': '{"backend_mode":"simulated","pod":"hw11-api-58867c9b7c-rs9sb","model_id":"A","artifact_sha256":"cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4","runtime_sha256":"ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579","request_id":null,"loaded_id":"A","calls":17,"warmup_finished":true,"error":null,"running":0,"waiting":0,"cache_entries":8,"draining":false}'}}}
+START dialogues-before scheduled 2 wall 1794758058.8865461
+END {'name': 'dialogues-before', 'phase': 'test', 'planned': 2, 'sent': 2, 'outcomes': {'completed': 2, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758058.8865461, 'measured_schedule_seconds': 1.0, 'last_finish_wall': 1794758059.7315714}
+CHECK {'name': 'two_dialogues_isolated', 'passed': True, 'detail': {'markers': ['DIALOGUE-A-41f9', 'DIALOGUE-B-8e21']}}
+START dialogue-after-replacement scheduled 1 wall 1794758084.7591655
+END {'name': 'dialogue-after-replacement', 'phase': 'test', 'planned': 1, 'sent': 1, 'outcomes': {'completed': 1, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758084.7591655, 'measured_schedule_seconds': 0.0, 'last_finish_wall': 1794758085.1068332}
+CHECK {'name': 'pod_replacement_context_and_model_recovery', 'passed': True, 'detail': {'old_pod': 'hw11-api-58867c9b7c-sqp2w', 'new_pod': 'hw11-api-58867c9b7c-p2d8j', 'debug': {'backend_mode': 'simulated', 'pod': 'hw11-api-58867c9b7c-p2d8j', 'model_id': 'A', 'artifact_sha256': 'cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4', 'runtime_sha256': 'ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579', 'request_id': None, 'loaded_id': 'A', 'calls': 1, 'warmup_finished': True, 'error': None, 'running': 0, 'waiting': 0, 'cache_entries': 1, 'draining': False}}}

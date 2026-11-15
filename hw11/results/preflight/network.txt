@@ -1,0 +1,35 @@
+NAME                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
+service/hw11-api          NodePort    10.96.52.225    <none>        8000:31080/TCP   14m   app=hw11-api
+service/hw11-client-0     ClusterIP   10.96.129.212   <none>        9000/TCP         14m   app=hw11-client,client=0
+service/hw11-client-1     ClusterIP   10.96.26.217    <none>        9000/TCP         14m   app=hw11-client,client=1
+service/hw11-client-2     ClusterIP   10.96.85.162    <none>        9000/TCP         14m   app=hw11-client,client=2
+service/hw11-client-3     ClusterIP   10.96.95.192    <none>        9000/TCP         14m   app=hw11-client,client=3
+service/hw11-fixed        ClusterIP   10.96.120.135   <none>        8000/TCP         14m   app=hw11-api
+service/hw11-grafana      NodePort    10.96.68.87     <none>        3000:31301/TCP   12m   app=hw11-grafana
+service/hw11-prometheus   NodePort    10.96.236.114   <none>        9090:31300/TCP   12m   app=hw11-prometheus
+service/hw11-state        ClusterIP   10.96.148.90    <none>        8080/TCP         12m   app=hw11-state
+service/hw11-sticky       ClusterIP   10.96.15.158    <none>        8000/TCP         14m   app=hw11-api
+
+NAME                                                   ADDRESSTYPE   PORTS   ENDPOINTS                             AGE
+endpointslice.discovery.k8s.io/hw11-api-vbsss          IPv4          8000    10.244.0.34,10.244.0.36,10.244.0.37   14m
+endpointslice.discovery.k8s.io/hw11-client-0-j46hr     IPv4          9000    10.244.0.7                            14m
+endpointslice.discovery.k8s.io/hw11-client-1-cqcn7     IPv4          9000    10.244.0.6                            14m
+endpointslice.discovery.k8s.io/hw11-client-2-6b7tv     IPv4          9000    10.244.0.5                            14m
+endpointslice.discovery.k8s.io/hw11-client-3-xkv8b     IPv4          9000    10.244.0.8                            14m
+endpointslice.discovery.k8s.io/hw11-fixed-t7n92        IPv4          8000    10.244.0.34,10.244.0.36,10.244.0.37   14m
+endpointslice.discovery.k8s.io/hw11-grafana-9ns5z      IPv4          3000    10.244.0.12                           12m
+endpointslice.discovery.k8s.io/hw11-prometheus-k7m7n   IPv4          9090    10.244.0.11                           12m
+endpointslice.discovery.k8s.io/hw11-state-5hbxd        IPv4          8080    10.244.0.13                           12m
+endpointslice.discovery.k8s.io/hw11-sticky-tgrlg       IPv4          8000    10.244.0.34,10.244.0.36,10.244.0.37   14m
+
+NAME                                   READY   STATUS    RESTARTS      AGE     IP            NODE                 NOMINATED NODE   READINESS GATES
+pod/hw11-api-58867c9b7c-hssjc          1/1     Running   0             3m20s   10.244.0.34   hw11-control-plane   <none>           <none>
+pod/hw11-api-b5c545ccd-5xrv6           1/1     Running   0             39s     10.244.0.36   hw11-control-plane   <none>           <none>
+pod/hw11-api-b5c545ccd-fj85p           0/1     Running   0             15s     10.244.0.37   hw11-control-plane   <none>           <none>
+pod/hw11-client-0                      1/1     Running   1 (39s ago)   14m     10.244.0.7    hw11-control-plane   <none>           <none>
+pod/hw11-client-1                      1/1     Running   1 (39s ago)   14m     10.244.0.6    hw11-control-plane   <none>           <none>
+pod/hw11-client-2                      1/1     Running   1 (39s ago)   14m     10.244.0.5    hw11-control-plane   <none>           <none>
+pod/hw11-client-3                      1/1     Running   1 (39s ago)   14m     10.244.0.8    hw11-control-plane   <none>           <none>
+pod/hw11-grafana-5c6b8f8d56-n59nf      1/1     Running   0             12m     10.244.0.12   hw11-control-plane   <none>           <none>
+pod/hw11-prometheus-6789666456-9k2bq   1/1     Running   0             12m     10.244.0.11   hw11-control-plane   <none>           <none>
+pod/hw11-state-9476bdd68-62gpd         1/1     Running   0             12m     10.244.0.13   hw11-control-plane   <none>           <none>

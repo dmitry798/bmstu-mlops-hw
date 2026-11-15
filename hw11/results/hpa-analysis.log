@@ -1,0 +1,47 @@
+[
+  {
+    "scenario": "c-compute",
+    "new_pods": [
+      {
+        "pod": "hw11-api-b5c545ccd-877sr",
+        "creation_timestamp": "2026-11-15T16:41:13Z",
+        "first_observed_wall": 1794760874.5296972,
+        "first_ready_wall": 1794760895.5476363
+      }
+    ],
+    "total_pod_distribution": {
+      "hw11-api-b5c545ccd-fj85p": 681,
+      "hw11-api-b5c545ccd-5xrv6": 601,
+      "hw11-api-b5c545ccd-877sr": 318
+    },
+    "new_pod_requests": {
+      "hw11-api-b5c545ccd-877sr": 318
+    },
+    "load_stop_wall": 1794760951.1774552,
+    "desired_two_after_stop_seconds": 53.842504262924194,
+    "two_ready_after_stop_seconds": 59.05181622505188,
+    "configured_stabilization_seconds": 30
+  },
+  {
+    "scenario": "c-hot",
+    "new_pods": [
+      {
+        "pod": "hw11-api-b5c545ccd-tnghh",
+        "creation_timestamp": "2026-11-15T16:43:48Z",
+        "first_observed_wall": 1794761030.2540805,
+        "first_ready_wall": 1794761051.2748818
+      }
+    ],
+    "total_pod_distribution": {
+      "hw11-api-b5c545ccd-fj85p": 1494,
+      "hw11-api-b5c545ccd-5xrv6": 106
+    },
+    "new_pod_requests": {
+      "hw11-api-b5c545ccd-tnghh": 0
+    },
+    "load_stop_wall": 1794761113.264161,
+    "desired_two_after_stop_seconds": 51.624428510665894,
+    "two_ready_after_stop_seconds": 56.87481904029846,
+    "configured_stabilization_seconds": 30
+  }
+]

@@ -1,0 +1,282 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "unit_suite",
+      "passed": true,
+      "evidence": "unit-final.log"
+    },
+    {
+      "name": "helm_lint",
+      "passed": true,
+      "evidence": "helm-lint.log"
+    },
+    {
+      "name": "five_real_kubernetes_checks",
+      "passed": true,
+      "evidence": "kubernetes-checks.json"
+    },
+    {
+      "name": "Ready_EndpointSlice_backend_warmup_correlation",
+      "passed": true,
+      "evidence": "warmup-correlations.json"
+    },
+    {
+      "name": "readiness_red_green_healthy_rollout",
+      "passed": true,
+      "evidence": "checks-a-repeat.json"
+    },
+    {
+      "name": "unready_B_exclusion_actual_rollback",
+      "passed": true,
+      "evidence": "a-bad-b-requests.jsonl; a-rollback-requests.jsonl"
+    },
+    {
+      "name": "b_none_uniform_1_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_none_uniform_1-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_none_uniform_2_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_none_uniform_2-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_none_uniform_3_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_none_uniform_3-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_none_skew_1_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_none_skew_1-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_none_skew_2_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_none_skew_2-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_none_skew_3_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_none_skew_3-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_sticky_uniform_1_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_sticky_uniform_1-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_sticky_uniform_2_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_sticky_uniform_2-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_sticky_uniform_3_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_sticky_uniform_3-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_sticky_skew_1_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_sticky_skew_1-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_sticky_skew_2_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_sticky_skew_2-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_sticky_skew_3_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_sticky_skew_3-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_fixed_uniform_1_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_fixed_uniform_1-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_fixed_uniform_2_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_fixed_uniform_2-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_fixed_uniform_3_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_fixed_uniform_3-summary.json",
+        "schedule_sha256": "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+      }
+    },
+    {
+      "name": "b_fixed_skew_1_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_fixed_skew_1-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_fixed_skew_2_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_fixed_skew_2-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "b_fixed_skew_3_120s_complete_accounting",
+      "passed": true,
+      "evidence": {
+        "summary": "b_fixed_skew_3-summary.json",
+        "schedule_sha256": "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+      }
+    },
+    {
+      "name": "identical_schedules_for_comparisons",
+      "passed": true,
+      "evidence": {
+        "uniform": [
+          "56c55e153eed96e7754068313207d07efdd49d24e15620492d469f487a66fba0"
+        ],
+        "skew": [
+          "fcae2a9afe02a143cc5121dea463e9757e43a8e74eaee3121904aa075ea751f2"
+        ]
+      }
+    },
+    {
+      "name": "same_two_Pods_without_restart_all_B",
+      "passed": true,
+      "evidence": {
+        "pods": [
+          "hw11-api-b5c545ccd-5xrv6",
+          "hw11-api-b5c545ccd-fj85p"
+        ],
+        "snapshots": 1099
+      }
+    },
+    {
+      "name": "four_distinct_client_pod_IPs",
+      "passed": true,
+      "evidence": [
+        "10.244.0.5",
+        "10.244.0.6",
+        "10.244.0.7",
+        "10.244.0.8"
+      ]
+    },
+    {
+      "name": "all_B_responses_have_real_pod_version",
+      "passed": true,
+      "evidence": "b_*-requests.jsonl"
+    },
+    {
+      "name": "non_skew_control_retained",
+      "passed": true,
+      "evidence": "network-analysis.json"
+    },
+    {
+      "name": "hot_replica_reproduced",
+      "passed": true,
+      "evidence": {
+        "hw11-api-b5c545ccd-fj85p": 672,
+        "hw11-api-b5c545ccd-5xrv6": 48
+      }
+    },
+    {
+      "name": "hot_queue_and_other_idle_observed",
+      "passed": true,
+      "evidence": "b-hot-spare-capacity.json"
+    },
+    {
+      "name": "matching_histogram_completed_cohorts",
+      "passed": true,
+      "evidence": "histogram-comparison.json"
+    },
+    {
+      "name": "hpa_two_to_three_to_two_twice",
+      "passed": true,
+      "evidence": "c-events.json; kubernetes-timeline.jsonl"
+    },
+    {
+      "name": "both_alerts_pending_firing_recovered",
+      "passed": true,
+      "evidence": {
+        "states": {
+          "HW11HighTTFC": [
+            "firing",
+            "pending"
+          ],
+          "HW11RejectionFraction": [
+            "firing",
+            "pending"
+          ]
+        },
+        "last_5_active_names": []
+      }
+    },
+    {
+      "name": "four_plots",
+      "passed": true,
+      "evidence": "plots/"
+    },
+    {
+      "name": "backend_logs_link_requests",
+      "passed": true,
+      "evidence": "pod-logs/"
+    },
+    {
+      "name": "live_Grafana_all_required_panels_and_both_gauges",
+      "passed": true,
+      "evidence": "monitoring-live-check.json; monitoring/dashboard-export.json"
+    },
+    {
+      "name": "primary_case_review",
+      "passed": true,
+      "evidence": "docs/review.md; lecture 24:40 slide141"
+    }
+  ]
+}

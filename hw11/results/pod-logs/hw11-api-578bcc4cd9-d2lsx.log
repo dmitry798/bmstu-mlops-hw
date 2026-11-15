@@ -1,0 +1,280 @@
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+{"event": "startup", "wall_time": 1794757861.8593507, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "warmup_seconds": "20"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     10.244.0.1:50630 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:50634 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:50638 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:50642 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60036 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:60046 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60052 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:60054 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60056 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:60072 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60076 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:60084 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60096 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:60110 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45030 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:45046 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45062 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:45074 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45082 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:45086 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45098 - "GET /startup HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45104 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45118 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757884.1635306, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "35e1ae21-b6c8-487e-80b1-d088511312c5", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:55144 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45132 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757884.5075674, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "35e1ae21-b6c8-487e-80b1-d088511312c5", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.7460000107312226e-05, "ttfc_seconds": 0.19240663499999755, "total_seconds": 0.34404106200008755, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.1:45138 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757886.1635115, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "8f08b8d4-9527-43ff-bda8-ed71ab735510", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.6", "warmup_finished": true}
+INFO:     10.244.0.6:55884 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44758 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44774 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757886.5089228, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "8f08b8d4-9527-43ff-bda8-ed71ab735510", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.959999998594867e-05, "ttfc_seconds": 0.19200174399998104, "total_seconds": 0.34541625200017734, "peer_ip": "10.244.0.6"}
+INFO:     10.244.0.1:44788 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757888.1631312, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "6cb609dd-5aae-472b-914b-5b935f39c4f2", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:43228 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44792 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757888.5060236, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "6cb609dd-5aae-472b-914b-5b935f39c4f2", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.908999994768237e-05, "ttfc_seconds": 0.19095109399995636, "total_seconds": 0.3428955809999934, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.1:44800 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757889.4967475, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "dbca31ff-f066-42e2-b4b4-5664dc572bc7", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:59870 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757889.8388267, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "dbca31ff-f066-42e2-b4b4-5664dc572bc7", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.749999993691745e-05, "ttfc_seconds": 0.19075728400002845, "total_seconds": 0.3420819309999388, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44814 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44824 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44832 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44834 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757892.8296306, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "b227c959-5592-47d2-9be0-297a06fff220", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.8", "warmup_finished": true}
+INFO:     10.244.0.8:58240 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757893.1719682, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "b227c959-5592-47d2-9be0-297a06fff220", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.906999993181671e-05, "ttfc_seconds": 0.19097809400000187, "total_seconds": 0.3423409009999432, "peer_ip": "10.244.0.8"}
+INFO:     10.244.0.1:44838 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757893.4964535, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "fec0d8a1-2395-4a4a-bc5d-38eb49e17285", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:43256 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757893.8385122, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "fec0d8a1-2395-4a4a-bc5d-38eb49e17285", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.164000003787805e-05, "ttfc_seconds": 0.19078581400003713, "total_seconds": 0.3420593410000947, "peer_ip": "10.244.0.7"}
+{"event": "request_received", "wall_time": 1794757894.1640458, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "c0e9d924-9921-4e4e-ac80-066537e9f93b", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.6", "warmup_finished": true}
+INFO:     10.244.0.6:55914 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44850 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757894.507649, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "c0e9d924-9921-4e4e-ac80-066537e9f93b", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.38899998900888e-05, "ttfc_seconds": 0.19098717499991835, "total_seconds": 0.34360627199998817, "peer_ip": "10.244.0.6"}
+INFO:     10.244.0.1:44864 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42514 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42522 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42534 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757897.4963763, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "55f0c9fc-3cb4-4038-a18b-292503bf2ea9", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:59942 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757897.8384585, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "55f0c9fc-3cb4-4038-a18b-292503bf2ea9", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.5269999873198685e-05, "ttfc_seconds": 0.19083301399996344, "total_seconds": 0.34208423099994434, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42544 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757898.829822, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "4281fa77-d598-4327-8c70-a572ee47fd1a", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:37770 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757899.1743052, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "4281fa77-d598-4327-8c70-a572ee47fd1a", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.952000017510727e-05, "ttfc_seconds": 0.19084496400000717, "total_seconds": 0.3444855520001511, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.1:42548 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757900.1638048, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "ac821044-084e-42c9-b25e-cc9f265416e9", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:59956 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42560 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757900.5072827, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "ac821044-084e-42c9-b25e-cc9f265416e9", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.2289999985077884e-05, "ttfc_seconds": 0.190870453999878, "total_seconds": 0.3434814309998728, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.1:42576 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42586 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42594 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757902.8303823, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "06261371-2d8c-41ee-a561-62aaab582782", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:59964 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757903.1725936, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "06261371-2d8c-41ee-a561-62aaab582782", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.9290000106338994e-05, "ttfc_seconds": 0.19082323399993584, "total_seconds": 0.34221330099990155, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.1:42602 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42608 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42622 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757905.4967895, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "385e1e94-7b10-40e8-ad7a-2c41da1197e2", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:59968 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757905.8390193, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "385e1e94-7b10-40e8-ad7a-2c41da1197e2", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.3750000031650416e-05, "ttfc_seconds": 0.19091574399999445, "total_seconds": 0.342232340999999, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46092 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46096 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757906.8300922, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "1218e2e0-5c94-4771-974c-321fe8bbb102", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:59022 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757907.1722007, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "1218e2e0-5c94-4771-974c-321fe8bbb102", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.816000000573695e-05, "ttfc_seconds": 0.1908919039999546, "total_seconds": 0.34211167100011153, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.1:46100 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46116 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757908.8302991, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "acccb6e5-1680-4c2a-b251-e1cbc6664d72", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.8", "warmup_finished": true}
+INFO:     10.244.0.8:36406 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757909.172672, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "acccb6e5-1680-4c2a-b251-e1cbc6664d72", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.662999981519533e-05, "ttfc_seconds": 0.1909373239998331, "total_seconds": 0.34237464099987847, "peer_ip": "10.244.0.8"}
+INFO:     10.244.0.1:46130 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757910.1638224, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "753f5782-6446-4fd4-855a-0075b6066790", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.6", "warmup_finished": true}
+INFO:     10.244.0.6:60782 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46142 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757910.5075483, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "753f5782-6446-4fd4-855a-0075b6066790", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.200999999033229e-05, "ttfc_seconds": 0.19089757500000815, "total_seconds": 0.3437270520000766, "peer_ip": "10.244.0.6"}
+{"event": "request_received", "wall_time": 1794757910.8304408, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "61a5439f-7a62-44ea-9256-eb9bf0598ec0", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:55896 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757911.1748984, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "61a5439f-7a62-44ea-9256-eb9bf0598ec0", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.392100001699873e-05, "ttfc_seconds": 0.1920371349999641, "total_seconds": 0.3444606919999842, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.1:46158 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46174 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46188 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46200 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757914.1632597, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "5abd5c3e-c267-4e53-b7f7-77449f0ac17b", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.8", "warmup_finished": true}
+INFO:     10.244.0.8:36434 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46216 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757914.5094388, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "5abd5c3e-c267-4e53-b7f7-77449f0ac17b", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.337000015970261e-05, "ttfc_seconds": 0.1931393450001906, "total_seconds": 0.34618221200003063, "peer_ip": "10.244.0.8"}
+{"event": "request_received", "wall_time": 1794757914.830343, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "6f764355-18ce-41a5-a772-cfb8ffc6dd62", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:59058 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757915.1722002, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "6f764355-18ce-41a5-a772-cfb8ffc6dd62", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.2320000122563215e-05, "ttfc_seconds": 0.19076922400017793, "total_seconds": 0.34186009100017145, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.1:46222 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757915.496783, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "5ef6e77e-a937-442f-879f-f5c9f03ccdbb", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.6", "warmup_finished": true}
+INFO:     10.244.0.6:60794 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757915.8408306, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "5ef6e77e-a937-442f-879f-f5c9f03ccdbb", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.263000005266804e-05, "ttfc_seconds": 0.1907262439999613, "total_seconds": 0.3440481110001201, "peer_ip": "10.244.0.6"}
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54640 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54650 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54660 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757917.496745, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "9fb2763e-2760-46ee-b2b7-64c0c6a93df5", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:41582 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757917.8390636, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "9fb2763e-2760-46ee-b2b7-64c0c6a93df5", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.6110000084809144e-05, "ttfc_seconds": 0.19078393400013738, "total_seconds": 0.34232003100009933, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54668 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757918.8300235, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "e1c8a001-2057-4c53-8417-94791bd7b86a", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.5", "warmup_finished": true}
+INFO:     10.244.0.5:34684 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757919.1723228, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "e1c8a001-2057-4c53-8417-94791bd7b86a", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.3909999905954464e-05, "ttfc_seconds": 0.19086903399988842, "total_seconds": 0.3423019109998222, "peer_ip": "10.244.0.5"}
+INFO:     10.244.0.1:54670 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757919.4961689, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "a19901ea-72e5-4844-922f-c56c212b161f", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.8", "warmup_finished": true}
+INFO:     10.244.0.8:41644 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757919.8382912, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "a19901ea-72e5-4844-922f-c56c212b161f", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.025999987788964e-05, "ttfc_seconds": 0.19074552400002176, "total_seconds": 0.342124381000076, "peer_ip": "10.244.0.8"}
+{"event": "request_received", "wall_time": 1794757920.1629856, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "000c780c-c852-4c6f-849d-f9a58c8ca442", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:41592 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54678 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757920.5056403, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "000c780c-c852-4c6f-849d-f9a58c8ca442", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.2460000006249174e-05, "ttfc_seconds": 0.1908988140000929, "total_seconds": 0.34265732100016066, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.1:54694 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54700 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54716 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757922.8299494, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "08a46876-a6e9-4b71-8705-64ad6bc4bfd2", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:41606 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757923.1722393, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "08a46876-a6e9-4b71-8705-64ad6bc4bfd2", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.973000000063621e-05, "ttfc_seconds": 0.19088175399997453, "total_seconds": 0.34229248099995857, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.1:54722 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757923.4968662, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "a66a69db-1111-41e6-b302-152c77ed1e1c", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.6", "warmup_finished": true}
+INFO:     10.244.0.6:58308 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757923.8390248, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "a66a69db-1111-41e6-b302-152c77ed1e1c", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.4399999978850246e-05, "ttfc_seconds": 0.1908592239999507, "total_seconds": 0.3421604909999587, "peer_ip": "10.244.0.6"}
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54730 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:54732 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794757926.1629603, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "8fe14a8c-3728-4ef8-89b3-d1ca56e8032f", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.6", "warmup_finished": true}
+INFO:     10.244.0.6:51922 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35266 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35282 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794757926.5068061, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "8fe14a8c-3728-4ef8-89b3-d1ca56e8032f", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 4.828999999517691e-05, "ttfc_seconds": 0.1909214439999687, "total_seconds": 0.3438485720000699, "peer_ip": "10.244.0.6"}
+INFO:     10.244.0.1:35290 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35296 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35312 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35320 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35330 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35342 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35352 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35360 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35374 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35376 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36822 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36832 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36842 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36848 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36852 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36854 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36864 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36868 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36870 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36880 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36890 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:36892 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49402 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49416 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49430 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49444 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49450 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49464 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49474 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49478 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49482 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49490 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49498 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49514 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60070 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60082 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60092 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60106 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60110 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60126 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60142 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60148 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60150 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60166 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60174 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:60190 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41956 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41968 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41974 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41976 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41990 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42004 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42016 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42028 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42040 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42054 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42060 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42068 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33898 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33906 - "GET /ready HTTP/1.1" 200 OK
+{"event": "drain_start", "wall_time": 1794757977.016862, "pod": "hw11-api-578bcc4cd9-d2lsx", "backend_mode": "simulated", "running": 0, "waiting": 0, "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": null}
+INFO:     10.244.0.1:33920 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:49306 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33934 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:33946 - "GET /ready HTTP/1.1" 503 Service Unavailable

@@ -1,0 +1,22 @@
+[
+  {
+    "run": "a-broken-proof",
+    "received_by_backend": 64,
+    "cold_backend_received": 36,
+    "no_cold_delivery_property_passed": false,
+    "expected_property": true,
+    "ready_before_warmup": 16,
+    "endpoint_before_warmup": 16,
+    "transport_errors_before_endpoints": 0
+  },
+  {
+    "run": "a-fixed-proof",
+    "received_by_backend": 27,
+    "cold_backend_received": 0,
+    "no_cold_delivery_property_passed": true,
+    "expected_property": true,
+    "ready_before_warmup": 0,
+    "endpoint_before_warmup": 0,
+    "transport_errors_before_endpoints": 37
+  }
+]

@@ -1,0 +1,166 @@
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+{"event": "startup", "wall_time": 1794758180.2295244, "pod": "hw11-api-578bcc4cd9-tk4zt", "backend_mode": "simulated", "warmup_seconds": "20"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     10.244.0.1:58114 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:58120 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:58124 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:58132 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:58148 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:38114 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:38128 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:38144 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:38158 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:38172 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:38178 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:38184 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:38196 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:38198 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:38204 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39476 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:39480 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39486 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:39490 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39494 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:39510 - "GET /startup HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39518 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39524 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39526 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39540 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39550 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:39560 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46866 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46872 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46884 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46890 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46900 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46908 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46922 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46926 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46934 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46942 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46956 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:46960 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35432 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35444 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794758217.5072246, "pod": "hw11-api-578bcc4cd9-tk4zt", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "46928dac-35f8-4b32-b65d-660152d93f6d", "phase": "a_rollout", "session_id": "none", "peer_ip": "10.244.0.8", "warmup_finished": true}
+INFO:     10.244.0.8:37820 - "POST /generate HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35454 - "GET /ready HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794758217.8530052, "pod": "hw11-api-578bcc4cd9-tk4zt", "backend_mode": "simulated", "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": "46928dac-35f8-4b32-b65d-660152d93f6d", "phase": "a_rollout", "outcome": "completed", "parts": 4, "queue_seconds": 5.7130000186589314e-05, "ttfc_seconds": 0.19251013500024783, "total_seconds": 0.3457856320001156, "peer_ip": "10.244.0.8"}
+INFO:     10.244.0.1:35456 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35470 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35484 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35500 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35508 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35524 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35528 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35538 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:35544 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33438 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33452 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33460 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33462 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33474 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33486 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33492 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33504 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33518 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33534 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33548 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33558 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57344 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57354 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57356 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57366 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57374 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57390 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57398 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57400 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57412 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57414 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57426 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57430 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49076 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49084 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49092 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49100 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49102 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49106 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49116 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49126 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49136 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49142 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49150 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:49160 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48110 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48120 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48124 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48130 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48140 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48144 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48152 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48156 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48168 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48170 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48186 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:48194 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:58452 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:58460 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:58462 - "GET /ready HTTP/1.1" 200 OK
+{"event": "drain_start", "wall_time": 1794758268.0174046, "pod": "hw11-api-578bcc4cd9-tk4zt", "backend_mode": "simulated", "running": 0, "waiting": 0, "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": null}
+INFO:     10.244.0.1:58480 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:58488 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:58498 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:54294 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:58504 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:58510 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:58470 - "GET /drain HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1]

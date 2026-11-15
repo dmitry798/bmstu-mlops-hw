@@ -1,0 +1,9 @@
+**
+!hw11
+!hw11/requirements.txt
+!hw11/requirements-runtime.lock
+!hw11/app
+!hw11/app/*.py
+!hw8910-broken
+!hw8910-broken/service_core.py
+!hw8910-broken/release.py

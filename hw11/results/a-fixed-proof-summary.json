@@ -1,0 +1,16 @@
+{
+  "name": "a-fixed-proof",
+  "phase": "a_fixed",
+  "planned": 64,
+  "sent": 64,
+  "outcomes": {
+    "completed": 27,
+    "rejected": 0,
+    "aborted": 0,
+    "expired": 0,
+    "error": 37
+  },
+  "start_wall": 1794758140.8979802,
+  "measured_schedule_seconds": 32.0,
+  "last_finish_wall": 1794758172.7433794
+}

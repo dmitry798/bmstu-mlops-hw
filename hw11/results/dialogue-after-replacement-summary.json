@@ -1,0 +1,16 @@
+{
+  "name": "dialogue-after-replacement",
+  "phase": "test",
+  "planned": 1,
+  "sent": 1,
+  "outcomes": {
+    "completed": 1,
+    "rejected": 0,
+    "aborted": 0,
+    "expired": 0,
+    "error": 0
+  },
+  "start_wall": 1794758084.7591655,
+  "measured_schedule_seconds": 0.0,
+  "last_finish_wall": 1794758085.1068332
+}

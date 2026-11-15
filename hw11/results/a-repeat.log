@@ -1,0 +1,10 @@
+START a-broken-proof scheduled 64 wall 1794758098.8144581
+END {'name': 'a-broken-proof', 'phase': 'a_broken', 'planned': 64, 'sent': 64, 'outcomes': {'completed': 28, 'rejected': 36, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758098.8144581, 'measured_schedule_seconds': 32.0, 'last_finish_wall': 1794758130.6591015}
+START a-fixed-proof scheduled 64 wall 1794758140.8979802
+END {'name': 'a-fixed-proof', 'phase': 'a_fixed', 'planned': 64, 'sent': 64, 'outcomes': {'completed': 27, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 37}, 'start_wall': 1794758140.8979802, 'measured_schedule_seconds': 32.0, 'last_finish_wall': 1794758172.7433794}
+START a-healthy-long-0 scheduled 1 wall 1794758176.1744032
+START a-healthy-long-1 scheduled 1 wall 1794758176.1792572
+START a-healthy-rollout scheduled 13 wall 1794758182.505192
+END {'name': 'a-healthy-rollout', 'phase': 'a_rollout', 'planned': 13, 'sent': 13, 'outcomes': {'completed': 13, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758182.505192, 'measured_schedule_seconds': 65.0, 'last_finish_wall': 1794758242.8511105}
+END {'name': 'a-healthy-long-0', 'phase': 'a_rollout', 'planned': 1, 'sent': 1, 'outcomes': {'completed': 1, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758176.1744032, 'measured_schedule_seconds': 0.0, 'last_finish_wall': 1794758209.030812}
+END {'name': 'a-healthy-long-1', 'phase': 'a_rollout', 'planned': 1, 'sent': 1, 'outcomes': {'completed': 1, 'rejected': 0, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758176.1792572, 'measured_schedule_seconds': 0.0, 'last_finish_wall': 1794758209.0370972}

@@ -1,0 +1,482 @@
+[
+  {
+    "phase": "b_fixed_skew_1",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 26,
+        "hw11-api-b5c545ccd-5xrv6": 22
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-5xrv6": 25,
+        "hw11-api-b5c545ccd-fj85p": 23
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 291,
+        "hw11-api-b5c545ccd-5xrv6": 285
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-fj85p": 27,
+        "hw11-api-b5c545ccd-5xrv6": 21
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 367,
+      "hw11-api-b5c545ccd-5xrv6": 353
+    },
+    "max_pod_share": 0.5097222222222222,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_fixed_skew_2",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 22,
+        "hw11-api-b5c545ccd-fj85p": 26
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-5xrv6": 29,
+        "hw11-api-b5c545ccd-fj85p": 19
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-5xrv6": 277,
+        "hw11-api-b5c545ccd-fj85p": 299
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-fj85p": 29,
+        "hw11-api-b5c545ccd-5xrv6": 19
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-5xrv6": 347,
+      "hw11-api-b5c545ccd-fj85p": 373
+    },
+    "max_pod_share": 0.5180555555555556,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_fixed_skew_3",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 26,
+        "hw11-api-b5c545ccd-fj85p": 22
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-5xrv6": 23,
+        "hw11-api-b5c545ccd-fj85p": 25
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 304,
+        "hw11-api-b5c545ccd-5xrv6": 272
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-fj85p": 22,
+        "hw11-api-b5c545ccd-5xrv6": 26
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 373,
+      "hw11-api-b5c545ccd-5xrv6": 347
+    },
+    "max_pod_share": 0.5180555555555556,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_fixed_uniform_1",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 81,
+        "hw11-api-b5c545ccd-5xrv6": 99
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-5xrv6": 87,
+        "hw11-api-b5c545ccd-fj85p": 93
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 91,
+        "hw11-api-b5c545ccd-5xrv6": 89
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 85,
+        "hw11-api-b5c545ccd-fj85p": 95
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 360,
+      "hw11-api-b5c545ccd-5xrv6": 360
+    },
+    "max_pod_share": 0.5,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_fixed_uniform_2",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 80,
+        "hw11-api-b5c545ccd-fj85p": 100
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-5xrv6": 93,
+        "hw11-api-b5c545ccd-fj85p": 87
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-5xrv6": 85,
+        "hw11-api-b5c545ccd-fj85p": 95
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 95,
+        "hw11-api-b5c545ccd-fj85p": 85
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-5xrv6": 353,
+      "hw11-api-b5c545ccd-fj85p": 367
+    },
+    "max_pod_share": 0.5097222222222222,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_fixed_uniform_3",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 90,
+        "hw11-api-b5c545ccd-5xrv6": 90
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 89,
+        "hw11-api-b5c545ccd-5xrv6": 91
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 93,
+        "hw11-api-b5c545ccd-5xrv6": 87
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 91,
+        "hw11-api-b5c545ccd-fj85p": 89
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 361,
+      "hw11-api-b5c545ccd-5xrv6": 359
+    },
+    "max_pod_share": 0.5013888888888889,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_none_skew_1",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 26,
+        "hw11-api-b5c545ccd-fj85p": 22
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 22,
+        "hw11-api-b5c545ccd-5xrv6": 26
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-5xrv6": 308,
+        "hw11-api-b5c545ccd-fj85p": 268
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 25,
+        "hw11-api-b5c545ccd-fj85p": 23
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-5xrv6": 385,
+      "hw11-api-b5c545ccd-fj85p": 335
+    },
+    "max_pod_share": 0.5347222222222222,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_none_skew_2",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 26,
+        "hw11-api-b5c545ccd-fj85p": 22
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 24,
+        "hw11-api-b5c545ccd-5xrv6": 24
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 296,
+        "hw11-api-b5c545ccd-5xrv6": 280
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-fj85p": 27,
+        "hw11-api-b5c545ccd-5xrv6": 21
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 369,
+      "hw11-api-b5c545ccd-5xrv6": 351
+    },
+    "max_pod_share": 0.5125,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_none_skew_3",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 24,
+        "hw11-api-b5c545ccd-fj85p": 24
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 27,
+        "hw11-api-b5c545ccd-5xrv6": 21
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-5xrv6": 318,
+        "hw11-api-b5c545ccd-fj85p": 258
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 22,
+        "hw11-api-b5c545ccd-fj85p": 26
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-5xrv6": 385,
+      "hw11-api-b5c545ccd-fj85p": 335
+    },
+    "max_pod_share": 0.5347222222222222,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_none_uniform_1",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 87,
+        "hw11-api-b5c545ccd-fj85p": 93
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-5xrv6": 93,
+        "hw11-api-b5c545ccd-fj85p": 87
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-5xrv6": 84,
+        "hw11-api-b5c545ccd-fj85p": 96
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 92,
+        "hw11-api-b5c545ccd-fj85p": 88
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-5xrv6": 356,
+      "hw11-api-b5c545ccd-fj85p": 364
+    },
+    "max_pod_share": 0.5055555555555555,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_none_uniform_2",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 96,
+        "hw11-api-b5c545ccd-fj85p": 84
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-5xrv6": 91,
+        "hw11-api-b5c545ccd-fj85p": 89
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 92,
+        "hw11-api-b5c545ccd-5xrv6": 88
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 96,
+        "hw11-api-b5c545ccd-fj85p": 84
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 349,
+      "hw11-api-b5c545ccd-5xrv6": 371
+    },
+    "max_pod_share": 0.5152777777777777,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_none_uniform_3",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-5xrv6": 97,
+        "hw11-api-b5c545ccd-fj85p": 83
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 87,
+        "hw11-api-b5c545ccd-5xrv6": 93
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 96,
+        "hw11-api-b5c545ccd-5xrv6": 84
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 83,
+        "hw11-api-b5c545ccd-fj85p": 97
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 363,
+      "hw11-api-b5c545ccd-5xrv6": 357
+    },
+    "max_pod_share": 0.5041666666666667,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_sticky_skew_1",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 48
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 48
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 576
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 48
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 672,
+      "hw11-api-b5c545ccd-5xrv6": 48
+    },
+    "max_pod_share": 0.9333333333333333,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_sticky_skew_2",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 48
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 48
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 576
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 48
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 672,
+      "hw11-api-b5c545ccd-5xrv6": 48
+    },
+    "max_pod_share": 0.9333333333333333,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_sticky_skew_3",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 48
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 48
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 576
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 48
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 672,
+      "hw11-api-b5c545ccd-5xrv6": 48
+    },
+    "max_pod_share": 0.9333333333333333,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_sticky_uniform_1",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 180
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 540,
+      "hw11-api-b5c545ccd-5xrv6": 180
+    },
+    "max_pod_share": 0.75,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_sticky_uniform_2",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 180
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 540,
+      "hw11-api-b5c545ccd-5xrv6": 180
+    },
+    "max_pod_share": 0.75,
+    "tcp_keep_alive": false
+  },
+  {
+    "phase": "b_sticky_uniform_3",
+    "total": 720,
+    "client_IP_to_actual_pod_counts": {
+      "10.244.0.5": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.6": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.7": {
+        "hw11-api-b5c545ccd-fj85p": 180
+      },
+      "10.244.0.8": {
+        "hw11-api-b5c545ccd-5xrv6": 180
+      }
+    },
+    "pod_counts": {
+      "hw11-api-b5c545ccd-fj85p": 540,
+      "hw11-api-b5c545ccd-5xrv6": 180
+    },
+    "max_pod_share": 0.75,
+    "tcp_keep_alive": false
+  }
+]

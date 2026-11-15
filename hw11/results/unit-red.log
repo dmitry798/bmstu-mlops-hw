@@ -1,0 +1,132 @@
+test_bounded_queue_rejects_then_recovers (test_core.CoreTests.test_bounded_queue_rejects_then_recovers) ... ERROR
+test_cancelled_waiter_never_leaks_capacity (test_core.CoreTests.test_cancelled_waiter_never_leaks_capacity) ... ERROR
+test_classic_histogram_quantile_uses_cumulative_buckets (test_core.CoreTests.test_classic_histogram_quantile_uses_cumulative_buckets) ... ERROR
+test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) ... 
+  test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) (payload={'messages': []}) ... ERROR
+  test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) (payload={'messages': [{'role': 'user', 'content': 'x'}], 'chunks': True}) ... ERROR
+  test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) (payload={'messages': [{'role': 'user', 'content': 'x'}], 'chunks': 65}) ... ERROR
+test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) ... ERROR
+test_partial_200_is_aborted_not_success (test_core.CoreTests.test_partial_200_is_aborted_not_success) ... ERROR
+test_prefix_lru_is_local_and_bounded (test_core.CoreTests.test_prefix_lru_is_local_and_bounded) ... ERROR
+
+======================================================================
+ERROR: test_bounded_queue_rejects_then_recovers (test_core.CoreTests.test_bounded_queue_rejects_then_recovers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/miniconda3/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/dmitry/miniconda3/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 7, in test_bounded_queue_rejects_then_recovers
+    gate=Admission(1,1)
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 3, in __init__
+    def __init__(self,*args):raise NotImplementedError
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_cancelled_waiter_never_leaks_capacity (test_core.CoreTests.test_cancelled_waiter_never_leaks_capacity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/miniconda3/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/dmitry/miniconda3/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 16, in test_cancelled_waiter_never_leaks_capacity
+    gate=Admission(1,2);await gate.acquire()
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 3, in __init__
+    def __init__(self,*args):raise NotImplementedError
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_classic_histogram_quantile_uses_cumulative_buckets (test_core.CoreTests.test_classic_histogram_quantile_uses_cumulative_buckets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 34, in test_classic_histogram_quantile_uses_cumulative_buckets
+    self.assertAlmostEqual(bucket_quantile([(0.1,5),(.2,10),(float('inf'),10)],.95),.19)
+                           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 7, in bucket_quantile
+    def bucket_quantile(*args):raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) (payload={'messages': []})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 39, in test_invalid_payload_rejected_before_computation
+    with self.assertRaises(ValueError):validate_payload(payload)
+                                       ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 8, in validate_payload
+    def validate_payload(*args):raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) (payload={'messages': [{'role': 'user', 'content': 'x'}], 'chunks': True})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 39, in test_invalid_payload_rejected_before_computation
+    with self.assertRaises(ValueError):validate_payload(payload)
+                                       ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 8, in validate_payload
+    def validate_payload(*args):raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) (payload={'messages': [{'role': 'user', 'content': 'x'}], 'chunks': 65})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 39, in test_invalid_payload_rejected_before_computation
+    with self.assertRaises(ValueError):validate_payload(payload)
+                                       ~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 8, in validate_payload
+    def validate_payload(*args):raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 40, in test_invalid_payload_rejected_before_computation
+    valid=validate_payload({'messages':[{'role':'user','content':'DIALOG_A_CONTROL'}]})
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 8, in validate_payload
+    def validate_payload(*args):raise NotImplementedError
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_partial_200_is_aborted_not_success (test_core.CoreTests.test_partial_200_is_aborted_not_success)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 28, in test_partial_200_is_aborted_not_success
+    self.assertEqual(classify(200,False,False),'aborted')
+                     ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 6, in classify
+    def classify(*args):raise NotImplementedError
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_prefix_lru_is_local_and_bounded (test_core.CoreTests.test_prefix_lru_is_local_and_bounded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_core.py", line 22, in test_prefix_lru_is_local_and_bounded
+    first,second=PrefixCache(2),PrefixCache(2)
+                 ~~~~~~~~~~~^^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/app/core.py", line 5, in __init__
+    def __init__(self,*args):raise NotImplementedError
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.311s
+
+FAILED (errors=9)

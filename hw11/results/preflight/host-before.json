@@ -1,0 +1,12 @@
+{
+  "recorded_at": 1794757023.6040945,
+  "platform": "Linux-6.14.0-36-generic-x86_64-with-glibc2.39",
+  "disk": {
+    "total": 63088537600,
+    "used": 56479367168,
+    "free": 3371171840
+  },
+  "logical_cpus": 16,
+  "memory": "MemTotal:       31886756 kB\nMemFree:        22635988 kB\nMemAvailable:   26192844 kB\nBuffers:          286108 kB\nCached:          3474520 kB\nSwapCached:            0 kB\nActive:          6117108 kB\nInactive:        1657196 kB\nActive(anon):    4141708 kB\nInactive(anon):        0 kB\nActive(file):    1975400 kB\nInactive(file):  1657196 kB\nUnevictable:          48 kB\nMlocked:              48 kB\nSwapTotal:       2097148 kB\nSwapFree:        2097148 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:               144 kB\nWriteback:             0 kB\nAnonPages:       4015088 kB\nMapped:          1521616 kB\nShmem:            128064 kB\nKReclaimable:     385972 kB\nSlab:             663968 kB\nSReclaimable:     385972 kB\nSUnreclaim:       277996 kB\nKernelStack:       25168 kB\nPageTables:        64420 kB\nSecPageTables:      5044 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    18040524 kB\nCommitted_AS:   21743396 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      136040 kB\nVmallocChunk:          0 kB\nPercpu:            15744 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:         0 kB\nFilePmdMapped:         0 kB\nUnaccepted:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:      885048 kB\nDirectMap2M:    10708992 kB\nDirectMap1G:    20971520 kB\n",
+  "docker_version": "Docker version 29.1.3, build 29.1.3-0ubuntu3~24.04.2\n"
+}

@@ -1,0 +1,29 @@
+2026-11-15T19:49:10+03:00
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sdb3        59G   53G  3.0G  95% /
+               total        used        free      shared  buff/cache   available
+Mem:            30Gi        10Gi        12Gi       2.8Gi        10Gi        19Gi
+Swap:          2.0Gi          0B       2.0Gi
+hw11-control-plane 3.484GiB / 8GiB CPU=13.97%
+hw11-node-seed 776KiB / 128MiB CPU=0.00%
+hw11-storage-holder 431.6MiB / 6GiB CPU=0.00%
+hw11-api:1.1 sha256:623f85ef18b290f63b4d6551620019e811143e5f2692d827320f5afeeaccc72e 229MB
+hw11-api:1.0 sha256:1ba015f842bf61f80a7010058625113fca70be6769db6c117960b997b7fd4133 229MB
+mlops-hw6-mlflow:latest sha256:542668a6f6b1797533934c0e85907d9c1309523aeda994a918f1f5d5fe1a41a9 1.28GB
+postgres:16-alpine sha256:f4610795587492cd4fb887c2dc3de301b813278bb6f616992061141b5f15ac36 420MB
+kindest/node:v1.34.0 sha256:7416a61b42b1662ca6ca89f02028ac133a309a2a30ba309614e8ec94d976dc5a 1.45GB
+2.6G	/var/lib/containerd
+149M	hw11/results
+201M	hw11/.tools
+274M	hw11/.venv
+4.0K	hw11/videos
+NAME                               CPU(cores)   MEMORY(bytes)   
+hw11-api-b5c545ccd-5xrv6           7m           33Mi            
+hw11-api-b5c545ccd-fj85p           7m           33Mi            
+hw11-client-0                      1m           67Mi            
+hw11-client-1                      1m           45Mi            
+hw11-client-2                      1m           45Mi            
+hw11-client-3                      1m           45Mi            
+hw11-grafana-6748d9f99f-6hz77      9m           171Mi           
+hw11-prometheus-6789666456-9k2bq   20m          162Mi           
+hw11-state-9476bdd68-62gpd         1m           14Mi            

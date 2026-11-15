@@ -1,0 +1,219 @@
+---
+# Source: hw11/templates/model-A.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hw11-model-a
+immutable: true
+data:
+  accepted.json: '{"schema_version": 1, "model_id": "A", "artifact_uri": "configmap://hw11-model-a",
+    "artifact_root": "/models", "file_hashes": {"model.txt": "1facc4220253fd857a20cb2c919dd1f2f8f9f9eb9cb8dbb1870e6f1ddc4b7ab7"},
+    "model_sha256": "cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4",
+    "runtime": {"backend_mode": "simulated", "version": "A", "cache": "bounded cost-only
+    LRU; no user responses"}, "runtime_sha256": "ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579",
+    "protocol_sha256": "286ab13d2a04be444fff65aced0668e7f5303f71332286cf5cd1b91a70cab75f",
+    "golden_sha256": "0d9f84c0357bcafdac3baa18a0ab321dc5a7bba3f572a22330d88e5206d50ca4"}'
+  model.txt: 'HW11 simulated CPU model version A
+
+    '
+---
+# Source: hw11/templates/model-B.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hw11-model-b
+immutable: true
+data:
+  accepted.json: '{"schema_version": 1, "model_id": "B", "artifact_uri": "configmap://hw11-model-b",
+    "artifact_root": "/models", "file_hashes": {"model.txt": "082e39523a121aba79f5e5e495acbeba90d6c7c3f7dfa3770be45351e1977c8b"},
+    "model_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82",
+    "runtime": {"backend_mode": "simulated", "version": "B", "cache": "bounded cost-only
+    LRU; no user responses"}, "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65",
+    "protocol_sha256": "286ab13d2a04be444fff65aced0668e7f5303f71332286cf5cd1b91a70cab75f",
+    "golden_sha256": "0d9f84c0357bcafdac3baa18a0ab321dc5a7bba3f572a22330d88e5206d50ca4"}'
+  model.txt: 'HW11 simulated CPU model version B
+
+    '
+---
+# Source: hw11/templates/api.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-api}
+spec:
+  type: NodePort
+  sessionAffinity: None
+  selector: {app: hw11-api}
+  ports: [{port: 8000, targetPort: http, nodePort: 31080}]
+---
+# Source: hw11/templates/api.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-sticky}
+spec:
+  sessionAffinity: ClientIP
+  sessionAffinityConfig: {clientIP: {timeoutSeconds: 10800}}
+  selector: {app: hw11-api}
+  ports: [{port: 8000, targetPort: http}]
+---
+# Source: hw11/templates/api.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-fixed}
+spec:
+  sessionAffinity: None
+  selector: {app: hw11-api}
+  ports: [{port: 8000, targetPort: http}]
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-client-0}
+spec:
+  selector: {app: hw11-client, client: '0'}
+  ports: [{port: 9000, targetPort: 9000}]
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-client-1}
+spec:
+  selector: {app: hw11-client, client: '1'}
+  ports: [{port: 9000, targetPort: 9000}]
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-client-2}
+spec:
+  selector: {app: hw11-client, client: '2'}
+  ports: [{port: 9000, targetPort: 9000}]
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-client-3}
+spec:
+  selector: {app: hw11-client, client: '3'}
+  ports: [{port: 9000, targetPort: 9000}]
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Pod
+metadata: {name: hw11-client-0, labels: {app: hw11-client, client: '0'}}
+spec:
+  containers:
+  - name: client
+    image: hw11-api:1.1
+    imagePullPolicy: IfNotPresent
+    command: [python, '-m', uvicorn, 'app.client:app', '--host', '0.0.0.0', '--port', '9000']
+    env:
+    - {name: POD_NAME, valueFrom: {fieldRef: {fieldPath: metadata.name}}}
+    - {name: POD_IP, valueFrom: {fieldRef: {fieldPath: status.podIP}}}
+    resources:
+      requests: {cpu: 25m, memory: 64Mi}
+      limits: {cpu: 500m, memory: 256Mi}
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Pod
+metadata: {name: hw11-client-1, labels: {app: hw11-client, client: '1'}}
+spec:
+  containers:
+  - name: client
+    image: hw11-api:1.1
+    imagePullPolicy: IfNotPresent
+    command: [python, '-m', uvicorn, 'app.client:app', '--host', '0.0.0.0', '--port', '9000']
+    env:
+    - {name: POD_NAME, valueFrom: {fieldRef: {fieldPath: metadata.name}}}
+    - {name: POD_IP, valueFrom: {fieldRef: {fieldPath: status.podIP}}}
+    resources:
+      requests: {cpu: 25m, memory: 64Mi}
+      limits: {cpu: 500m, memory: 256Mi}
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Pod
+metadata: {name: hw11-client-2, labels: {app: hw11-client, client: '2'}}
+spec:
+  containers:
+  - name: client
+    image: hw11-api:1.1
+    imagePullPolicy: IfNotPresent
+    command: [python, '-m', uvicorn, 'app.client:app', '--host', '0.0.0.0', '--port', '9000']
+    env:
+    - {name: POD_NAME, valueFrom: {fieldRef: {fieldPath: metadata.name}}}
+    - {name: POD_IP, valueFrom: {fieldRef: {fieldPath: status.podIP}}}
+    resources:
+      requests: {cpu: 25m, memory: 64Mi}
+      limits: {cpu: 500m, memory: 256Mi}
+---
+# Source: hw11/templates/clients.yaml
+apiVersion: v1
+kind: Pod
+metadata: {name: hw11-client-3, labels: {app: hw11-client, client: '3'}}
+spec:
+  containers:
+  - name: client
+    image: hw11-api:1.1
+    imagePullPolicy: IfNotPresent
+    command: [python, '-m', uvicorn, 'app.client:app', '--host', '0.0.0.0', '--port', '9000']
+    env:
+    - {name: POD_NAME, valueFrom: {fieldRef: {fieldPath: metadata.name}}}
+    - {name: POD_IP, valueFrom: {fieldRef: {fieldPath: status.podIP}}}
+    resources:
+      requests: {cpu: 25m, memory: 64Mi}
+      limits: {cpu: 500m, memory: 256Mi}
+---
+# Source: hw11/templates/api.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: hw11-api}
+spec:
+  replicas: 2
+  minReadySeconds: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector: {matchLabels: {app: hw11-api}}
+  template:
+    metadata:
+      labels: {app: hw11-api, model: "A"}
+    spec:
+      terminationGracePeriodSeconds: 45
+      containers:
+      - name: api
+        image: hw11-api:1.1
+        imagePullPolicy: IfNotPresent
+        ports: [{containerPort: 8000, name: http}]
+        resources:
+          requests: {cpu: 250m, memory: 128Mi}
+          limits: {cpu: '1', memory: 256Mi}
+        env:
+        - {name: POD_NAME, valueFrom: {fieldRef: {fieldPath: metadata.name}}}
+        - {name: WARMUP_SECONDS, value: "20"}
+        - {name: NEVER_READY, value: "false"}
+        - {name: MAX_RUNNING, value: "1"}
+        - {name: MAX_WAITING, value: "6"}
+        - {name: CACHE_CAPACITY, value: "8"}
+        - {name: CACHE_HIT_CPU, value: "0.015"}
+        - {name: CACHE_MISS_CPU, value: "0.14"}
+        - {name: CHUNK_CPU, value: "0.01"}
+        startupProbe:
+          httpGet: {path: '/startup', port: http}
+          periodSeconds: 1
+          failureThreshold: 90
+        readinessProbe:
+          httpGet: {path: '/ready', port: http}
+          periodSeconds: 1
+          failureThreshold: 1
+        livenessProbe:
+          httpGet: {path: /health, port: http}
+          periodSeconds: 5
+          failureThreshold: 3
+        lifecycle:
+          preStop:
+            httpGet: {path: /drain, port: http}
+        volumeMounts: [{name: model, mountPath: /models, readOnly: true}]
+      volumes:
+      - name: model
+        configMap: {name: 'hw11-model-a'}

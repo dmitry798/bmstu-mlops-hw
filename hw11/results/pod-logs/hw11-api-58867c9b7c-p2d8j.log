@@ -1,0 +1,59 @@
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+{"event": "startup", "wall_time": 1794758060.682364, "pod": "hw11-api-58867c9b7c-p2d8j", "backend_mode": "simulated", "warmup_seconds": "20"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     10.244.0.1:37798 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:37810 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:37816 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:37826 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:37840 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:56936 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:56944 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:56960 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:56968 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:56972 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:56980 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:56990 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:56994 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:56998 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:57004 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:34426 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34432 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:34440 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34450 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:34452 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34468 - "GET /startup HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34484 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34498 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34512 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34522 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+{"event": "request_received", "wall_time": 1794758084.7606864, "pod": "hw11-api-58867c9b7c-p2d8j", "backend_mode": "simulated", "model_id": "A", "artifact_sha256": "cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4", "runtime_sha256": "ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579", "request_id": "7ebe9fa1-5a97-48e3-aadf-4b8b97463052", "phase": "test", "session_id": "none", "peer_ip": "10.244.0.7", "warmup_finished": true}
+INFO:     10.244.0.7:40154 - "POST /generate HTTP/1.1" 200 OK
+{"event": "request_finished", "wall_time": 1794758085.1064703, "pod": "hw11-api-58867c9b7c-p2d8j", "backend_mode": "simulated", "model_id": "A", "artifact_sha256": "cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4", "runtime_sha256": "ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579", "request_id": "7ebe9fa1-5a97-48e3-aadf-4b8b97463052", "phase": "test", "outcome": "completed", "parts": 4, "queue_seconds": 5.866999981662957e-05, "ttfc_seconds": 0.1933663249997153, "total_seconds": 0.34578786199972456, "peer_ip": "10.244.0.7"}
+INFO:     10.244.0.1:34536 - "GET /health HTTP/1.1" 200 OK
+INFO:     10.244.0.1:34552 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.7:37416 - "GET /debug HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41200 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41206 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41210 - "GET /ready HTTP/1.1" 200 OK
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41220 - "GET /ready HTTP/1.1" 200 OK
+{"event": "drain_start", "wall_time": 1794758089.2935627, "pod": "hw11-api-58867c9b7c-p2d8j", "backend_mode": "simulated", "running": 0, "waiting": 0, "model_id": "A", "artifact_sha256": "cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4", "runtime_sha256": "ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579", "request_id": null}
+INFO:     10.244.0.1:41244 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42846 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:41256 - "GET /ready HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:41264 - "GET /ready HTTP/1.1" 503 Service Unavailable

@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "type": "db",
+    "canSave": false,
+    "canEdit": false,
+    "canAdmin": false,
+    "canStar": false,
+    "canDelete": false,
+    "slug": "hw11-e28094-simulated-cpu-backend",
+    "url": "/d/hw11/hw11-e28094-simulated-cpu-backend",
+    "expires": "0001-01-01T00:00:00Z",
+    "created": "2026-11-15T16:29:48Z",
+    "updated": "2026-11-15T16:29:48Z",
+    "updatedBy": "Anonymous",
+    "createdBy": "Anonymous",
+    "version": 1,
+    "hasAcl": false,
+    "isFolder": false,
+    "apiVersion": "v0alpha1",
+    "folderId": 0,
+    "folderUid": "",
+    "folderTitle": "General",
+    "folderUrl": "",
+    "provisioned": true,
+    "provisionedExternalId": "dashboard.json",
+    "annotationsPermissions": {
+      "dashboard": {
+        "canAdd": false,
+        "canEdit": false,
+        "canDelete": false
+      },
+      "organization": {
+        "canAdd": false,
+        "canEdit": false,
+        "canDelete": false
+      }
+    }
+  },
+  "dashboard": {
+    "id": 1,
+    "panels": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum by (le,pod) (rate(hw11_ttfc_seconds_bucket[30s])))",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "TTFC p95 (s)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 2,
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum by (le,pod) (rate(hw11_duration_seconds_bucket[30s])))",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "Total p95 (s)",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 3,
+        "targets": [
+          {
+            "expr": "{__name__=~\"hw11_running|hw11_waiting\"}",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "Running / waiting",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "reqps"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "id": 4,
+        "targets": [
+          {
+            "expr": "sum by(pod,outcome)(rate(hw11_requests_total[30s]))",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "Terminal RPS",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "cores"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        },
+        "id": 5,
+        "targets": [
+          {
+            "expr": "sum by(pod)(rate(container_cpu_usage_seconds_total{namespace=\"hw11\",container=\"api\"}[30s]))",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "CPU cores",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        },
+        "id": 6,
+        "targets": [
+          {
+            "expr": "sum by(pod)(container_memory_working_set_bytes{namespace=\"hw11\",container=\"api\"})",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "Memory bytes",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 24
+        },
+        "id": 7,
+        "targets": [
+          {
+            "expr": "sum(kube_pod_status_ready{namespace=\"hw11\",condition=\"true\",pod=~\"hw11-api-.*\"})",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "Ready replicas",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "hw11-prom"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "percentunit"
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 24
+        },
+        "id": 8,
+        "targets": [
+          {
+            "expr": "sum by(outcome)(rate(hw11_requests_total{outcome!=\"completed\"}[30s])) / scalar(sum(rate(hw11_requests_total[30s])))",
+            "legendFormat": "{{pod}} {{outcome}} {{__name__}}"
+          }
+        ],
+        "title": "Rejected / errors fraction",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 39,
+    "tags": [
+      "hw11",
+      "simulated"
+    ],
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    },
+    "title": "HW11 \u2014 simulated CPU backend",
+    "uid": "hw11",
+    "version": 1
+  }
+}

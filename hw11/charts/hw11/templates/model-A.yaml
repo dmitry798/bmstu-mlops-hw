@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hw11-model-a
+immutable: true
+data:
+  accepted.json: '{"schema_version": 1, "model_id": "A", "artifact_uri": "configmap://hw11-model-a",
+    "artifact_root": "/models", "file_hashes": {"model.txt": "1facc4220253fd857a20cb2c919dd1f2f8f9f9eb9cb8dbb1870e6f1ddc4b7ab7"},
+    "model_sha256": "cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4",
+    "runtime": {"backend_mode": "simulated", "version": "A", "cache": "bounded cost-only
+    LRU; no user responses"}, "runtime_sha256": "ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579",
+    "protocol_sha256": "286ab13d2a04be444fff65aced0668e7f5303f71332286cf5cd1b91a70cab75f",
+    "golden_sha256": "0d9f84c0357bcafdac3baa18a0ab321dc5a7bba3f572a22330d88e5206d50ca4"}'
+  model.txt: 'HW11 simulated CPU model version A
+
+    '

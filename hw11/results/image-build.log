@@ -1,0 +1,102 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 769B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#2 DONE 0.0s
+
+#3 [internal] load build context
+#3 transferring context: 10.17kB done
+#3 DONE 0.0s
+
+#4 [1/6] FROM docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+#4 resolve docker.io/library/python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c 0.0s done
+#4 DONE 0.0s
+
+#5 [2/6] WORKDIR /app
+#5 CACHED
+
+#6 [3/6] COPY hw11/requirements-runtime.lock /app/requirements.txt
+#6 DONE 0.0s
+
+#7 [4/6] RUN pip install --no-cache-dir -r requirements.txt
+#7 1.353 Collecting annotated-types==0.8.0 (from -r requirements.txt (line 1))
+#7 1.634   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#7 1.731 Collecting anyio==4.16.0 (from -r requirements.txt (line 2))
+#7 1.786   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#7 1.871 Collecting certifi==2026.10.23 (from -r requirements.txt (line 3))
+#7 1.927   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+#7 2.004 Collecting click==8.5.1 (from -r requirements.txt (line 4))
+#7 2.059   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+#7 2.234 Collecting fastapi==0.115.6 (from -r requirements.txt (line 5))
+#7 2.291   Downloading fastapi-0.115.6-py3-none-any.whl.metadata (27 kB)
+#7 2.380 Collecting h11==0.16.0 (from -r requirements.txt (line 6))
+#7 2.437   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#7 2.509 Collecting httpcore==1.0.9 (from -r requirements.txt (line 7))
+#7 2.565   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#7 2.647 Collecting httpx==0.28.1 (from -r requirements.txt (line 8))
+#7 2.702   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+#7 2.770 Collecting idna==3.20 (from -r requirements.txt (line 9))
+#7 2.825   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#7 2.892 Collecting prometheus_client==0.26.0 (from -r requirements.txt (line 10))
+#7 2.947   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+#7 3.139 Collecting pydantic==2.14.3 (from -r requirements.txt (line 11))
+#7 3.196   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+#7 3.854 Collecting pydantic_core==2.50.4 (from -r requirements.txt (line 12))
+#7 3.909   Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+#7 3.980 Collecting PyYAML==6.0.3 (from -r requirements.txt (line 13))
+#7 4.037   Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+#7 4.106 Collecting starlette==0.41.3 (from -r requirements.txt (line 14))
+#7 4.169   Downloading starlette-0.41.3-py3-none-any.whl.metadata (6.0 kB)
+#7 4.225 Collecting typing-inspection==0.4.5 (from -r requirements.txt (line 15))
+#7 4.279   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#7 4.340 Collecting typing_extensions==4.16.0 (from -r requirements.txt (line 16))
+#7 4.397   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#7 4.471 Collecting uvicorn==0.54.0 (from -r requirements.txt (line 17))
+#7 4.535   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#7 4.643 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#7 4.702 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#7 4.791 Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+#7 4.870 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+#7 4.948 Downloading fastapi-0.115.6-py3-none-any.whl (94 kB)
+#7 5.020 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#7 5.079 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#7 5.147 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+#7 5.217 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#7 5.282 Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+#7 5.362 Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+#7 5.506 Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+#7 5.641    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 17.5 MB/s eta 0:00:00
+#7 5.695 Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+#7 5.722    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 31.9 MB/s eta 0:00:00
+#7 5.778 Downloading starlette-0.41.3-py3-none-any.whl (73 kB)
+#7 5.834 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#7 5.890 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#7 5.946 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#7 5.979 Installing collected packages: typing_extensions, PyYAML, prometheus_client, idna, h11, click, certifi, annotated-types, uvicorn, typing-inspection, pydantic_core, httpcore, anyio, starlette, pydantic, httpx, fastapi
+#7 6.680 Successfully installed PyYAML-6.0.3 annotated-types-0.8.0 anyio-4.16.0 certifi-2026.10.23 click-8.5.1 fastapi-0.115.6 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 prometheus_client-0.26.0 pydantic-2.14.3 pydantic_core-2.50.4 starlette-0.41.3 typing-inspection-0.4.5 typing_extensions-4.16.0 uvicorn-0.54.0
+#7 6.680 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#7 7.002 
+#7 7.002 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#7 7.002 [notice] To update, run: pip install --upgrade pip
+#7 DONE 7.3s
+
+#8 [5/6] COPY hw8910-broken/service_core.py hw8910-broken/release.py /app/vendor/hw8910/
+#8 DONE 0.1s
+
+#9 [6/6] COPY hw11/app /app/app
+#9 DONE 0.1s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.9s done
+#10 exporting manifest sha256:fc8d0cc70011aeaa483feab9527fff498a847175b344d467a0d68c9404fb382b 0.0s done
+#10 exporting config sha256:551c4000d953216e8438e5f46feafd6f299637c080113030df9b6f1dfaf510ec 0.0s done
+#10 exporting attestation manifest sha256:38608a79812ca186b1abf955ccc2dbc6d7f8f1236ea789bb5f7a048b4a2d8af2 0.1s done
+#10 exporting manifest list sha256:623f85ef18b290f63b4d6551620019e811143e5f2692d827320f5afeeaccc72e 0.0s done
+#10 naming to docker.io/library/hw11-api:1.1 done
+#10 unpacking to docker.io/library/hw11-api:1.1
+#10 unpacking to docker.io/library/hw11-api:1.1 0.3s done
+#10 DONE 1.3s

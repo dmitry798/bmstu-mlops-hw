@@ -1,0 +1,55 @@
+INFO:     Started server process [1]
+INFO:     Waiting for application startup.
+{"event": "startup", "wall_time": 1794757978.5868857, "pod": "hw11-api-76499d577b-57j25", "backend_mode": "simulated", "warmup_seconds": "20"}
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     10.244.0.1:42268 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:42284 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:42296 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:42304 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42308 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:42310 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:42324 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:33264 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33272 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:33286 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33302 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:33308 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33318 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:33322 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33330 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:33334 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:33340 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:47578 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:47584 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:47594 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:47608 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:47612 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:47616 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:47620 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:47624 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:47628 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:47636 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:44970 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44978 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:44984 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:44992 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.1:45000 - "GET /startup HTTP/1.1" 503 Service Unavailable
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK
+INFO:     10.244.0.1:45014 - "GET /startup HTTP/1.1" 503 Service Unavailable
+{"event": "drain_start", "wall_time": 1794758011.408414, "pod": "hw11-api-76499d577b-57j25", "backend_mode": "simulated", "running": 0, "waiting": 0, "model_id": "B", "artifact_sha256": "c41752bc3fdc099f77d44f48ac7ac4dfe54d23066336576798d52ac9842b6f82", "runtime_sha256": "e717bb851efe006836349ccbd7c780452a809dedad34b74a7dfb45a6a408bf65", "request_id": null}
+INFO:     10.244.0.11:42584 - "GET /metrics HTTP/1.1" 200 OK

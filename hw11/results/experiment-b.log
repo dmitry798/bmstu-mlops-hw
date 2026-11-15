@@ -1,0 +1,36 @@
+START b_none_uniform_1 scheduled 720 wall 1794758482.7063487
+END {'name': 'b_none_uniform_1', 'phase': 'b_none_uniform_1', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 683, 'rejected': 37, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758482.7063487, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794758604.3246396}
+START b_none_uniform_2 scheduled 720 wall 1794758610.5008006
+END {'name': 'b_none_uniform_2', 'phase': 'b_none_uniform_2', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 683, 'rejected': 37, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758610.5008006, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794758732.012939}
+START b_none_uniform_3 scheduled 720 wall 1794758738.259405
+END {'name': 'b_none_uniform_3', 'phase': 'b_none_uniform_3', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 683, 'rejected': 37, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758738.259405, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794758860.1578395}
+START b_none_skew_1 scheduled 720 wall 1794758867.0354989
+END {'name': 'b_none_skew_1', 'phase': 'b_none_skew_1', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 673, 'rejected': 47, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758867.0354989, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794758988.7695806}
+START b_none_skew_2 scheduled 720 wall 1794758995.8648334
+END {'name': 'b_none_skew_2', 'phase': 'b_none_skew_2', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 677, 'rejected': 43, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794758995.8648334, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794759117.9091372}
+START b_none_skew_3 scheduled 720 wall 1794759124.645408
+END {'name': 'b_none_skew_3', 'phase': 'b_none_skew_3', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 683, 'rejected': 37, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794759124.645408, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794759246.6033373}
+START b_sticky_uniform_1 scheduled 720 wall 1794759253.4194608
+END {'name': 'b_sticky_uniform_1', 'phase': 'b_sticky_uniform_1', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 535, 'rejected': 185, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794759253.4194608, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794759375.425896}
+START b_sticky_uniform_2 scheduled 720 wall 1794759382.2038434
+END {'name': 'b_sticky_uniform_2', 'phase': 'b_sticky_uniform_2', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 535, 'rejected': 185, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794759382.2038434, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794759504.2195585}
+START b_sticky_uniform_3 scheduled 720 wall 1794759510.9845285
+END {'name': 'b_sticky_uniform_3', 'phase': 'b_sticky_uniform_3', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 535, 'rejected': 185, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794759510.9845285, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794759633.0019953}
+START b_sticky_skew_1 scheduled 720 wall 1794759639.8187623
+END {'name': 'b_sticky_skew_1', 'phase': 'b_sticky_skew_1', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 402, 'rejected': 318, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794759639.8187623, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794759761.5614605}
+START b_sticky_skew_2 scheduled 720 wall 1794759768.6047513
+END {'name': 'b_sticky_skew_2', 'phase': 'b_sticky_skew_2', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 402, 'rejected': 318, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794759768.6047513, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794759890.3851795}
+START b_sticky_skew_3 scheduled 720 wall 1794759897.3980844
+END {'name': 'b_sticky_skew_3', 'phase': 'b_sticky_skew_3', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 402, 'rejected': 318, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794759897.3980844, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794760019.18432}
+START b_fixed_uniform_1 scheduled 720 wall 1794760026.182897
+END {'name': 'b_fixed_uniform_1', 'phase': 'b_fixed_uniform_1', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 693, 'rejected': 27, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794760026.182897, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794760147.8108363}
+START b_fixed_uniform_2 scheduled 720 wall 1794760153.9526882
+END {'name': 'b_fixed_uniform_2', 'phase': 'b_fixed_uniform_2', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 701, 'rejected': 19, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794760153.9526882, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794760275.6299303}
+START b_fixed_uniform_3 scheduled 720 wall 1794760282.7358165
+END {'name': 'b_fixed_uniform_3', 'phase': 'b_fixed_uniform_3', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 689, 'rejected': 31, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794760282.7358165, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794760404.2689593}
+START b_fixed_skew_1 scheduled 720 wall 1794760410.5180418
+END {'name': 'b_fixed_skew_1', 'phase': 'b_fixed_skew_1', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 673, 'rejected': 47, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794760410.5180418, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794760532.263554}
+START b_fixed_skew_2 scheduled 720 wall 1794760539.3074865
+END {'name': 'b_fixed_skew_2', 'phase': 'b_fixed_skew_2', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 683, 'rejected': 37, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794760539.3074865, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794760661.3395324}
+START b_fixed_skew_3 scheduled 720 wall 1794760668.0901606
+END {'name': 'b_fixed_skew_3', 'phase': 'b_fixed_skew_3', 'planned': 720, 'sent': 720, 'outcomes': {'completed': 678, 'rejected': 42, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794760668.0901606, 'measured_schedule_seconds': 120.0, 'last_finish_wall': 1794760790.2399302}

@@ -1,0 +1,125 @@
+[
+  {
+    "name": "warmup_RED_GREEN",
+    "passed": true,
+    "evidence": {
+      "red": "a-broken-proof-requests.jsonl",
+      "green": "a-fixed-proof-requests.jsonl"
+    }
+  },
+  {
+    "name": "loaded_version_after_rollback",
+    "passed": true,
+    "evidence": {
+      "file": "check-rollback-requests.jsonl"
+    }
+  },
+  {
+    "name": "rejection_and_partial_stream_accounting",
+    "passed": true,
+    "evidence": {
+      "rejections": 140,
+      "crash_row": {
+        "logical_id": "r00000",
+        "request_id": "bf194102-87f1-4717-84b9-8397509b23c2",
+        "attempt": 1,
+        "phase": "a_kill",
+        "client_pod": "hw11-client-0",
+        "client_ip": "10.244.0.7",
+        "url": "http://10.244.0.33:8000",
+        "planned_wall": 1794758320.4122527,
+        "send_wall": 1794758320.4133477,
+        "send_lag_seconds": 0.0010950565338134766,
+        "send_monotonic": 2347.5288747,
+        "first_monotonic": 2348.182569268,
+        "finish_monotonic": 2350.603881206,
+        "ttfc_seconds": 0.6536945679999917,
+        "total_seconds": 3.075006506000136,
+        "inter_chunk_seconds": [
+          0.5106984160001957,
+          0.5112754550000318,
+          0.5104476749997957,
+          0.511096465999799
+        ],
+        "status": 200,
+        "done": false,
+        "outcome": "aborted",
+        "error": "RemoteProtocolError: peer closed connection without sending complete message body (incomplete chunked read)",
+        "pod": "hw11-api-58867c9b7c-8krkf",
+        "model_id": "A",
+        "backend_mode": "simulated",
+        "chunks": 5,
+        "expected_chunks": 64,
+        "queue_seconds": null,
+        "server_ttfc_seconds": null,
+        "cache_hit": false,
+        "context_sha256": null,
+        "text": "SIMULATED: [{\"content\": \"input-00-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\", \"role\": \"user\"}]",
+        "payload": {
+          "messages": [
+            {
+              "role": "user",
+              "content": "input-00-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            }
+          ],
+          "prefix": "prefix-00",
+          "chunks": 64,
+          "chunk_delay": 0.5,
+          "work_multiplier": 1,
+          "phase": "a_kill",
+          "request_id": "bf194102-87f1-4717-84b9-8397509b23c2"
+        }
+      },
+      "kill_wall": 1794758323.4160402,
+      "exec_exit": 0,
+      "recovery_wall": 1794758346.2601788
+    }
+  },
+  {
+    "name": "two_dialogues_isolated",
+    "passed": true,
+    "evidence": {
+      "file": "check-dialogues-requests.jsonl"
+    }
+  },
+  {
+    "name": "replacement_same_artifact_and_dialogue",
+    "passed": true,
+    "evidence": {
+      "old_pod": "hw11-api-58867c9b7c-8krkf",
+      "new_pod": "hw11-api-58867c9b7c-5qp8f",
+      "old_debug": {
+        "backend_mode": "simulated",
+        "pod": "hw11-api-58867c9b7c-8krkf",
+        "model_id": "A",
+        "artifact_sha256": "cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4",
+        "runtime_sha256": "ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579",
+        "request_id": null,
+        "loaded_id": "A",
+        "calls": 1,
+        "warmup_finished": true,
+        "error": null,
+        "running": 0,
+        "waiting": 0,
+        "cache_entries": 1,
+        "draining": false
+      },
+      "new_debug": {
+        "backend_mode": "simulated",
+        "pod": "hw11-api-58867c9b7c-5qp8f",
+        "model_id": "A",
+        "artifact_sha256": "cc443743457c21d51f2bc4dfa354dd0fbb2e0c8083bb524e71e6ce190cad40e4",
+        "runtime_sha256": "ff3ab7420c7097dd7f77e4f055f7d0d3129a4640883a20008bda42cacaa99579",
+        "request_id": null,
+        "loaded_id": "A",
+        "calls": 1,
+        "warmup_finished": true,
+        "error": null,
+        "running": 0,
+        "waiting": 0,
+        "cache_entries": 1,
+        "draining": false
+      }
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{'kind': 'baseline_quiescence_start', 'wall_time': 1794760802.9656513}
+{'kind': 'baseline_quiescent', 'wall_time': 1794760847.9663923}
+{'kind': 'hpa_enabled', 'wall_time': 1794760848.1350682, 'configuration': {'apiVersion': 'autoscaling/v2', 'kind': 'HorizontalPodAutoscaler', 'metadata': {'annotations': {'kubectl.kubernetes.io/last-applied-configuration': '{"apiVersion":"autoscaling/v2","kind":"HorizontalPodAutoscaler","metadata":{"annotations":{},"name":"hw11-api","namespace":"hw11"},"spec":{"behavior":{"scaleDown":{"policies":[{"periodSeconds":15,"type":"Pods","value":1}],"stabilizationWindowSeconds":30},"scaleUp":{"policies":[{"periodSeconds":15,"type":"Pods","value":1}],"stabilizationWindowSeconds":0}},"maxReplicas":3,"metrics":[{"resource":{"name":"cpu","target":{"averageUtilization":65,"type":"Utilization"}},"type":"Resource"}],"minReplicas":2,"scaleTargetRef":{"apiVersion":"apps/v1","kind":"Deployment","name":"hw11-api"}}}\n'}, 'creationTimestamp': '2026-11-15T16:40:48Z', 'name': 'hw11-api', 'namespace': 'hw11', 'resourceVersion': '7068', 'uid': '56e1a38c-5e74-4f3c-8199-a2acbf4f10c2'}, 'spec': {'behavior': {'scaleDown': {'policies': [{'periodSeconds': 15, 'type': 'Pods', 'value': 1}], 'selectPolicy': 'Max', 'stabilizationWindowSeconds': 30}, 'scaleUp': {'policies': [{'periodSeconds': 15, 'type': 'Pods', 'value': 1}], 'selectPolicy': 'Max', 'stabilizationWindowSeconds': 0}}, 'maxReplicas': 3, 'metrics': [{'resource': {'name': 'cpu', 'target': {'averageUtilization': 65, 'type': 'Utilization'}}, 'type': 'Resource'}], 'minReplicas': 2, 'scaleTargetRef': {'apiVersion': 'apps/v1', 'kind': 'Deployment', 'name': 'hw11-api'}}, 'status': {'currentMetrics': None, 'desiredReplicas': 0}}}
+{'kind': 'c-compute_start', 'wall_time': 1794760848.2338796, 'pods': ['hw11-api-b5c545ccd-fj85p', 'hw11-api-b5c545ccd-5xrv6']}
+START c-compute scheduled 1600 wall 1794760851.2381
+{'kind': 'c-compute_three_ready', 'wall_time': 1794760894.8724296, 'pods': ['hw11-api-b5c545ccd-5xrv6', 'hw11-api-b5c545ccd-877sr', 'hw11-api-b5c545ccd-fj85p']}
+END {'name': 'c-compute', 'phase': 'c_hpa', 'planned': 1600, 'sent': 1600, 'outcomes': {'completed': 342, 'rejected': 1258, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794760851.2381, 'measured_schedule_seconds': 100.0, 'last_finish_wall': 1794760956.6751106}
+{'kind': 'c-compute_load_stopped', 'wall_time': 1794760951.1774552, 'drain_finished_wall': 1794760957.3088982, 'outcomes': {'completed': 342, 'rejected': 1258, 'aborted': 0, 'expired': 0, 'error': 0}}
+{'kind': 'c-compute_two_restored', 'wall_time': 1794761010.2292714, 'elapsed_after_load': 59.051809787750244}
+{'kind': 'c-hot_start', 'wall_time': 1794761010.324385, 'pods': ['hw11-api-b5c545ccd-fj85p', 'hw11-api-b5c545ccd-5xrv6']}
+START c-hot scheduled 1600 wall 1794761013.3264992
+{'kind': 'c-hot_three_ready', 'wall_time': 1794761050.7364812, 'pods': ['hw11-api-b5c545ccd-5xrv6', 'hw11-api-b5c545ccd-fj85p', 'hw11-api-b5c545ccd-tnghh']}
+END {'name': 'c-hot', 'phase': 'c_hot', 'planned': 1600, 'sent': 1600, 'outcomes': {'completed': 233, 'rejected': 1367, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794761013.3264992, 'measured_schedule_seconds': 100.0, 'last_finish_wall': 1794761118.6342804}
+{'kind': 'c-hot_load_stopped', 'wall_time': 1794761113.264161, 'drain_finished_wall': 1794761119.2601411, 'outcomes': {'completed': 233, 'rejected': 1367, 'aborted': 0, 'expired': 0, 'error': 0}}
+{'kind': 'c-hot_two_restored', 'wall_time': 1794761170.1389802, 'elapsed_after_load': 56.874812602996826}
+{'kind': 'alerts_load_start', 'wall_time': 1794761170.2017248}
+START c-alerts scheduled 910 wall 1794761173.2032535
+END {'name': 'c-alerts', 'phase': 'c_alerts', 'planned': 910, 'sent': 910, 'outcomes': {'completed': 318, 'rejected': 592, 'aborted': 0, 'expired': 0, 'error': 0}, 'start_wall': 1794761173.2032535, 'measured_schedule_seconds': 65.0, 'last_finish_wall': 1794761241.032501}
+{'kind': 'alerts_load_stopped', 'wall_time': 1794761238.1323524, 'drain_finished_wall': 1794761241.6568089}
+{'kind': 'alerts_recovery_observed', 'wall_time': 1794761335.5138824}

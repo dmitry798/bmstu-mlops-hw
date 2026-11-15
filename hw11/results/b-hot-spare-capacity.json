@@ -1,0 +1,275 @@
+[
+  {
+    "phase": "b_sticky_skew_1",
+    "distribution": {
+      "hw11-api-b5c545ccd-fj85p": 672,
+      "hw11-api-b5c545ccd-5xrv6": 48
+    },
+    "observed_queue_while_other_idle_samples": 48,
+    "sampling_seconds": 2,
+    "examples": [
+      {
+        "wall_time": 1794759640.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 1.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759642.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759644.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759648.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759650.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759652.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759654.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759658.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759660.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759662.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      }
+    ]
+  },
+  {
+    "phase": "b_sticky_skew_2",
+    "distribution": {
+      "hw11-api-b5c545ccd-fj85p": 672,
+      "hw11-api-b5c545ccd-5xrv6": 48
+    },
+    "observed_queue_while_other_idle_samples": 48,
+    "sampling_seconds": 2,
+    "examples": [
+      {
+        "wall_time": 1794759770.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 4.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759772.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759774.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759776.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759778.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759782.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 5.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759784.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759786.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759788.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759792.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 5.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      }
+    ]
+  },
+  {
+    "phase": "b_sticky_skew_3",
+    "distribution": {
+      "hw11-api-b5c545ccd-fj85p": 672,
+      "hw11-api-b5c545ccd-5xrv6": 48
+    },
+    "observed_queue_while_other_idle_samples": 60,
+    "sampling_seconds": 2,
+    "examples": [
+      {
+        "wall_time": 1794759898.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 2.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759900.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759902.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759904.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 5.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759906.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 5.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759908.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759910.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759912.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 6.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759914.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 5.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      },
+      {
+        "wall_time": 1794759916.706,
+        "hot_pod": "hw11-api-b5c545ccd-fj85p",
+        "hot_waiting": 5.0,
+        "spare_pod": "hw11-api-b5c545ccd-5xrv6",
+        "spare_running": 0,
+        "spare_waiting": 0
+      }
+    ]
+  }
+]

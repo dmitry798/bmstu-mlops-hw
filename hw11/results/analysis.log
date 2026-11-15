@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/scripts/analyze.py", line 69, in <module>
+    ax[0].step([(s['wall_time']-a0) for s in sel],[sum(e.get('conditions',{}).get('ready',False) for item in s['endpoints']['items'] if item['metadata']['labels'].get('kubernetes.io/service-name')=='hw11-api' for e in item['endpoints']) for s in sel],where='post',label='Service ready endpoints',linestyle='--')
+                                                   ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/scripts/analyze.py", line 69, in <genexpr>
+    ax[0].step([(s['wall_time']-a0) for s in sel],[sum(e.get('conditions',{}).get('ready',False) for item in s['endpoints']['items'] if item['metadata']['labels'].get('kubernetes.io/service-name')=='hw11-api' for e in item['endpoints']) for s in sel],where='post',label='Service ready endpoints',linestyle='--')
+                                                                                                                                                                                                                          ~~~~^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable

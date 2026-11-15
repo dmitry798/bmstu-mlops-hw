@@ -1,0 +1,281 @@
+[
+  {
+    "run": "a-broken-proof",
+    "received_by_backend": 64,
+    "cold_backend_received": 36,
+    "no_cold_delivery_property_passed": false,
+    "expected_property": true,
+    "early_warmup_observations": [
+      {
+        "wall_time": 1794758097.4097385,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758097.4097385,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758099.5134344,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758099.5134344,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758101.618684,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758101.618684,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758103.7210865,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758103.7210865,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758105.8246431,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758105.8246431,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758107.9283147,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758107.9283147,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758110.0304928,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758110.0304928,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758112.1349425,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758112.1349425,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758114.237458,
+        "pod": "hw11-api-66c6dc6cb9-48qsf",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      },
+      {
+        "wall_time": 1794758114.237458,
+        "pod": "hw11-api-66c6dc6cb9-svswt",
+        "Ready": true,
+        "EndpointSlice_ready": true
+      }
+    ],
+    "ready_before_warmup": 16,
+    "endpoint_before_warmup": 16,
+    "transport_errors_before_endpoints": 0,
+    "request_ids_cold": [
+      "7b64b7da-9d44-4fe3-a57f-a39fca6f93e4",
+      "2f94f598-2622-458e-a53a-303c6b10bed2",
+      "4a7078c5-312c-4d07-af17-39a408e549db",
+      "84737289-e4d4-40a4-9b75-32f3767aa131",
+      "ed7f6edf-700b-4661-9db1-732dff50c2ed",
+      "090aa76d-a51f-46c7-b3f2-4fa7900059f3",
+      "5f508538-d227-4857-9dcf-5ae1cf525346",
+      "8d7a70da-2641-403a-9ffc-69070902bc61",
+      "865f00d5-3289-4c2c-9616-49b13c9ac703",
+      "3f4ddfa8-c249-472c-b6bb-9fb8f7fa24d1",
+      "bb57f8bd-eda2-4516-9309-c373475fa1d0",
+      "e9333a03-09d8-4240-b91f-ac26c690c1b5",
+      "61d360fb-2736-4cab-a289-fbb896928a0d",
+      "738a5aa2-4927-4927-a87a-c90bc992442f",
+      "54762825-bf0f-4355-89cb-d1dd74b7e1ff",
+      "4323ca22-922a-4705-b259-463ba9f0ac8f",
+      "94827d0a-85af-43b5-81cd-4a6a294f5f01",
+      "2093be07-c838-4697-a984-fa977f5c5011",
+      "a1de87d2-0ef6-452d-b4a3-b25ced558c67",
+      "770d471d-90a0-43bf-946b-67bf20f3f175",
+      "655a4de4-5789-4c25-83d0-48cb9bda5c89",
+      "a8d1240e-068c-47a9-99b4-b22a62b11fe0",
+      "4afb6eab-6019-465a-a344-d67f945cb113",
+      "39f96e9d-894f-40af-b1f4-8a4e165cd930",
+      "5685f735-3e4f-4864-83c0-d12c66750b74",
+      "ee45c1b6-0e3a-4893-a4ed-c7d38cf94aec",
+      "107c120a-1038-45e8-8c37-5106d0fd1e83",
+      "87332bbd-6d7c-4fa6-9ab2-8edbb8bd9e9a",
+      "031eb760-2adf-4c12-bdc3-fe29fe9372bc",
+      "ee9300a9-15fe-4647-b803-77cb5a20e4e2",
+      "e964a4f6-b021-4092-a27d-5b7c7bf28d8c",
+      "b66b4c8f-9a86-41c5-a01e-a09c175d2a8b",
+      "8dac8eeb-013a-4d90-9ec2-7af5bd6a5f72",
+      "64d5fb83-a261-44cd-8922-781884cdbec1",
+      "ad945ed7-a9df-4bb4-875f-8c72f3798255",
+      "fad8d71a-b33f-4995-bac8-bfcb03831e60"
+    ]
+  },
+  {
+    "run": "a-fixed-proof",
+    "received_by_backend": 27,
+    "cold_backend_received": 0,
+    "no_cold_delivery_property_passed": true,
+    "expected_property": true,
+    "early_warmup_observations": [
+      {
+        "wall_time": 1794758139.4773366,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758139.4773366,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758141.5816364,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758141.5816364,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758143.6844451,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758143.6844451,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758145.7864451,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758145.7864451,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758147.8913703,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758147.8913703,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758149.9955308,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758149.9955308,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758152.0991793,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758152.0991793,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758154.204129,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758154.204129,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758156.310316,
+        "pod": "hw11-api-58867c9b7c-4k6f9",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      },
+      {
+        "wall_time": 1794758156.310316,
+        "pod": "hw11-api-58867c9b7c-l6v2m",
+        "Ready": false,
+        "EndpointSlice_ready": false
+      }
+    ],
+    "ready_before_warmup": 0,
+    "endpoint_before_warmup": 0,
+    "transport_errors_before_endpoints": 37,
+    "request_ids_cold": []
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "name": "b_none_uniform_3",
+  "phase": "b_none_uniform_3",
+  "planned": 720,
+  "sent": 720,
+  "outcomes": {
+    "completed": 683,
+    "rejected": 37,
+    "aborted": 0,
+    "expired": 0,
+    "error": 0
+  },
+  "start_wall": 1794758738.259405,
+  "measured_schedule_seconds": 120.0,
+  "last_finish_wall": 1794758860.1578395
+}

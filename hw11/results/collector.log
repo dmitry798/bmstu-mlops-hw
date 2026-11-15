@@ -1,0 +1,7 @@
+Error from server (BadRequest): container "api" in pod "hw11-api-578bcc4cd9-bz2kc" is waiting to start: ContainerCreating
+Error from server (BadRequest): container "api" in pod "hw11-api-58867c9b7c-rs9sb" is waiting to start: ContainerCreating
+Error from server (BadRequest): container "api" in pod "hw11-api-58867c9b7c-4k6f9" is waiting to start: ContainerCreating
+Error from server (BadRequest): container "api" in pod "hw11-api-58867c9b7c-l6v2m" is waiting to start: ContainerCreating
+Error from server (BadRequest): container "api" in pod "hw11-api-578bcc4cd9-mtmlx" is waiting to start: ContainerCreating
+Error from server (BadRequest): container "api" in pod "hw11-api-58867c9b7c-8krkf" is waiting to start: ContainerCreating
+Error from server (BadRequest): container "api" in pod "hw11-api-b5c545ccd-5xrv6" is waiting to start: ContainerCreating

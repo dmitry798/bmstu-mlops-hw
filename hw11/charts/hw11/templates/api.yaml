@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: hw11-api}
+spec:
+  replicas: {{ .Values.replicas }}
+  minReadySeconds: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxSurge: 1, maxUnavailable: 0}
+  selector: {matchLabels: {app: hw11-api}}
+  template:
+    metadata:
+      labels: {app: hw11-api, model: {{ .Values.modelVersion | quote }}}
+    spec:
+      terminationGracePeriodSeconds: 45
+      containers:
+      - name: api
+        image: {{ .Values.image }}
+        imagePullPolicy: IfNotPresent
+        ports: [{containerPort: 8000, name: http}]
+        resources:
+          requests: {cpu: 250m, memory: 128Mi}
+          limits: {cpu: '1', memory: 256Mi}
+        env:
+        - {name: POD_NAME, valueFrom: {fieldRef: {fieldPath: metadata.name}}}
+        - {name: WARMUP_SECONDS, value: {{ .Values.warmupSeconds | quote }}}
+        - {name: NEVER_READY, value: {{ .Values.neverReady | quote }}}
+        - {name: MAX_RUNNING, value: {{ .Values.maxRunning | quote }}}
+        - {name: MAX_WAITING, value: {{ .Values.maxWaiting | quote }}}
+        - {name: CACHE_CAPACITY, value: {{ .Values.cacheCapacity | quote }}}
+        - {name: CACHE_HIT_CPU, value: {{ .Values.cacheHitCPU | quote }}}
+        - {name: CACHE_MISS_CPU, value: {{ .Values.cacheMissCPU | quote }}}
+        - {name: CHUNK_CPU, value: {{ .Values.chunkCPU | quote }}}
+        startupProbe:
+          httpGet: {path: '{{ if .Values.brokenProbes }}/health{{ else }}/startup{{ end }}', port: http}
+          periodSeconds: 1
+          failureThreshold: 90
+        readinessProbe:
+          httpGet: {path: '{{ if .Values.brokenProbes }}/health{{ else }}/ready{{ end }}', port: http}
+          periodSeconds: 1
+          failureThreshold: 1
+        livenessProbe:
+          httpGet: {path: /health, port: http}
+          periodSeconds: 5
+          failureThreshold: 3
+        lifecycle:
+          preStop:
+            httpGet: {path: /drain, port: http}
+        volumeMounts: [{name: model, mountPath: /models, readOnly: true}]
+      volumes:
+      - name: model
+        configMap: {name: 'hw11-model-{{ .Values.modelVersion | lower }}'}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-api}
+spec:
+  type: NodePort
+  sessionAffinity: None
+  selector: {app: hw11-api}
+  ports: [{port: 8000, targetPort: http, nodePort: 31080}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-sticky}
+spec:
+  sessionAffinity: ClientIP
+  sessionAffinityConfig: {clientIP: {timeoutSeconds: 10800}}
+  selector: {app: hw11-api}
+  ports: [{port: 8000, targetPort: http}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: hw11-fixed}
+spec:
+  sessionAffinity: None
+  selector: {app: hw11-api}
+  ports: [{port: 8000, targetPort: http}]

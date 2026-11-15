@@ -1,0 +1,16 @@
+{
+  "name": "c-alerts",
+  "phase": "c_alerts",
+  "planned": 910,
+  "sent": 910,
+  "outcomes": {
+    "completed": 318,
+    "rejected": 592,
+    "aborted": 0,
+    "expired": 0,
+    "error": 0
+  },
+  "start_wall": 1794761173.2032535,
+  "measured_schedule_seconds": 65.0,
+  "last_finish_wall": 1794761241.032501
+}

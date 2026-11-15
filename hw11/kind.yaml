@@ -1,0 +1,21 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: hw11
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.34.0@sha256:7416a61b42b1662ca6ca89f02028ac133a309a2a30ba309614e8ec94d976dc5a
+    extraMounts:
+      - hostPath: /var/lib/docker/volumes/hw11-containerd/_data
+        containerPath: /var/lib/containerd
+    extraPortMappings:
+      - {containerPort: 31080, hostPort: 18080, listenAddress: '127.0.0.1'}
+      - {containerPort: 31300, hostPort: 19090, listenAddress: '127.0.0.1'}
+      - {containerPort: 31301, hostPort: 13000, listenAddress: '127.0.0.1'}
+    kubeadmConfigPatches:
+      - |
+        kind: ClusterConfiguration
+        controllerManager:
+          extraArgs:
+            horizontal-pod-autoscaler-sync-period: 5s
+            horizontal-pod-autoscaler-initial-readiness-delay: 5s
+            horizontal-pod-autoscaler-cpu-initialization-period: 30s

@@ -1,0 +1,16 @@
+{
+  "name": "b_sticky_skew_3",
+  "phase": "b_sticky_skew_3",
+  "planned": 720,
+  "sent": 720,
+  "outcomes": {
+    "completed": 402,
+    "rejected": 318,
+    "aborted": 0,
+    "expired": 0,
+    "error": 0
+  },
+  "start_wall": 1794759897.3980844,
+  "measured_schedule_seconds": 120.0,
+  "last_finish_wall": 1794760019.18432
+}

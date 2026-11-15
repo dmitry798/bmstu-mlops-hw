@@ -1,0 +1,102 @@
+[
+  {
+    "pod": "hw11-api-58867c9b7c-hssjc",
+    "containers": [
+      {
+        "name": "api",
+        "image": "docker.io/library/hw11-api:1.0",
+        "imageID": "sha256:ac17b80013c6e25cf00d3a212f17c303d8b0e2829b085d0b526db3e63cec3e36"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-api-b5c545ccd-5xrv6",
+    "containers": [
+      {
+        "name": "api",
+        "image": "docker.io/library/hw11-api:1.1",
+        "imageID": "sha256:551c4000d953216e8438e5f46feafd6f299637c080113030df9b6f1dfaf510ec"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-api-b5c545ccd-fj85p",
+    "containers": [
+      {
+        "name": "api",
+        "image": "docker.io/library/hw11-api:1.1",
+        "imageID": "sha256:551c4000d953216e8438e5f46feafd6f299637c080113030df9b6f1dfaf510ec"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-client-0",
+    "containers": [
+      {
+        "name": "client",
+        "image": "docker.io/library/hw11-api:1.1",
+        "imageID": "sha256:551c4000d953216e8438e5f46feafd6f299637c080113030df9b6f1dfaf510ec"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-client-1",
+    "containers": [
+      {
+        "name": "client",
+        "image": "docker.io/library/hw11-api:1.1",
+        "imageID": "sha256:551c4000d953216e8438e5f46feafd6f299637c080113030df9b6f1dfaf510ec"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-client-2",
+    "containers": [
+      {
+        "name": "client",
+        "image": "docker.io/library/hw11-api:1.1",
+        "imageID": "sha256:551c4000d953216e8438e5f46feafd6f299637c080113030df9b6f1dfaf510ec"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-client-3",
+    "containers": [
+      {
+        "name": "client",
+        "image": "docker.io/library/hw11-api:1.1",
+        "imageID": "sha256:551c4000d953216e8438e5f46feafd6f299637c080113030df9b6f1dfaf510ec"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-grafana-5c6b8f8d56-n59nf",
+    "containers": [
+      {
+        "name": "hw11-grafana",
+        "image": "docker.io/grafana/grafana:12.2.1",
+        "imageID": "docker.io/grafana/grafana@sha256:35c41e0fd0295f5d0ee5db7e780cf33506abfaf47686196f825364889dee878b"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-prometheus-6789666456-9k2bq",
+    "containers": [
+      {
+        "name": "hw11-prometheus",
+        "image": "docker.io/prom/prometheus:v3.7.3",
+        "imageID": "docker.io/prom/prometheus@sha256:49214755b6153f90a597adcbff0252cc61069f8ab69ce8411285cd4a560e8038"
+      }
+    ]
+  },
+  {
+    "pod": "hw11-state-9476bdd68-62gpd",
+    "containers": [
+      {
+        "name": "hw11-state",
+        "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.17.0",
+        "imageID": "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:2bbc915567334b13632bf62c0a97084aff72a36e13c4dabd5f2f11c898c5bacd"
+      }
+    ]
+  }
+]
