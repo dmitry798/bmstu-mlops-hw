@@ -4,8 +4,10 @@ test_classic_histogram_quantile_uses_cumulative_buckets (test_core.CoreTests.tes
 test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) ... ok
 test_partial_200_is_aborted_not_success (test_core.CoreTests.test_partial_200_is_aborted_not_success) ... ok
 test_prefix_lru_is_local_and_bounded (test_core.CoreTests.test_prefix_lru_is_local_and_bounded) ... ok
+test_complete_pipeline_collects_all_audit_dependencies (test_reproduce.ReproductionTests.test_complete_pipeline_collects_all_audit_dependencies) ... ok
+test_existing_results_are_never_reused_or_overwritten (test_reproduce.ReproductionTests.test_existing_results_are_never_reused_or_overwritten) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.026s
+Ran 8 tests in 0.029s
 
 OK

@@ -1,0 +1,42 @@
+test_bounded_queue_rejects_then_recovers (test_core.CoreTests.test_bounded_queue_rejects_then_recovers) ... ok
+test_cancelled_waiter_never_leaks_capacity (test_core.CoreTests.test_cancelled_waiter_never_leaks_capacity) ... ok
+test_classic_histogram_quantile_uses_cumulative_buckets (test_core.CoreTests.test_classic_histogram_quantile_uses_cumulative_buckets) ... ok
+test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) ... ok
+test_partial_200_is_aborted_not_success (test_core.CoreTests.test_partial_200_is_aborted_not_success) ... ok
+test_prefix_lru_is_local_and_bounded (test_core.CoreTests.test_prefix_lru_is_local_and_bounded) ... ok
+test_complete_pipeline_collects_all_audit_dependencies (test_reproduce.ReproductionTests.test_complete_pipeline_collects_all_audit_dependencies) ... ERROR
+test_existing_results_are_never_reused_or_overwritten (test_reproduce.ReproductionTests.test_existing_results_are_never_reused_or_overwritten) ... ERROR
+
+======================================================================
+ERROR: test_complete_pipeline_collects_all_audit_dependencies (test_reproduce.ReproductionTests.test_complete_pipeline_collects_all_audit_dependencies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_reproduce.py", line 12, in test_complete_pipeline_collects_all_audit_dependencies
+    stages=self.module().STAGES
+           ~~~~~~~~~~~^^
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_reproduce.py", line 6, in module
+    path=Path(__file__).resolve().parents[1]/'scripts/run_all.py';spec=importlib.util.spec_from_file_location('run_all',path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+                                                                                                                                                                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1156, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1214, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/scripts/run_all.py'
+
+======================================================================
+ERROR: test_existing_results_are_never_reused_or_overwritten (test_reproduce.ReproductionTests.test_existing_results_are_never_reused_or_overwritten)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_reproduce.py", line 8, in test_existing_results_are_never_reused_or_overwritten
+    module=self.module();root=Path('/tmp')/('hw11-reproduction-'+str(uuid.uuid4()));root.mkdir();module.require_empty_results(root);(root/'old-evidence.json').write_text('keep')
+  File "/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/tests/test_reproduce.py", line 6, in module
+    path=Path(__file__).resolve().parents[1]/'scripts/run_all.py';spec=importlib.util.spec_from_file_location('run_all',path);module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
+                                                                                                                                                                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1019, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1156, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1214, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/home/dmitry/Projects/hw-mlops/bmstu-mlops-hw-2/hw11/scripts/run_all.py'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.027s
+
+FAILED (errors=2)

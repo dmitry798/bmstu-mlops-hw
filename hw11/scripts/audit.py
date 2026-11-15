@@ -12,6 +12,7 @@ try:
  check('five_real_kubernetes_checks',len(load('kubernetes-checks.json'))>=5 and all(c['passed'] for c in load('kubernetes-checks.json')),'kubernetes-checks.json')
  warm=load('warmup-correlations.json');check('Ready_EndpointSlice_backend_warmup_correlation',warm[0]['cold_backend_received']>0 and warm[0]['endpoint_before_warmup']>0 and warm[1]['cold_backend_received']==0 and warm[1]['ready_before_warmup']==0 and warm[1]['endpoint_before_warmup']==0,'warmup-correlations.json')
  check('readiness_red_green_healthy_rollout',all(c['passed'] for c in load('checks-a-repeat.json')),'checks-a-repeat.json')
+ all_raw=[r for path in R.glob('*-requests.jsonl') for r in rows(path.name)];check('all_completed_chunk_counts_and_intervals',all((not r['done'] or r['chunks']==r['expected_chunks']) and len(r['inter_chunk_seconds'])==max(0,r['chunks']-1) for r in all_raw),'all *-requests.jsonl')
  initial=load('checks-a.json');check('unready_B_exclusion_actual_rollback',all(next(c for c in initial if c['name']==n)['passed'] for n in ['unready_B_excluded','rollback_actual_version_A']),'a-bad-b-requests.jsonl; a-rollback-requests.jsonl')
  phases=[];schedules={};allb=[]
  for policy in ['none','sticky','fixed']:

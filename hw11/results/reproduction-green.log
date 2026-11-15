@@ -1,0 +1,13 @@
+test_bounded_queue_rejects_then_recovers (test_core.CoreTests.test_bounded_queue_rejects_then_recovers) ... ok
+test_cancelled_waiter_never_leaks_capacity (test_core.CoreTests.test_cancelled_waiter_never_leaks_capacity) ... ok
+test_classic_histogram_quantile_uses_cumulative_buckets (test_core.CoreTests.test_classic_histogram_quantile_uses_cumulative_buckets) ... ok
+test_invalid_payload_rejected_before_computation (test_core.CoreTests.test_invalid_payload_rejected_before_computation) ... ok
+test_partial_200_is_aborted_not_success (test_core.CoreTests.test_partial_200_is_aborted_not_success) ... ok
+test_prefix_lru_is_local_and_bounded (test_core.CoreTests.test_prefix_lru_is_local_and_bounded) ... ok
+test_complete_pipeline_collects_all_audit_dependencies (test_reproduce.ReproductionTests.test_complete_pipeline_collects_all_audit_dependencies) ... ok
+test_existing_results_are_never_reused_or_overwritten (test_reproduce.ReproductionTests.test_existing_results_are_never_reused_or_overwritten) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.029s
+
+OK

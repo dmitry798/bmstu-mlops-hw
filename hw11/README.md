@@ -27,22 +27,26 @@ kubectl top pods -n hw11
 
 ## Опыты
 
-Нельзя одновременно запускать несколько orchestrator: они меняют общий стенд. Сохранённые результаты находятся в `results/`. Для полного повторного измерения создайте свежий собственный кластер/Prometheus и отдельную директорию результатов: client jobs и cohort phase не должны смешиваться с прошлой серией. begin() отвергает повторное имя job; данные предыдущего прогона не выдаются за новые.
+Полный повтор запускается в **отдельном checkout**, чтобы не перезаписать сохранённые доказательства. Скрипты используют `hw11/results` относительно своего checkout; произвольный путь результатов они не поддерживают. Сначала вручную выполните команды удаления **только собственного стенда** из раздела ниже (kind, holder/seed, tmpfs volume). Другие ресурсы не трогать. Затем:
+
+```bash
+# Из исходного репозитория; оригинальные результаты остаются на месте:
+git worktree add ../bmstu-hw11-rerun HEAD
+cd ../bmstu-hw11-rerun
+# Сохранить копию опубликованных результатов, ничего не удаляя:
+mv hw11/results hw11/results-submitted
+mkdir hw11/results
+# Установить закреплённые tools/.venv по разделу «Запуск» выше.
+hw11/.venv/bin/python hw11/scripts/run_all.py --plan
+hw11/.venv/bin/python hw11/scripts/run_all.py
+```
+
+`run_all.py` отказывается работать с непустой results и существующим собственным кластером/holder. Он фиксирует preflight, запускает setup, сохраняет журналы Pod, выполняет A/RED/GREEN/пять проверок, записывает актуальный baseline двух Pod перед B, выполняет все18фаз и C. Затем выгружает ряды Prometheus, считает network/hot/warmup/HPA-анализ, строит четыре графика, проверяет реальный Grafana, запускает аудит, сохраняет размеры и генерирует report.html. Любой сбой останавливает последовательность. Полный повтор занимает около50минут. Старые JSON из results-submitted не используются аудитом. `run_all.py --plan` безопасно показывает полный порядок без запуска.
+
+Отдельные скрипты можно запускать для диагностики, но это не заменяет полный сценарий. Повторное имя job отвергается, историю cohort phase нужно начинать со свежего Prometheus. Короткая проверка:
 
 ```bash
 PYTHONPATH=hw11 hw11/.venv/bin/python -m unittest discover -s hw11/tests -v
-# A исходный диагностический прогон (сохраняет также отрицательные наблюдения):
-hw11/.venv/bin/python hw11/scripts/experiment_a.py
-# Одинаковые cold-start опыты RED/GREEN + штатный rollout при .2 req/s:
-hw11/.venv/bin/python hw11/scripts/recheck_a.py
-# Пять Kubernetes-проверок, включая аварийный kill из родительского PID namespace:
-hw11/.venv/bin/python hw11/scripts/kubernetes_checks.py
-# Убедиться, что HPA ещё не включён; две Ready-реплики, backend одинаковый:
-hw11/.venv/bin/python hw11/scripts/experiments.py B
-# 18 фаз по 120 с + дренирование очереди; длительность около 40 минут.
-hw11/.venv/bin/python hw11/scripts/experiment_c.py
-hw11/.venv/bin/python hw11/scripts/analyze.py
-hw11/.venv/bin/python hw11/scripts/audit.py
 ```
 
 `experiment_a.py` — сохранённая первоначальная диагностика. Проверки окончательного результата: `checks-a-repeat.json`, `kubernetes-checks.json`, `audit.json`. Исходные отрицательные проверки не скрыты: перегрузка очереди при двух длинных потоках и попытка SIGKILL PID1 из того же PID namespace. Исправленный kill направляется в проверенный PID нужного контейнера из родительского namespace узла kind.

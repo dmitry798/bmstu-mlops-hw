@@ -27,6 +27,11 @@
       "evidence": "checks-a-repeat.json"
     },
     {
+      "name": "all_completed_chunk_counts_and_intervals",
+      "passed": true,
+      "evidence": "all *-requests.jsonl"
+    },
+    {
       "name": "unready_B_exclusion_actual_rollback",
       "passed": true,
       "evidence": "a-bad-b-requests.jsonl; a-rollback-requests.jsonl"

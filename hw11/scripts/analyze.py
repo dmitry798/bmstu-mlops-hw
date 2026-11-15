@@ -81,7 +81,7 @@ xs=[s['wall_time']-c0 for s in sel]
 for field in ['currentReplicas','desiredReplicas']:
  ax[0].step(xs,[s['hpa']['items'][0].get('status',{}).get(field,2) if s['hpa']['items'] else 2 for s in sel],where='post',label=field)
 ax[0].step(xs,[sum(ready(p) for p in s['pods']['items'] if p['metadata']['labels'].get('app')=='hw11-api') for s in sel],where='post',label='Ready',linestyle=':')
-cr=[r for r in allrows if r['phase'] in ['c_hpa','c_hot','c_alerts']];bins=collections.Counter(int(r['send_wall']-c0) for r in cr);ax[1].plot(sorted(bins),[bins[x] for x in sorted(bins)],label='Actual sent req/s')
+cr=[r for r in allrows if r['phase'] in ['c_hpa','c_hot','c_alerts']];bins=collections.Counter(int(r['send_wall']-c0) for r in cr);ax[1].step(range(int(c1-c0)+1),[bins.get(x,0) for x in range(int(c1-c0)+1)],where='post',label='Actual sent req/s')
 for e in events:
  if e['kind'].endswith('start') or e['kind'].endswith('load_stopped'):
   for a in ax:a.axvline(e['wall_time']-c0,linestyle=':',alpha=.4)
